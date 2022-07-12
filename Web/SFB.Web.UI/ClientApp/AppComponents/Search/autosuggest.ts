@@ -137,6 +137,14 @@ const manualAddByName: AutosuggestionComponent  = {
   mapperFunction: mapNameResult,
 };
 
+const manualAddTrustByName: AutosuggestionComponent = {
+  textInput: 'NewTrustName',
+  hiddenInput : 'FindByTrustNameSuggestionId',
+  remoteSource: true,
+  remoteSourceFunction: agent.Suggestions.Trusts,
+  mapperFunction: mapNameResult,
+};
+
 
 const suggestionComponents = [
   establishmentName,
@@ -235,6 +243,8 @@ const actions = {
 
 
 export const manualAdd = manualAddByName;
+
+export const manualAddTrust = manualAddTrustByName;
 
 export const setup = actions.setUp;
 

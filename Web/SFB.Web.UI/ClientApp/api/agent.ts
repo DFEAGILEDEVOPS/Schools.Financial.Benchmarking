@@ -23,6 +23,8 @@ const ManualComparison = {
   addSchool: (urn: string) => requests.get<HTMLElement>(`/manualcomparison/AddSchool?urn=${urn}`),
   removeSchool: (urn: string) => requests.get<HTMLElement>(`/manualcomparison/RemoveSchool?urn=${urn}`),
   removeAll: () => requests.get<void>('/manualcomparison/RemoveAllSchools'),
+  addTrust: (companyNo: string, matName: string) => requests.get<HTMLElement>(`AddTrust?companyNo=${companyNo}&matName={matName}`),
+  removeTrust: (companyNo: string) => requests.get<HTMLElement>(`RemoveTrust?companyNo=${companyNo}`)
 }
 
 const Suggestions = {
