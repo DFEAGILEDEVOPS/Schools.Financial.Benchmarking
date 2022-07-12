@@ -8,11 +8,11 @@ export default class AddTrustsManually {
     this.bindEvents();
   }
   
-  initSuggestionComponent() {
+  initSuggestionComponent():void {
     setup(suggestionConfig);
   }
   
-  bindEvents() {
+  bindEvents():void {
     const trustsToAdd = document.getElementById('TrustsToCompare');
     
     suggestionConfig.selectItemCallBack = async (item) => {

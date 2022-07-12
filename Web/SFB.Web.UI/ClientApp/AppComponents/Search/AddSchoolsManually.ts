@@ -44,7 +44,11 @@ export default class AddSchoolsManually {
             this.initSuggestionComponent();
           }
         });
+      
+      document.getElementById('manualButton')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = 'OverwriteStrategy';
+      });
     }
   }
-  
 }
