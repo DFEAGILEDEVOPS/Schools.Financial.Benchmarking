@@ -1,5 +1,4 @@
-﻿"use strict";
-
+﻿const { jsPDF } = window.jspdf;
 class BenchmarkChartsViewModel {
 
     constructor() {
@@ -925,7 +924,7 @@ class PptGenerator {
     pptGenerateImage(element) {
 
         function getCanvas(element) {
-            return html2canvas($(element), {
+            return html2canvas($(element)[0], {
                 imageTimeout: 2000,
                 removeContainer: true
             });
@@ -946,7 +945,7 @@ class PdfGenerator {
     pdfGenerateImage(element) {
 
         function getCanvas(element) {
-            return html2canvas($(element), {
+            return html2canvas($(element)[0], {
                 imageTimeout: 2000,
                 removeContainer: true
             });
@@ -970,28 +969,28 @@ class PdfGenerator {
         let fontSize;
         switch (type) {
             case 'H1':
-                this.doc.setFontType("bold");
+                this.doc.setFont(undefined,"bold");
                 fontSize = 40;
                 break;
             case 'H2':
-                this.doc.setFontType("bold");
+                this.doc.setFont(undefined, "bold");
                 fontSize = 30;
                 break;
             case 'H3':
-                this.doc.setFontType("bold");
+                this.doc.setFont(undefined, "bold");
                 fontSize = 20;
                 break;
             case 'Warning':
-                this.doc.setFontType("italic");
+                this.doc.setFont(undefined, "italic");
                 this.doc.setTextColor(244, 119, 56);
                 fontSize = 20;
                 break;
             case 'Info':
-                this.doc.setFontType("italic");
+                this.doc.setFont(undefined, "italic");
                 fontSize = 15;
                 break;
             default:
-                this.doc.setFontType("normal");
+                this.doc.setFont(undefined, "normal");
                 fontSize = 15;
         }
 
