@@ -1070,7 +1070,7 @@
     <TypeScriptCompile Include="ClientApp\AppComponents\Search\AddTrustsManually.ts" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Search\autosuggest.ts" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Search\LocateUser.ts" />
-    <TypeScriptCompile Include="ClientApp\AppComponents\Search\openOnlyCheckboxManager.ts" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\Search\searchPanelInputManager.ts" />
     <TypeScriptCompile Include="ClientApp\AppModules\Analytics.ts" />
     <TypeScriptCompile Include="ClientApp\AppModules\ChartingUtils.ts" />
     <TypeScriptCompile Include="ClientApp\AppModules\ComparisonList.ts" />

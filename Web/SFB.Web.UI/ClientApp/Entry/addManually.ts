@@ -1,7 +1,7 @@
 ﻿import autosuggest from '../AppComponents/Search/autosuggest';
 import LocateUser from '../AppComponents/Search/LocateUser';
-import openOnlyCheckboxManager from '../AppComponents/Search/openOnlyCheckboxManager';
-openOnlyCheckboxManager();
+import searchPanelInputManager from '../AppComponents/Search/searchPanelInputManager';
+searchPanelInputManager();
 
 new LocateUser();
 

@@ -124,7 +124,6 @@ const trustLocation: AutosuggestionComponent = {
   mapperFunction: mapLocationResult,
 };
 
-
 const manualAddByName: AutosuggestionComponent  = {
   textInput: 'NewSchoolName',
   hiddenInput :'FindByNameIdSuggestionId',
@@ -223,7 +222,11 @@ const actions = {
           if (input.value.length > MINCHARS && shouldGetResults) {
             interval = setTimeout(async function () {
               const openEstabs = openOnly ? openOnly() : true;
-              _awesomplete.list = await remoteSourceFunction(input.value, openEstabs);
+              const res = await remoteSourceFunction(input.value, openEstabs);
+              if (res.length) {
+                _awesomplete.list = res;
+              }
+               
             }, 200);
           }
         });

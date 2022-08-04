@@ -1,8 +1,8 @@
 ﻿import autosuggest from "../AppComponents/Search/autosuggest";
 import LocateUser from '../AppComponents/Search/LocateUser';
-import openOnlyCheckboxManager from '../AppComponents/Search/openOnlyCheckboxManager';
+import searchPanelInputManager from '../AppComponents/Search/searchPanelInputManager';
 new LocateUser();
-openOnlyCheckboxManager();
+searchPanelInputManager();
 const setup = autosuggest.actions.setUp;
 
  autosuggest.suggestionComponents.map((component) => {
