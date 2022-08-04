@@ -1,0 +1,70 @@
+﻿<table class="govuk-table sfb-comparison-characteristics-table">
+    <caption class="govuk-table__caption">
+        This benchmark was created using the following criteria.
+    </caption>
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header sfb-comparison-characteristics-table-cell__name">School</th>
+        <th scope="col" class="govuk-table__header">Characteristic</th>
+        <th scope="col" class="govuk-table__header">Your school</th>
+        <th scope="col" class="govuk-table__header">Comparison criteria</th>
+    </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+    @{
+        foreach (var academy  in Model.Academies)
+        {
+            <tr class="govuk-table__row sfb-table__row--top-border">
+                <td class="govuk-table__cell" rowspan="4">@academy.Name</td>
+                <td class="govuk-table__cell">School phase</td>
+                <td class="govuk-table__cell">@academy.OverallPhase</td>
+                <td class="govuk-table__cell">@academy.OverallPhase</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">London weighting</td>
+                <td class="govuk-table__cell">@(academy.LondonWeighting == "Neither" ? "Not London" : "London")</td>
+                <td class="govuk-table__cell">@(academy.LondonWeighting == "Neither" ? "Not London" : "London")</td>
+            </tr>
+            if (academy.SadSizeLookup != null)
+            {
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Number of pupils</td>
+                    <td class="govuk-table__cell">@academy.NumberOfPupilsLatestTerm</td>
+                    <td class="govuk-table__cell">
+                        @{
+                            var pupilsMax = academy.SadSizeLookup.NoPupilsMax;
+                            var pupilsMin = academy.SadSizeLookup.NoPupilsMin;
+                            if (pupilsMax != null)
+                            {
+                                <text>Schools with @pupilsMin - @pupilsMax pupils</text>
+                            }
+                            else
+                            {
+                                <text>Schools with @pupilsMin or more pupils</text>
+                            }
+                        }
+
+                    </td>
+                </tr>
+            }
+            if (academy.SadFSMLookup != null)
+            {
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">FSM</td>
+                    <td class="govuk-table__cell">
+                        @{ var formattedFsm = $"{academy.FSMLatestTerm:0.0}"; }
+                        @formattedFsm%
+                    </td>
+                    <td class="govuk-table__cell">
+                        @{
+                            var fsmMin = $"{academy.SadFSMLookup.FSMMin:0.0}";
+                            var fsmMax = $"{academy.SadFSMLookup.FSMMax:0.0}";
+                        }
+                        Schools with @fsmMin - @fsmMax% FSM
+                    </td>
+                </tr>
+            }
+        }
+    }
+    </tbody>
+</table>

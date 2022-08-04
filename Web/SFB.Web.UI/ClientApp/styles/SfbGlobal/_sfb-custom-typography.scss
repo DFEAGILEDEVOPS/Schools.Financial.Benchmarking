@@ -1,0 +1,14 @@
+﻿.sfb-highlight-container {
+  line-height: 1.5;
+}
+
+.sfb-highlight {
+  background-color: govuk-colour('pink');
+  color: govuk-colour('white');
+  display: inline;
+  padding: govuk-spacing(1);
+  
+  .govuk-table__cell & {
+    line-height: 2.2;
+  }
+}

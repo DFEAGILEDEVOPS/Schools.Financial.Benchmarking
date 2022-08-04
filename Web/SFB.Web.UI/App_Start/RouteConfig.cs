@@ -22,13 +22,17 @@ namespace SFB.Web.UI
                 url: "Download/{estab}",
                 defaults: new { controller = "Download", action = "AcademicYear" }
             );
+            routes.MapRoute(
+                "EnumRoute",
+                "TrustSelfAssessment/Index/{id}/{SadCategories}",
+                new { controller = "TrustSelfAssessment", action = "Index", id = UrlParameter.Optional, SadCategories = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}",
-                defaults: new { controller = "Home", action = "Index"}
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional}
             );
-
         }
     }
 }

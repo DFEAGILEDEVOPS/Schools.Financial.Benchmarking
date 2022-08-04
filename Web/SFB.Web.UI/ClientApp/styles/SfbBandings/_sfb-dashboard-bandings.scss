@@ -1,0 +1,57 @@
+﻿$dashboard-light-green: #7BC987;
+$dashboard-green: #006636;
+$dashboard-amber: #FFA029;
+$dashboard-red: #CA0600;
+
+
+.rating-container {
+  display: flex;
+  justify-content: space-between;
+  min-width: 320px;
+  
+  @include govuk-media-query($until: tablet) {
+    min-width: auto;
+    display: block;
+    text-align: center;
+  }
+  
+  @include govuk-media-query($from: tablet, $until: desktop) {
+    min-width: 200px;
+  }
+}
+
+.rating-box {
+  font-size: 16px;
+  padding: govuk-spacing(1) govuk-spacing(3);
+  border-radius: 3px;
+  width: 80%;
+  display: inline-block;
+  text-align: center;
+
+  @include govuk-media-query($from: tablet, $until: desktop) {
+    width: 67%;
+  }
+  
+  &.Light.green {
+    background-color: $dashboard-light-green;
+  }
+
+  &.Dark.green {
+    background-color: $dashboard-green;
+    color: govuk-colour('white');
+  }
+
+  &.Red {
+    background-color: $dashboard-red;
+    color: govuk-colour('white');
+  }
+
+  &.Amber {
+    background-color: $dashboard-amber;
+  }
+
+  &.gray {
+    background-color: govuk-colour("light-grey");
+  }
+}
+

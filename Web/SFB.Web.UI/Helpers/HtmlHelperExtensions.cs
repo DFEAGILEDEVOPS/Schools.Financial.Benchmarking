@@ -7,7 +7,7 @@ namespace SFB.Web.UI.Helpers
 {
     public static class HtmlHelperExtensions
     {
-        private const string AssetsPath = "public/build/";
+        private const string AssetsPath = "public/build";
         /// <summary>
         /// Outputs the path to the requested js by name (ignoring file hash)
         /// </summary>

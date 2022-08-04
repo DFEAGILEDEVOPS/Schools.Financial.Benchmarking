@@ -13,8 +13,9 @@ $govuk-font-url-function: 'font-url';
 @import "node_modules/govuk-frontend/govuk/all";
 
 // non Govuk Styles
-//@import "SfbGlobal/all";
+@import "SfbGlobal/all";
 @import "SfbModules/all";
+@import "SfbBandings/all";
 
 //legacy modules
 // TODO : refactor this scss jumble sale

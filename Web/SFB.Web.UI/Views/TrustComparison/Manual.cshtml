@@ -52,7 +52,9 @@
 </div>
 
 <div id="TrustsToCompare">
-    @Html.Partial("Partials/TrustsToCompare", Model.TrustComparisonList.Trusts.Where(t => t.CompanyNo != Model.BenchmarkTrust.CompanyNo).ToList())
+    <div id="manual-add-app">
+        @Html.Partial("Partials/TrustsToCompare", Model.TrustComparisonList.Trusts.Where(t => t.CompanyNo != Model.BenchmarkTrust.CompanyNo).ToList())
+    </div>
 </div>
 
 <div class="control-buttons">
@@ -72,6 +74,7 @@
 
 @section ViewScripts {
 <script>var localAuthorities = [];</script>
+
     <script src="@Html.Raw(Html.GetWebpackScriptUrl("AddTrustsManually.*.js"))"></script>
     @* <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script> *@
     @* <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script> *@

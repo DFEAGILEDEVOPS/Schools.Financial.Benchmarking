@@ -1,5 +1,6 @@
 ﻿import axios, {AxiosError, AxiosResponse} from 'axios';
 import {SearchSuggestion} from '../Models/Suggestions';
+import {SadHelpText} from "../AppComponents/SadTrustApp/Models/sadTrustTablesModels";
 
 axios.interceptors.response.use(
   async (response) => {
@@ -19,13 +20,18 @@ const BenchmarkBasket = {
     requests.get<HTMLElement>('/school/UpdateBenchmarkBasket?withAction=RemoveAll'),
 };
 
+const SelfAssessmentHelpText = {
+  get: (id: number) => requests.get<SadHelpText>(`/TrustSelfAssessment/Help/${id}`),
+  getAll: () => requests.get<SadHelpText[]>('TrustSelfAssessment/Help/All'),
+};
+
 const ManualComparison = { 
   addSchool: (urn: string) => requests.get<HTMLElement>(`/manualcomparison/AddSchool?urn=${urn}`),
   removeSchool: (urn: string) => requests.get<HTMLElement>(`/manualcomparison/RemoveSchool?urn=${urn}`),
   removeAll: () => requests.get<void>('/manualcomparison/RemoveAllSchools'),
   addTrust: (companyNo: string, matName: string) => requests.get<HTMLElement>(`AddTrust?companyNo=${companyNo}&matName={matName}`),
   removeTrust: (companyNo: string) => requests.get<HTMLElement>(`RemoveTrust?companyNo=${companyNo}`)
-}
+};
 
 const Suggestions = {
   Schools: (userInput: string, openOnly: boolean) => requests.get<SearchSuggestion[]>(`/schoolsearch/suggest?nameId=${userInput}&openOnly=${openOnly}`),
@@ -37,6 +43,7 @@ const agent = {
   BenchmarkBasket,
   Suggestions,
   ManualComparison,
+  SelfAssessmentHelpText
 };
 
 export default agent;

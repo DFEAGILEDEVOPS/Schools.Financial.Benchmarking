@@ -116,4 +116,25 @@ namespace SFB.Web.UI.Helpers.Enums
         RemoveAll,
         UnsetDefault       
     }
+
+    public enum SadCategories
+    {
+        InYearBalance,
+        RevenueReserve,
+        TeachingStaff,
+        SupplyStaff,
+        EducationSupportStaff,
+        AdministrativeAndClericalStaff,
+        OtherStaffCosts,
+        PremisesCosts,
+        EducationalSupplies,
+        Energy,
+        AverageTeacherCost,
+        SeniorLeadersAsAPercentageOfWorkforce,
+        PupilToTeacherRatio,
+        PupilToAdultRatio,
+        OfstedRating,
+        Ks2Score,
+        Progress8Score
+    }
 }

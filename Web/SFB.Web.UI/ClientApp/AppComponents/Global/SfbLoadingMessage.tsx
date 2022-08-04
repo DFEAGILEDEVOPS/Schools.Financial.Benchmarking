@@ -1,5 +1,4 @@
-﻿import React, {useState} from 'react';
-import './sfbLoadingMessage.scss';
+﻿import React from 'react';
 
 interface Props {
     message: string;
@@ -23,7 +22,7 @@ export default function SfbLoadingMessage({ message, isLoading }: Props) {
                 <div></div>
             </div>
             <span role="alert" aria-live="assertive" aria-label={message}></span>
-            <span className="govuk-body govuk-!-margin-left-2">Loading...</span>
+            <div className="govuk-body govuk-!-margin-left-7 govuk-!-margin-top-1">Loading...</div>
         </div>
     );
 }

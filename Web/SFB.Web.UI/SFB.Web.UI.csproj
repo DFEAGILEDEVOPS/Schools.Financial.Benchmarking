@@ -19,7 +19,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44300</IISExpressSSLPort>
+    <IISExpressSSLPort>51351</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -223,7 +223,7 @@
       <HintPath>..\packages\RestSharp.106.10.1\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="SFB.Artifacts.ApplicationCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFB.Artifacts.ApplicationCore.1.0.180.68405\lib\netstandard2.0\SFB.Artifacts.ApplicationCore.dll</HintPath>
+      <HintPath>..\packages\SFB.Artifacts.ApplicationCore.1.0.196.68790\lib\netstandard2.0\SFB.Artifacts.ApplicationCore.dll</HintPath>
     </Reference>
     <Reference Include="SFB.Artifacts.Infrastructure, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFB.Artifacts.Infrastructure.1.0.180.68406\lib\netstandard2.0\SFB.Artifacts.Infrastructure.dll</HintPath>
@@ -435,6 +435,7 @@
     <Compile Include="Controllers\TrustSchoolsController.cs" />
     <Compile Include="Attributes\AiHandleErrorAttribute.cs" />
     <Compile Include="Controllers\TrustSearchController.cs" />
+    <Compile Include="Controllers\TrustSelfAssessmentController.cs" />
     <Compile Include="Helpers\BenchmarkBasketCookieManager.cs" />
     <Compile Include="Helpers\DownloadCSVBuilder.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
@@ -483,6 +484,8 @@
     <Compile Include="Models\BenchmarkCriteriaVM.cs" />
     <Compile Include="Models\LocationListViewModel.cs" />
     <Compile Include="Models\LocationViewModel.cs" />
+    <Compile Include="Models\ProgressScoreModel.cs" />
+    <Compile Include="Models\SelfAssessmentModalModel.cs" />
     <Compile Include="Models\SaveOverwriteViewModel.cs" />
     <Compile Include="Models\SchoolComparisonListModel.cs" />
     <Compile Include="Models\ChartViewModel.cs" />
@@ -503,7 +506,10 @@
     <Compile Include="Models\SimpleCharacteristicsViewModel.cs" />
     <Compile Include="Models\TrustListViewModel.cs" />
     <Compile Include="Models\AcademyTrustViewModel.cs" />
+    <Compile Include="Models\TrustSadNavigationModel.cs" />
+    <Compile Include="Models\TrustSadViewModel.cs" />
     <Compile Include="Models\TrustSelectionViewModel.cs" />
+    <Compile Include="Models\TrustSelfAssessmentModel.cs" />
     <Compile Include="Models\TrustViewModel.cs" />
     <Compile Include="Models\DynamicViewModelBase.cs" />
     <Compile Include="Models\TrustCharacteristicsViewModel.cs" />
@@ -533,12 +539,14 @@
     <Compile Include="Services\ISchoolBenchmarkListService.cs" />
     <Compile Include="Services\IFinancialCalculationsService.cs" />
     <Compile Include="Services\ITrustBenchmarkListService.cs" />
+    <Compile Include="Services\SelfAssessmentModalContentService.cs" />
     <Compile Include="Services\TrustBenchmarkListService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".babelrc" />
     <Content Include=".browserslistrc" />
+    <Content Include="App_Data\SelfAssessmentModalContent.json" />
     <Content Include="Assets\images\favicon.ico" />
     <Content Include="Assets\images\govuk-apple-touch-icon-152x152.png" />
     <Content Include="Assets\images\govuk-apple-touch-icon-167x167.png" />
@@ -578,15 +586,26 @@
     <Content Include="Assets\Scripts\Views\trust-compare-manual.js" />
     <Content Include="Assets\Scripts\Views\trust.js" />
     <Content Include="babel.config.js" />
+    <Content Include="ClientApp\AppComponents\SadTrustApp\wdyr.js" />
     <Content Include="ClientApp\AppModules\__DIR.README.md" />
-    <Content Include="ClientApp\AppComponents\Global\sfbLoadingMessage.scss" />
     <Content Include="ClientApp\AppComponents\__DIR.README.md" />
     <Content Include="ClientApp\Entry\main.js" />
     <Content Include="ClientApp\styles\corestyles.scss" />
+    <Content Include="ClientApp\styles\SfbBandings\_sfb-ofsted-ratings.scss" />
+    <Content Include="ClientApp\styles\SfbBandings\_all.scss" />
+    <Content Include="ClientApp\styles\SfbBandings\_sfb-dashboard-bandings.scss" />
+    <Content Include="ClientApp\styles\SfbBandings\_sfb-progress-ratings.scss" />
     <Content Include="ClientApp\styles\SfbGlobal\_all.scss" />
     <Content Include="ClientApp\styles\SfbGlobal\_sfb-banners.scss" />
+    <Content Include="ClientApp\styles\SfbGlobal\_sfb-custom-typography.scss" />
+    <Content Include="ClientApp\styles\SfbGlobal\_sfb-details-element.scss" />
+    <Content Include="ClientApp\styles\SfbGlobal\_sfb-icons.scss" />
+    <Content Include="ClientApp\styles\SfbModules\_sfb-loading-message.scss" />
     <Content Include="ClientApp\styles\SfbModules\_all.scss" />
     <Content Include="ClientApp\styles\SfbModules\_autocomplete.scss" />
+    <Content Include="ClientApp\styles\SfbModules\_sfb-modals.scss" />
+    <Content Include="ClientApp\styles\SfbModules\_sfb-sad-sidenav.scss" />
+    <Content Include="ClientApp\styles\SfbModules\_sfb-tables.scss" />
     <Content Include="public\assets\images\asc-g.gif" />
     <Content Include="public\assets\images\chart.svg" />
     <Content Include="public\assets\images\checklist.svg" />
@@ -612,6 +631,10 @@
 	<Content Include="public\govuk-frontend\images\*" />
     <Content Include="robots.txt" />
     <Content Include="tsconfig.json" />
+    <Content Include="Views\TrustSelfAssessment\Index.cshtml" />
+    <Content Include="Views\TrustSelfAssessment\Partials\BenchmarkCriteriaTable.cshtml" />
+    <Content Include="Views\TrustSelfAssessment\Partials\Breadcrumbs.cshtml" />
+    <Content Include="Views\TrustSelfAssessment\Test.cshtml" />
     <Content Include="webpack.config.js" />
     <Content Include="z_App_Offline.htm" />
     <Content Include="Assets\Scripts\app.js" />
@@ -1030,7 +1053,19 @@
     <TypeScriptCompile Include="ClientApp\api\agent.ts" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Global\ErrorSummary\ErrorSummary.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Global\ErrorSummary\LocationError.tsx" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\Global\FormControls\SfbSelect.tsx" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\Helpers\DateTimeHelpers.ts" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\Helpers\formatHelpers.ts" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\Helpers\OutcomesHelpers.ts" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Helpers\useSafeSetTimeout.tsx" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\prepareTableRows.ts" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\Models\sadTrustTablesModels.ts" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\Navigation.tsx" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\NavItem.tsx" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\SadTrustApp.tsx" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\SadTrustTable.tsx" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\SfbSadMobileNav.tsx" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\TableWrapper.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Search\AddSchoolsManually.ts" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Search\AddTrustsManually.ts" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Search\autosuggest.ts" />
@@ -1044,11 +1079,12 @@
     <TypeScriptCompile Include="ClientApp\AppModules\DfeUtils.ts" />
     <TypeScriptCompile Include="ClientApp\AppModules\SfbBenchmarkBasket.ts" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Global\ModalComponents\HelpIcon.tsx" />
-    <TypeScriptCompile Include="ClientApp\AppComponents\Global\ModalComponents\RenderModal.tsx" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\Global\ModalComponents\SfbSadHelpModal.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Global\SfbLoadingMessage.tsx" />
     <TypeScriptCompile Include="ClientApp\Entry\addManually.ts" />
     <TypeScriptCompile Include="ClientApp\Entry\addSchoolsManually.ts" />
     <TypeScriptCompile Include="ClientApp\Entry\addTrustsManually.ts" />
+    <TypeScriptCompile Include="ClientApp\Entry\SadTrustEntry.tsx" />
     <TypeScriptCompile Include="ClientApp\Entry\searchForm.ts" />
     <TypeScriptCompile Include="ClientApp\Enums.ts" />
     <TypeScriptCompile Include="ClientApp\Interfaces.ts" />
@@ -1075,7 +1111,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51350</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:44300/</IISUrl>
+          <IISUrl>https://localhost:51351/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

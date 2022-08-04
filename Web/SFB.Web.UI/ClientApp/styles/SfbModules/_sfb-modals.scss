@@ -1,0 +1,27 @@
+﻿.sfb-modal__header {
+  display: flex;
+  justify-content: space-between;
+  
+  .govuk-heading-m {
+    max-width: 80%;
+  }
+}
+
+.sfb-modal--column {
+  width: 50%;
+  float: left;
+  
+  @include govuk-media-query($until: tablet) {
+    display: block;
+    float: none;
+    width: auto;
+  }
+ 
+  p, li, th, td {
+    @include govuk-font(16);
+  }
+  p {
+    padding-right: govuk-spacing(2);
+  }
+}
+

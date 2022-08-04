@@ -1,0 +1,119 @@
+﻿@using Newtonsoft.Json
+@using SFB.Web.UI.Helpers
+@model SFB.Web.UI.Models.TrustSelfAssessmentModel
+
+@{
+    ViewBag.Title = string.Concat("Self-assessment dashboard for ", @Model.TrustName);
+    ViewBag.HasMigratedJs = true;
+    var navigationList = new List<KeyValuePair<string, string>>();
+   
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        @Html.Partial("Partials/Breadcrumbs")
+        <h1 class="govuk-heading-xl">Self-assessment dashboard</h1>
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+        <p class="govuk-body-s sfb-highlight-container">
+            Assessing schools in 
+            <strong class="sfb-highlight">
+                @Html.ActionLink(
+                    @Model.TrustName,
+                    "Detail",
+                    "Trust",
+                    new { companyno = @Model.CompanyNumber },
+                    new { @class="govuk-link govuk-link--inverse"}
+                    )
+            </strong>
+            using <strong>2020/2021</strong> finance data. This data includes each academy's share of
+            <strong>MAT centeral finance</strong>
+        </p>
+    </div>
+    <div class="govuk-grid-column-full">
+        <details class="govuk-details sfb-details" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                    View characteristics used
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                @Html.Partial("Partials/BenchmarkCriteriaTable")
+            </div>
+        </details>
+    </div>
+</div>
+<div id="sad-trust-app">
+    <!-- TODO: Print / save -->
+    @* <div class="govuk-grid-row"> *@
+    @*     <div class="govuk-grid-column-full"> *@
+    @*         <div class="download-link pdf-ppt"> *@
+    @*             <div class="pdf"> *@
+    @*                 <button id="PdfLink" class="link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold"> *@
+    @*                     <img class="icon download-icon" src="~/public/assets/images/icons/download.svg" alt=""/> *@
+    @*                     <span id="PdfLinkText"> Download page</span> *@
+    @*                 </button> *@
+    @*             </div> *@
+    @*         </div> *@
+    @*         <div class="download-link"> *@
+    @*             <div class="print"> *@
+    @*                 <button id="PrintLink" class="no-underline govuk-!-font-size-16 govuk-!-font-weight-bold link-button"> *@
+    @*                     <img class="icon" src="~/public/assets/images/icons/print.svg" alt=""/><span id="PrintLinkText"> Print page</span> *@
+    @*                 </button> *@
+    @*             </div> *@
+    @*         </div> *@
+    @*     </div> *@
+    @* </div> *@
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-quarter sfb-panel__subnav">
+            <nav class="sfb-subnav">
+                <ul class="sfb-subnav__section">
+                    @foreach (var section in Model.Navigation)
+                    {
+                        @panelLink(section)
+                    }
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
+</div>
+
+@* @Html.ActionLink( *@
+@*     "Look",  *@
+@*     null,  *@
+@*     "TrustSelfAssessment", *@
+@*     new {uid = 2046}, *@
+@*     new{@class="govuk-link"}) *@
+
+@helper panelLink(KeyValuePair<string, string> navigationLink)
+{
+    var linkText = navigationLink.Value;
+    
+    var containerClasses = "sfb-subnav__item";
+    if (Model.CurrentCategory.ToString() == navigationLink.Key)
+    {
+        containerClasses = string.Concat(containerClasses, " sfb-subnav__item--current");
+    }
+    var linkClasses = "sfb-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline";
+    <li class="@containerClasses">
+        <a class="@linkClasses" href="@navigationLink.Key">@linkText</a>
+    </li>
+    
+}
+
+
+@section ViewScripts
+{
+    <script>
+        var navigation = @Html.Raw(JsonConvert.SerializeObject(Model.Navigation));
+        var sadData = @Html.Raw(JsonConvert.SerializeObject(Model.Academies));
+        var initialSelection = '@Model.CurrentCategory';
+        var baseName = '@(string.Concat("TrustSelfAssessment/", Model.Uid))';
+        var saBaseUrl = '@(string.Concat(System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"], "/"))';
+        var modalMap = @Html.Raw(JsonConvert.SerializeObject(Model.ModalMappings));
+    </script>
+    <script src="@Html.Raw(Html.GetWebpackScriptUrl("SadTrustEntry.*.js"))"></script>
+}
+
