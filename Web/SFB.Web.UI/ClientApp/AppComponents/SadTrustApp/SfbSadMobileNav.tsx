@@ -28,7 +28,7 @@ export default  function SfbSadMobileNav({navigationItems, hasKs2Progress, hasPr
       </Modal>
 
       <Group position="left">
-        <Button variant="subtle" color="#1d70b8" compact onClick={() => setOpened(true)}>
+        <Button variant="subtle" color="#1d70b8" className="sfb-trust-sad__mobile-nav-launcher" compact onClick={() => setOpened(true)}>
           Change category
         </Button>
       </Group>
