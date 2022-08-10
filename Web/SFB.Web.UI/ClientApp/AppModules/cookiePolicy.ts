@@ -15,6 +15,7 @@ function toggleCookieBanner(accepted: boolean): void {
 
     acceptedPanel.classList.remove('hidden');
     acceptedPanel.removeAttribute('aria-hidden');
+    acceptedPanel.removeAttribute('hidden');
   }
 
   if (!accepted &&
@@ -26,6 +27,7 @@ function toggleCookieBanner(accepted: boolean): void {
 
     rejectedPanel.classList.remove('hidden');
     rejectedPanel.removeAttribute('aria-hidden');
+    rejectedPanel.removeAttribute('hidden');
   }
 }
 
@@ -55,7 +57,7 @@ const bannerActions = function(): void {
       const cookieSettings: ICookiePolicy = { "essential": true, "settings": true, "usage": true };
       
       CookieManager.setCookie(
-        'cookie_policy',
+        'cookies_policy',
         JSON.stringify(cookieSettings), 
         {days: 365},
         domain);
@@ -65,9 +67,9 @@ const bannerActions = function(): void {
         'true', 
         {days: 365},
         domain);
+      
+      toggleCookieBanner(true);
     });
-    
-    toggleCookieBanner(true);
   }
   
   if (rejectAll instanceof HTMLElement) {
@@ -76,7 +78,7 @@ const bannerActions = function(): void {
       const cookieSettings: ICookiePolicy = { "essential": true, "settings": false, "usage": false };
       
       CookieManager.setCookie(
-        'cookie_policy',
+        'cookies_policy',
         JSON.stringify(cookieSettings),
         {days: 365},
         domain);
@@ -91,76 +93,90 @@ const bannerActions = function(): void {
     });
   }
   
-  const cookieBannerHideBtn = document.getElementById('cookie-banner-hide-button');
+  const cookieBannerHideBtn = document.querySelector('.cookie-banner-hide-button');
   
   if (cookieBannerHideBtn instanceof HTMLElement) {
-    document.querySelectorAll('.govuk-cookie-banner').forEach((banner) => {
-      banner.classList.add('hidden');
-      banner.setAttribute('aria-hidden', 'true');
+    cookieBannerHideBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      document.querySelectorAll('.govuk-cookie-banner').forEach((banner) => {
+        banner.classList.add('hidden');
+        banner.setAttribute('aria-hidden', 'true');
+        banner.setAttribute('hidden', 'hidden' );
+      });
     });
   }
 }
 
 const managePreferencesUi = function(): void {
+  if (CookieManager.getCookie("cookies_preferences_set")) {
+    return;
+  }
   const cookieBanner: HTMLElement | null = document.querySelector('.govuk-cookie-banner');
   const cookieMessage: HTMLElement | null = document.getElementById('govuk-cookie-banner-message');
   
+  bannerActions();
+  
   if (cookieBanner instanceof HTMLElement) {
-    if (!CookieManager.cookie("cookies_preferences_set") &&
-      !(window.location.href.toLowerCase().indexOf("/help/cookies") > 0)) {
+    if (!(window.location.href.toLowerCase().indexOf("/help/cookies") > 0)) {
 
       cookieBanner.classList.remove('hidden');
       cookieBanner.removeAttribute('aria-hidden');
+      cookieBanner.removeAttribute('hidden');
       
       if (cookieMessage instanceof HTMLElement) {
         cookieMessage.classList.remove('hidden');
         cookieMessage.removeAttribute('aria-hidden');
+        cookieMessage.removeAttribute('hidden');
       }
     } else {
-      
       cookieBanner.classList.add('hidden');
       cookieBanner.setAttribute('aria-hidden', 'true');
+      cookieBanner.setAttribute('hidden', 'hidden');
     }
   }
 }
 
-const manageRecruitmentNotification = function(policyCookie: ICookiePolicy): void {
+const manageRecruitmentNotification = function(): void {
   const location: string = window.location.toString().toLowerCase(); 
   const isOnRecruitmentView = location.indexOf('help/get-involved') > -1 ||
       location.indexOf('/help/getinvolvedsubmission') > -1;
-  const currentPolicy = CookieManager.cookie('cookies_policy');
+  const currentPolicyCookie = CookieManager.cookie('cookies_policy');
   const recruitmentBanner: HTMLElement | null = document.querySelector('.banner-content__recruitment-banner');
   
-  if (policyCookie.settings) {
-    const suppressRecruitmentBannerCookie: string | null = CookieManager.getCookie('suppress-recruitment-banner');
-    if (suppressRecruitmentBannerCookie !== null && suppressRecruitmentBannerCookie === 'yes') {
+  if (currentPolicyCookie) {
+    const currentPolicy: ICookiePolicy = JSON.parse(currentPolicyCookie);
 
-      if (recruitmentBanner instanceof HTMLElement) {
-        recruitmentBanner.classList.add('hidden');
-        recruitmentBanner.setAttribute('aria-hidden', 'true');
-      }
-    } else {
-      if (!isOnRecruitmentView) {
+    if (currentPolicy?.settings) {
+      const suppressRecruitmentBannerCookie: string | null = CookieManager.getCookie('suppress-recruitment-banner');
+      if (suppressRecruitmentBannerCookie !== null && suppressRecruitmentBannerCookie === 'yes') {
+
         if (recruitmentBanner instanceof HTMLElement) {
-          recruitmentBanner.classList.remove('hidden');
-          recruitmentBanner.removeAttribute('aria-hidden');
+          recruitmentBanner.classList.add('hidden');
+          recruitmentBanner.setAttribute('aria-hidden', 'true');
+        }
+      } else {
+        if (!isOnRecruitmentView) {
+          if (recruitmentBanner instanceof HTMLElement) {
+            recruitmentBanner.classList.remove('hidden');
+            recruitmentBanner.removeAttribute('aria-hidden');
 
-          const closeButton = recruitmentBanner.querySelector('.js-dismiss-recruitment-banner');
-          if (closeButton) {
-            closeButton.addEventListener('click', (e) => {
-              e.preventDefault();
-              recruitmentBanner.classList.add('hidden');
-              recruitmentBanner.setAttribute('aria-hidden', 'true');
+            const closeButton = recruitmentBanner.querySelector('.js-dismiss-recruitment-banner');
+            if (closeButton) {
+              closeButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                recruitmentBanner.classList.add('hidden');
+                recruitmentBanner.setAttribute('aria-hidden', 'true');
 
-              const cookieValue = CookieManager.getCookie('cookies_policy');
-              if (cookieValue) {
-                const policy = JSON.parse(cookieValue);
+                const cookieValue = CookieManager.getCookie('cookies_policy');
+                if (cookieValue) {
+                  const policy = JSON.parse(cookieValue);
 
-                if (policy.settings) {
-                  CookieManager.setCookie('suppress-recruitment-banner', 'yes', {days: 180})
+                  if (policy.settings) {
+                    CookieManager.setCookie('suppress-recruitment-banner', 'yes', {days: 180})
+                  }
                 }
-              }
-            });
+              });
+            }
           }
         }
       }
@@ -178,10 +194,8 @@ const  manageGACookies = function(policyCookie: ICookiePolicy) {
 
 
 const cookiePolicy = {
-  bannerActions,
   managePreferencesUi,
   manageRecruitmentNotification,
-  manageGACookies
 };
 
 export default cookiePolicy;

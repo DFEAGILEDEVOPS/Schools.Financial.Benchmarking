@@ -16,11 +16,18 @@ import {CSSProperties, useEffect, useMemo, useState} from 'react';
 import SfbLoadingMessage from '../Global/SfbLoadingMessage';
 import SfbSadHelpModal from '../Global/ModalComponents/SfbSadHelpModal';
 import {numberWithCommas} from '../Helpers/formatHelpers';
-
+import CookieManager from '../../AppModules/CookieManager';
 
 declare var saBaseUrl: string;
-declare var ga: any;
-
+declare global {
+  interface Window { ga: any; }
+}
+let acceptedTrackingCookies = false;
+const policyCookie = CookieManager.getCookie('cookies_policy');
+if (policyCookie) {
+  const cookieSettings = JSON.parse(policyCookie);
+  acceptedTrackingCookies = cookieSettings.usage;
+}
 declare module '@tanstack/table-core' {
   interface SortingFns {
     incomeThresholdSorting: SortingFn<unknown>,
@@ -71,6 +78,10 @@ export default function SadTrustTable({tableData, mode, dataFormat, captionText,
   const [data, setData] = useState<SadTableRow[]>(tableData);
   
   useEffect(() => {
+    if (acceptedTrackingCookies) {
+      window.ga('set', 'page', window.location.toString());
+      window.ga('send', 'pageview');
+    }
     if (!isInitial) {
       setIsLoading(true);
       resetPhaseFilter();
@@ -88,10 +99,6 @@ export default function SadTrustTable({tableData, mode, dataFormat, captionText,
       setData(tableData);
     }
     isInitial = false;
-    
-    //todo : Analytics
-    //ga('send', 'pageview');
-
   }, [location]);
   
   useEffect(() => {
