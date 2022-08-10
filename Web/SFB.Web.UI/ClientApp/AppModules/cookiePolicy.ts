@@ -145,7 +145,6 @@ const manageRecruitmentNotification = function(): void {
   
   if (currentPolicyCookie) {
     const currentPolicy: ICookiePolicy = JSON.parse(currentPolicyCookie);
-
     if (currentPolicy?.settings) {
       const suppressRecruitmentBannerCookie: string | null = CookieManager.getCookie('suppress-recruitment-banner');
       if (suppressRecruitmentBannerCookie !== null && suppressRecruitmentBannerCookie === 'yes') {
