@@ -59,7 +59,6 @@ app.controller('QuickComparisonPanelController',
                         },
                         success: function(data) {
                             $("#benchmarkChartsList").html(data);
-                            console.log(data);
 
                             DfE.Views.BenchmarkCharts.generateCharts();
 
