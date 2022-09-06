@@ -12,10 +12,12 @@ declare var modalMap: any;
 
 export const prepareTableRows = (sadData: SadDataObject[], targetCategory: string): SadTableRow[] => {
   const modalLookUp = modalMap;
-  return sadData.filter((item) => { 
+  return sadData.filter((item) => {
     // remove primary schools from p8 and secondary from ks2 views
+    // and don't display null progress scores
     return !((item.ProgressScoreType === 'Progress 8 score' && targetCategory === 'Ks2Score') ||
-      (item.ProgressScoreType === 'KS2 score' && targetCategory === 'Progress8Score') || item.ProgressScoreType === null);
+      (item.ProgressScoreType === 'KS2 score' && targetCategory === 'Progress8Score') ||
+      (targetCategory === 'Ks2Score' || targetCategory === 'Progress8Score') && item.ProgressScoreType === null);
     
   }).map(({
       Ks2Score,

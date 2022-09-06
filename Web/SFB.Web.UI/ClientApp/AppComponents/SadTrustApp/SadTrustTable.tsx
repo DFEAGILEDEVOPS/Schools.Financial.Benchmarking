@@ -406,7 +406,6 @@ export default function SadTrustTable({tableData, mode, dataFormat, captionText,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    debugTable: true,
     enableSortingRemoval: false,
   });
   
