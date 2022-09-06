@@ -39,16 +39,28 @@ export interface IThreshold {
 const prepCharacteristicsData = (sadData: SadDataObject[]): CharacteristicsRow[] => {
 
   const formatPupilsComparator = (estab: SadDataObject) => {
-    const pupilsMin = estab.SadSizeLookup.NoPupilsMin;
-    const pupilsMax = estab.SadSizeLookup.NoPupilsMax;
+    const pupilsMin = estab.SadSizeLookup?.NoPupilsMin;
+    const pupilsMax = estab.SadSizeLookup?.NoPupilsMax;
     if (pupilsMax) {
       return `Schools with ${pupilsMin} - ${pupilsMax} pupils`;
     }
-    return `Schools with ${pupilsMin} or more pupils`;
+    if (pupilsMin) {
+      return `Schools with ${pupilsMin} or more pupils`;
+    }
+    return '-';
+  }
+  
+  const formatFsmComparator = (estab: SadDataObject) => {
+
+    if (estab.SadFSMLookup) {
+      return `Schools with ${estab.SadFSMLookup.FSMMin?.toFixed(1)} - ${estab.SadFSMLookup.FSMMax?.toFixed(1)} FSM`;
+    }
+    return '-';
   }
 
   return sadData.map((estab) => {
     const pc = formatPupilsComparator(estab);
+    const fsmComparator = formatFsmComparator(estab);
     const out: CharacteristicsRow = {
       name: estab.Name,
       phase: estab.OverallPhase,
@@ -58,7 +70,7 @@ const prepCharacteristicsData = (sadData: SadDataObject[]): CharacteristicsRow[]
       numberOfPupils: estab.NumberOfPupilsLatestTerm,
       pupilsComparator: pc,
       fsm: +estab.FSMLatestTerm.toFixed(1),
-      fsmComparator: `Schools with ${estab.SadFSMLookup.FSMMin.toFixed(1)} - ${estab.SadFSMLookup.FSMMax.toFixed(1)} FSM`
+      fsmComparator: fsmComparator
     };
     return out;
   });
