@@ -1,0 +1,38 @@
+﻿@using SFB.Web.UI.Helpers;
+@using SFB.Web.UI.Helpers.Constants
+
+<p>
+    Data for academies in a MAT includes an apportioned share of
+    <strong>MAT central finance</strong> on a pro-rata basis using FTE pupil numbers.
+
+</p>
+<div class="sfb-dashboard-panel sfb-call-out-box__container">
+    @CalloutBox("Expenditure", Model.TotalRevenueExpenditure)
+    @CalloutBox("Income", Model.TotalRevenueIncome)
+    @CalloutBox("In-year balance", Model.InYearBalance)
+    @CalloutBox("Revenue reserve", Model.RevenueReserve, "Revenue reserve", @HelpTooltipText.RevenueReserveExplanation)
+</div>
+
+<div class="sfb-dashboard-panel" id="sad-dashboard-app"></div>
+
+
+@helper CalloutBox(string title, decimal total, string helpTextTitle = "", string helpTextContent = "")
+{
+    var formattedValue = total.ToString("C0");
+    
+    <div class="sfb-call-out-box-wrapper">
+        <div class="sfb-call-out-box">
+            <h2 class="govuk-heading-m govuk-!-margin-bottom-0">@title</h2>
+            <span class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+                <abbr title="@formattedValue" aria-label="@formattedValue pounds" class="inc-total summary">@total.FormatMoney()</abbr>
+                @if (helpTextContent != "")
+                {
+                    <span class="modal-placeholder" 
+                          id="modal-@helpTextTitle.Replace(" ", String.Empty).ToLower()"
+                          data-modal-text="@helpTextContent"></span>
+                }
+                
+            </span>
+        </div>
+    </div>
+}

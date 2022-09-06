@@ -1,6 +1,6 @@
 ﻿import axios, {AxiosError, AxiosResponse} from 'axios';
 import {SearchSuggestion} from '../Models/Suggestions';
-import {SadHelpText} from "../AppComponents/SadTrustApp/Models/sadTrustTablesModels";
+import {SadDataObject, SadHelpText, TrustSadResponse} from "../AppComponents/SadTrustApp/Models/sadTrustTablesModels";
 
 axios.interceptors.response.use(
   async (response) => {
@@ -39,11 +39,16 @@ const Suggestions = {
   Location: (userInput: string) => requests.get<SearchSuggestion[]>(`/schoolsearch/suggestplace?text=${userInput}`)
 };
 
+const SelfAssessmentDashboard = {
+  TrustData: (uid: number) => requests.get<TrustSadResponse>(`/TrustSelfAssessment/summary/${uid}`),
+}
+
 const agent = {
   BenchmarkBasket,
   Suggestions,
   ManualComparison,
-  SelfAssessmentHelpText
+  SelfAssessmentHelpText,
+  SelfAssessmentDashboard,
 };
 
 export default agent;

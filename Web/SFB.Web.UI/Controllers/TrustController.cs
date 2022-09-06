@@ -24,7 +24,7 @@ namespace SFB.Web.UI.Controllers
     public class TrustController : Controller
     {
         private readonly IFinancialDataService _financialDataService;
-        private readonly IContextDataService _contexDataService;
+        private readonly IContextDataService _contextDataService;
         private readonly IHistoricalChartBuilder _historicalChartBuilder;
         private readonly IFinancialCalculationsService _fcService;
         private readonly ITrustHistoryService _trustHistoryService;
@@ -41,7 +41,7 @@ namespace SFB.Web.UI.Controllers
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
-            _contexDataService = contextDataService;
+            _contextDataService = contextDataService;
             _fcService = fcService;
             _csvBuilder = csvBuilder;
             _benchmarkBasketService = benchmarkBasketService;
@@ -249,7 +249,7 @@ namespace SFB.Web.UI.Controllers
         {
             var trustVM = await BuildFinancialTrustVMAsync(companyNo, tab, chartGroup, matFinancing);
             
-            trustVM.AcademiesInContextList = (await _contexDataService.GetAcademiesByUidAsync(trustVM.UID.GetValueOrDefault())).OrderBy(a => a.EstablishmentName).ToList();
+            trustVM.AcademiesInContextList = (await _contextDataService.GetAcademiesByUidAsync(trustVM.UID.GetValueOrDefault())).OrderBy(a => a.EstablishmentName).ToList();
 
             if (trustVM.UID != null)
             {

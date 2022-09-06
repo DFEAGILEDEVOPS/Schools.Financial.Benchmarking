@@ -1,7 +1,4 @@
-﻿$ofsted-red: #b10e1e;
-$ofsted-amber: #f47738;
-$ofsted-blue: $govuk-brand-colour;
-$ofsted-green: #006435;
+﻿@use "variables" as v;
 
 .ofsted-rating--container {
   display: flex;
@@ -56,20 +53,20 @@ $ofsted-green: #006435;
 }
 
 .ofsted-rating-1 {
-  background-color: $ofsted-green;
+  background-color: v.$ofsted-green;
 }
 
 .ofsted-rating-2 {
-  background-color: $ofsted-blue;
+  background-color: v.$ofsted-blue;
 }
 
 .ofsted-rating-3 {
-  background-color: $ofsted-amber;
+  background-color: v.$ofsted-amber;
   color: govuk-colour('black');
 }
 
 .ofsted-rating-4 {
-  background-color: $ofsted-red;
+  background-color: v.$ofsted-red;
 }
 
 .ofsted-rating-0 {

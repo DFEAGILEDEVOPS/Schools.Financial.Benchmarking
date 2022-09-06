@@ -1,4 +1,5 @@
 ﻿import {OfstedRating, ProgressScore} from "../../Helpers/OutcomesHelpers";
+import {navigationItem} from "../Navigation";
 
 // TODO refactor this + establishment SAD to correct typos in keys
 export interface SadSizeLookUp {
@@ -87,4 +88,12 @@ export interface SadDataObject {
   SadSizeLookup: SadSizeLookUp;
   SadFSMLookup: SadFSMLookup;
   SadAssesmentAreas: SadAssessmentArea[];
+}
+
+
+export interface TrustSadResponse {
+  TrustName: string;
+  Uid: number;
+  Academies: SadDataObject[];
+  Navigation: navigationItem[];
 }

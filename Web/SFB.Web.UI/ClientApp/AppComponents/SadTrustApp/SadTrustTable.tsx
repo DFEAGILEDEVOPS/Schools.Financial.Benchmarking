@@ -30,9 +30,9 @@ if (policyCookie) {
 }
 declare module '@tanstack/table-core' {
   interface SortingFns {
-    incomeThresholdSorting: SortingFn<unknown>,
-    expenditureThresholdSorting: SortingFn<unknown>,
-    outcomesSorting: SortingFn<unknown>,
+    incomeThresholdSorting?: SortingFn<unknown>,
+    expenditureThresholdSorting?: SortingFn<unknown>,
+    outcomesSorting?: SortingFn<unknown>,
   }
 }
 

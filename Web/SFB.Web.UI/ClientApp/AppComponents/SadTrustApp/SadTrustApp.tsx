@@ -5,7 +5,7 @@ import TableWrapper from "./TableWrapper";
 import {SadDataObject} from "./Models/sadTrustTablesModels";
 import SfbSelect from '../Global/FormControls/SfbSelect';
 import React, {ChangeEvent, useState, StrictMode} from 'react';
-import SfbSadMobileNav from "./SfbSadMobileNav";
+import SfbSadMobileNav from './SfbSadMobileNav';
 declare var navigation: any;
 declare var sadData: any;
 declare var baseName: string;

@@ -1,5 +1,4 @@
-﻿import '../AppComponents/SadTrustApp/wdyr';
-import ReactDOM from 'react-dom/client';
+﻿import ReactDOM from 'react-dom/client';
 import SadTrustApp from '../AppComponents/SadTrustApp/SadTrustApp';
 
 const el = document.getElementById('sad-trust-app');

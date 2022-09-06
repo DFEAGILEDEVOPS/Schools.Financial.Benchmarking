@@ -1,8 +1,4 @@
-﻿$progress-well-below: #df3034;
-$progress-below: #f47738;
-$progress-average: #ffdd00;
-$progress-above: #85994b;
-$progress-well-above: #006435;
+﻿@use "variables" as v;
 
 .progress-score-wrapper {
   display: flex;
@@ -34,24 +30,24 @@ $progress-well-above: #006435;
   }
   
   &.progress-well-below-average {
-    background-color: $progress-well-below;
+    background-color: v.$progress-well-below;
     color: govuk-colour('white');
   }
   
   &.progress-below-average {
-    background-color: $progress-below;
+    background-color: v.$progress-below;
   }
   
   &.progress-average {
-    background-color: $progress-average;
+    background-color: v.$progress-average;
   }
   
   &.progress-above-average {
-    background-color: $progress-above;
+    background-color: v.$progress-above;
   }
   
   &.progress-well-above-average {
-    background-color: $progress-well-above;
+    background-color: v.$progress-well-above;
     color: govuk-colour('white');
   }
   

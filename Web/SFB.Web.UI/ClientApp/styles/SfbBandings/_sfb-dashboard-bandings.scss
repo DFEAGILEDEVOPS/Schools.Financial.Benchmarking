@@ -1,8 +1,4 @@
-﻿$dashboard-light-green: #7BC987;
-$dashboard-green: #006636;
-$dashboard-amber: #FFA029;
-$dashboard-red: #CA0600;
-
+﻿@use "variables" as v;
 
 .rating-container {
   display: flex;
@@ -33,21 +29,21 @@ $dashboard-red: #CA0600;
   }
   
   &.Light.green {
-    background-color: $dashboard-light-green;
+    background-color: v.$dashboard-light-green;
   }
 
   &.Dark.green {
-    background-color: $dashboard-green;
+    background-color: v.$dashboard-green;
     color: govuk-colour('white');
   }
 
   &.Red {
-    background-color: $dashboard-red;
+    background-color: v.$dashboard-red;
     color: govuk-colour('white');
   }
 
   &.Amber {
-    background-color: $dashboard-amber;
+    background-color: v.$dashboard-amber;
   }
 
   &.gray {

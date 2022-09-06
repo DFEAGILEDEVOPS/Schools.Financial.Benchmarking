@@ -1,4 +1,5 @@
 ﻿@using System.Configuration;
+@using SFB.Web.UI.Helpers
 @model SFB.Web.UI.Models.TrustViewModel
 
 @{
@@ -136,11 +137,28 @@
     <div id="tabs-section" class="govuk-grid-column-full govuk-!-margin-top-6">
         <div class="govuk-tabs" data-module="govuk-tabs">
             <ul class="govuk-tabs__list">
-                <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
-                    <a class="govuk-tabs__tab" href="#details">
-                        Details
-                    </a>
-                </li>
+                @if (Model.AcademiesInFinanceList.Count > 1)
+                {
+                    <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+                        <a class="govuk-tabs__tab" href="#dashboard">
+                            Dashboard <!-- TODO dynamic year--> 2020 /2021
+                        </a>
+                    </li>
+                    <li class="govuk-tabs__list-item">
+                        <a class="govuk-tabs__tab" href="#details">
+                            Details
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+                        <a class="govuk-tabs__tab" href="#details">
+                            Details
+                        </a>
+                    </li>
+                }
+               
                 @if (Model.HasSomeHistoricalFinancialData)
                 {
                     <li class="govuk-tabs__list-item">
@@ -150,6 +168,12 @@
                     </li>
                 }
             </ul>
+            @if (Model.AcademiesInFinanceList.Count > 1)
+            {
+                <div class="govuk-tabs__panel app-tabs__panel--no-border" id="dashboard">
+                    @Html.Partial("Partials/TrustDashboard", Model)
+                </div>
+            }
             <div class="govuk-tabs__panel app-tabs__panel--no-border" id="details">
                 @Html.Partial("Partials/DetailsTab", Model)
             </div>
@@ -159,7 +183,7 @@
                     @Html.Partial("Partials/FinanceTab", Model)
                 </div>
             }
-        </div>
+                 </div>
         <div style="display: inline-block" class="govuk-!-margin-bottom-1 govuk-!-margin-top-2">
             <a href="~/Help/DataQueries" class="govuk-link hide-in-print">Is there anything wrong with this page?</a>
         </div>
@@ -174,7 +198,11 @@
     <script>
         DfE.Views.TrustDetailsViewModel = new TrustViewModel('@ViewBag.ChartFormat', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
         DfE.Views.FinancialChartWrapperViewModel = new ChartWrapper();
+        var uid = @Model.UID;
     </script>
+    
+    <script src="@Html.Raw(Html.GetWebpackScriptUrl("TrustDashboard.*.js"))"></script>
+
 }
 
 <iframe id="download_iframe" style="display:none;" title="download"></iframe>

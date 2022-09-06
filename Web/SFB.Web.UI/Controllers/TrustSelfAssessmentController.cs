@@ -38,6 +38,14 @@ namespace SFB.Web.UI.Controllers
             return View(vm);
         }
 
+        [HttpGet, Route("TrustSelfAssessment/summary/{uid}")]
+        public async Task<ActionResult> GetSummaryAsync(int uid)
+        {
+            var result = await GetEstablishmentSelfAssessmentData(uid);
+            
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet, Route("TrustSelfAssessment/Help/{id}", Name = "TrustSelfAssessmentHelp")]
         public JsonResult Help(int id)
         {
@@ -85,7 +93,6 @@ namespace SFB.Web.UI.Controllers
 
 
         private static readonly HttpClient Client = new HttpClient();
-        
         private async Task<TrustSelfAssessmentModel> GetEstablishmentSelfAssessmentData(int uid)
         {
             var path = string.Concat("https://", ConfigurationManager.AppSettings["SfbApiUrl"], "/api/SelfAssessment/trust/", uid.ToString()) ;
