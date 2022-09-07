@@ -1,8 +1,9 @@
-﻿import React, {SyntheticEvent, useState} from 'react';
-import {IThreshold} from "./Dashboard";
-import CallOutModal from "./CallOutModal";
-import TrustSummaryMobileNav from "./TrustSummaryMobileNav";
-import SfbLoadingMessage from "../Global/SfbLoadingMessage";
+﻿import React, {SyntheticEvent, useEffect, useState} from 'react';
+import {IThreshold} from './Dashboard';
+import CallOutModal from './CallOutModal';
+import TrustSummaryMobileNav from './TrustSummaryMobileNav';
+import SfbLoadingMessage from '../Global/SfbLoadingMessage';
+import SfbWarning from '../Global/SfbBanners/SfbWarning';
 
 interface Props {
   categories: string[]
@@ -12,6 +13,8 @@ interface Props {
   loading: boolean
 }
 
+let hasLoaded = false;
+
 export default function TabPanel(
   {
     categories,
@@ -20,7 +23,24 @@ export default function TabPanel(
     ratingData,
     loading
   }: Props) {
-  const [current, setCurrent] = useState<string>('Teaching staff')
+  const [current, setCurrent] = useState<string>('');
+  const [showBandingWarning, setBandingWarningStatus] = useState<boolean>(false);
+
+  useEffect(() => {
+    const unratedEstablishmentsInCategory = ratingData.filter((estab) => {
+      return estab.categoryRatings.find(es => es.thresholdIndex === -1 && es.category === current);
+    });
+    
+    setBandingWarningStatus(unratedEstablishmentsInCategory.length > 0);
+  },[current]);
+  
+  useEffect(() => {
+    if (!hasLoaded) {
+      hasLoaded = true;
+      return;
+    }
+    setCurrent('Teaching staff');
+  },[loading]);
 
   function handleCategoryChange(e: SyntheticEvent , category: string): void {
     e.preventDefault();
@@ -77,8 +97,12 @@ export default function TabPanel(
         </ul>
       </nav>
       <section className="sfb-panel-tabs__content_wrapper">
-        {loading && <SfbLoadingMessage message="Loading..." isLoading={loading}/>}
-        <div className="sfb-panel-tabs__tab_content" key={`panel-${current}`}>
+        {loading &&
+          <SfbLoadingMessage message="Loading..." isLoading={loading}/>}
+        {showBandingWarning &&
+          <SfbWarning message="Some schools fall outside of the banding for this measure and are not displayed" />}
+        
+        <div className="sfb-panel-tabs__tab_content">
           {bandingMap && bandingMap.filter(m => m.category === current)[0]?.thresholds.map((threshold, j) => {
             const panelCounts: { [key: number]: number } = ratingCounts.filter(catType => current === catType.category)[0].counts;
             const count = panelCounts ? panelCounts[j] : 0;

@@ -591,6 +591,7 @@
     <Content Include="ClientApp\AppComponents\__DIR.README.md" />
     <Content Include="ClientApp\Entry\main.js" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Global\ModalComponents\SfbContentModal.tsx" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\Global\SfbBanners\SfbWarning.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustSummaryApp\CallOutModal.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustSummaryApp\TabPanel.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustSummaryApp\TrustSummaryMobileNav.tsx" />
