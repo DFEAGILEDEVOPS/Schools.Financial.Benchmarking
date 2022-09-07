@@ -69,7 +69,7 @@ const prepCharacteristicsData = (sadData: SadDataObject[]): CharacteristicsRow[]
       weightingComparator: estab.LondonWeighting === 'Neither' ? 'Not London' : 'London',
       numberOfPupils: estab.NumberOfPupilsLatestTerm,
       pupilsComparator: pc,
-      fsm: +estab.FSMLatestTerm.toFixed(1),
+      fsm: estab.FSMLatestTerm ? +estab.FSMLatestTerm.toFixed(1) : '-',
       fsmComparator: fsmComparator
     };
     return out;
@@ -118,6 +118,13 @@ const prepCategoryData = (sadData: SadDataObject[]) => {
             out.categoryRatings.push({
               category: area.AssessmentAreaName,
               thresholdIndex: thresholdIndex,
+              schoolData: ratingFigure,
+              percentageExpenditure: ratingValue * 100
+            });
+          } else {
+            out.categoryRatings.push({
+              category: area.AssessmentAreaName,
+              thresholdIndex: -1,
               schoolData: ratingFigure,
               percentageExpenditure: ratingValue * 100
             });

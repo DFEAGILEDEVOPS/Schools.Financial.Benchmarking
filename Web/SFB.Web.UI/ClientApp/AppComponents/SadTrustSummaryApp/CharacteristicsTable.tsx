@@ -8,7 +8,7 @@ export interface CharacteristicsRow {
   weightingComparator: string
   numberOfPupils: number
   pupilsComparator: string
-  fsm: number
+  fsm: number | string
   fsmComparator: string
 }
 

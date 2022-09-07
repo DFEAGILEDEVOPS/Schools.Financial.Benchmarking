@@ -15,6 +15,7 @@ export default function SfbContentModal(props: Props) {
       <Modal opened={opened}
              onClose={() => setOpened(false)}
              withCloseButton={false}
+             overflow="inside"
              size="xl">
         <div className="modal-header">
           <div className="sfb-modal__header">
