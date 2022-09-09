@@ -1,0 +1,43 @@
+﻿@model SFB.Web.UI.Models.TrustViewModel
+@{
+    ViewBag.pageClass = "comparison-type-select";
+}
+@section BackButtonContent{
+    <a class="govuk-back-link hide-in-print" href="/trust/detail?companyNo=@Model.CompanyNo">Back</a>
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl">What type of comparison would you like?</h1>
+    </div>
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+        <img src="~/public/assets/images/chart.svg" class="pano blue-svg" style="width:100%" alt="Benchmark comparison"/>
+        <h2 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-1">Benchmark comparison</h2>
+        <p class="govuk-body-s govuk-!-font-size-16 mb-05">
+            Compare against similar schools to yours or schools of your choice.
+        </p>
+        <ul class="govuk-list">
+            <li>
+                <a class="govuk-link govuk-!-font-size-16" href="/TrustComparison/SelectType?companyNo=@Model.CompanyNo&matName=@Model.Name">Create a benchmark comparison</a>
+            </li>
+        </ul>
+    </div>
+    <div class="govuk-grid-column-one-half">
+        <img src="~/public/assets/images/checklist.svg" class="pano turq-svg" style="width:100%" alt="Self-assessment dashboard"/>
+        <h2 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-1">Self-assessment dashboard</h2>
+        <p class="govuk-body-s govuk-!-font-size-16 mb-05">
+            Formerly the SRMSAT/SFVS dashboard, see areas where your school is looking healthy or may need to focus on.
+        </p>
+        <ul class="govuk-list">
+            <li>
+                @Html.RouteLink(
+                    "Self-assessment dashboard",
+                    "TrustSelfAssessment",
+                    new {uid=@Model.UID, category="InYearBalance"},
+                    new {@class=string.Concat("govuk-link govuk-!-font-size-16 sfb_gtm_sad_from_",@Model.EstablishmentType)})
+            
+            </li>
+        </ul>
+    </div>
+</div>

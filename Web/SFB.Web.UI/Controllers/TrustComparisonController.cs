@@ -52,6 +52,17 @@ namespace SFB.Web.UI.Controllers
             var model = new TrustViewModel(companyNo, matName);
             return View(model);
         }
+        
+        [HttpGet]
+        public ActionResult SelectComparisonType(int uid, int companyNo, string matName)
+        {
+            var vm = new TrustViewModel(companyNo)
+            {
+                UID = uid,
+                Name = matName
+            };
+            return View(vm);
+        }
 
         public ActionResult StepOne(int companyNo, string matName, ComparisonType? comparisonType)
         {
@@ -75,7 +86,7 @@ namespace SFB.Web.UI.Controllers
                 return 0;
             }
               
-             return await _financialDataService.SearchTrustCountByCriteriaAsync(criteria?.AdvancedCriteria);                
+            return await _financialDataService.SearchTrustCountByCriteriaAsync(criteria?.AdvancedCriteria);                
         }
 
         [HttpPost]
