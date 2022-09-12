@@ -8,15 +8,6 @@ interface Props {
   uid: number,
 }
 
-// interface ISadBanding {
-//  
-// }
-//
-// interface ISadSummaryViewModel {
-//   category: string
-//   bandings: sad
-// }
-
 interface IEstablishmentSummary {
   name: string
   schoolData: number
@@ -111,7 +102,7 @@ const prepCategoryData = (sadData: SadDataObject[]) => {
           const ratingValue = +(ratingFigure / TotalExpenditureLatestTerm).toFixed(3);
           const threshold = area.AllTresholds.find(t => (ratingValue >= t.ScoreLow || t.ScoreLow == null)
             && (ratingValue <= t.ScoreHigh || t.ScoreHigh == null));
-
+          
           if (typeof threshold !== 'undefined') {
             const thresholdIndex = area.AllTresholds.indexOf(threshold);
 
@@ -155,10 +146,11 @@ export default function Dashboard({uid}: Props) {
     (async function() {
       const initialData = await agent.SelfAssessmentDashboard.TrustData(uid);
 
-      preppedData = prepCharacteristicsData(initialData.Academies);
+      const validAcademies = initialData.Academies.filter((x: SadDataObject) => x.LatestTerm !== null);
+      preppedData = prepCharacteristicsData(validAcademies);
 
       setSadData(initialData?.Academies);
-      const d = prepCategoryData(initialData.Academies);
+      const d = prepCategoryData(validAcademies);
       console.log(d);
       setCategoryData(d.categories);
       setBandingMap(d.bandings);

@@ -32,7 +32,7 @@ const prepData = (data: SadDataObject[]) => {
     Progress8Score: prepareTableRows(data, 'Progress8Score'),
   };
 }
-const tableData = prepData([...sadData]);
+const tableData = prepData([...sadData.filter((x: SadDataObject) => x.LatestTerm !== null)]);
 
 interface LayoutProps {
   establishmentCount: number;
