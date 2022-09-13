@@ -1,4 +1,5 @@
-﻿$progress-well-below: #df3034;
+﻿@import "node_modules/govuk-frontend/govuk/helpers/colour";
+$progress-well-below: #df3034;
 $progress-below: #f47738;
 $progress-average: #ffdd00;
 $progress-above: #85994b;

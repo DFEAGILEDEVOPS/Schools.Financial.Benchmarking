@@ -8,10 +8,12 @@
     var navigationList = new List<KeyValuePair<string, string>>();
    
 }
+@section BackButtonContent{
+ @Html.Partial("Partials/Breadcrumbs")
+}
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-        @Html.Partial("Partials/Breadcrumbs")
+    <div class="govuk-grid-column-full govuk-!-padding-top-4">
         <h1 class="govuk-heading-xl">Self-assessment dashboard</h1>
     </div>
     <div class="govuk-grid-column-two-thirds">
@@ -27,7 +29,7 @@
                     )
             </strong>
             using <strong>2020/2021</strong> finance data. This data includes each academy's share of
-            <strong>MAT centeral finance</strong>
+            <strong>MAT central finance</strong>
         </p>
     </div>
     <div class="govuk-grid-column-full">
@@ -79,13 +81,6 @@
 
 
 </div>
-
-@* @Html.ActionLink( *@
-@*     "Look",  *@
-@*     null,  *@
-@*     "TrustSelfAssessment", *@
-@*     new {uid = 2046}, *@
-@*     new{@class="govuk-link"}) *@
 
 @helper panelLink(KeyValuePair<string, string> navigationLink)
 {

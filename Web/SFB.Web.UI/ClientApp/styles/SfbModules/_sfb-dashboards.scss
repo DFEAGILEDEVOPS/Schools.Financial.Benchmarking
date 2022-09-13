@@ -27,6 +27,7 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  padding: govuk-spacing(4) govuk-spacing(4) govuk-spacing(5);
 }
 
 .sfb-call-out-box {
@@ -36,7 +37,7 @@
   border-radius: govuk-spacing(1);
   position: relative;
   min-height: 100px;
-  padding: govuk-spacing(1);
+  padding: govuk-spacing(1) govuk-spacing(1) govuk-spacing(3);
   margin: 0 auto;
   max-width: 90%;
   
@@ -57,7 +58,13 @@
       border-right: inherit;
       box-shadow: inherit;
   }
+
+  .sfb-call-out-box__header {
+    margin: 10px 0;
+  }
 }
+
+
 
 .sfb-panel-tabs {
   border-bottom: $govuk-border-colour 1px solid;
@@ -68,13 +75,13 @@
   ul {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    //align-items: flex-end; 
     margin: 0;
     padding: 0;
 
     li {
       list-style: none;
-      padding: 0 1px 0;
+      padding: 0 5px 0;
       margin: 0 govuk-spacing(1) 0 0;
       width: 12.5%;
     }
@@ -131,6 +138,7 @@
     width: 100px;
     height: 80px;
     margin: 0 auto;
+    padding: govuk-spacing(1);
     
     @include govuk-media-query($until: dashBoardDeskTop) {
       width: 40%;

@@ -1,7 +1,7 @@
 ﻿@using SFB.Web.UI.Helpers;
 @using SFB.Web.UI.Helpers.Constants
 @model SFB.Web.UI.Models.TrustViewModel
-<p>
+<p class="govuk-body-s">
     Data for academies in a MAT includes an apportioned share of
     <strong>MAT central finance</strong> on a pro-rata basis using FTE pupil numbers.
 
@@ -61,7 +61,7 @@
     
     <div class="sfb-call-out-box-wrapper">
         <div class="sfb-call-out-box">
-            <h2 class="govuk-heading-m govuk-!-margin-bottom-0">@title</h2>
+            <h2 class="govuk-heading-m sfb-call-out-box__header">@title</h2>
             <span class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-2">
                 <abbr title="@formattedValue" aria-label="@formattedValue pounds" class="inc-total summary">@total.GetValueOrDefault().FormatMoney()</abbr>
                 @if (helpTextContent != "")

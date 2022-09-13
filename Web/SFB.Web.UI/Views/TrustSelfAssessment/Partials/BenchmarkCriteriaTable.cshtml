@@ -14,8 +14,18 @@
     @{
         foreach (var academy  in Model.Academies)
         {
+            var rowspan = 2;
+            if (academy.SadSizeLookup != null)
+            {
+                rowspan++;
+            }
+            if (academy.SadFSMLookup != null)
+            {
+                rowspan++;
+            }
+
             <tr class="govuk-table__row sfb-table__row--top-border">
-                <td class="govuk-table__cell" rowspan="4">@academy.Name</td>
+                <td class="govuk-table__cell" rowspan="@rowspan">@academy.Name</td>
                 <td class="govuk-table__cell">School phase</td>
                 <td class="govuk-table__cell">@academy.OverallPhase</td>
                 <td class="govuk-table__cell">@academy.OverallPhase</td>

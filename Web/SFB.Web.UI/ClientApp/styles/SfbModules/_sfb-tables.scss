@@ -81,9 +81,9 @@
     content: ' ';
     width: 0;
     height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 12px solid $govuk-brand-colour;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 8px solid $govuk-brand-colour;
   }
 
   &.sorted-desc::after {
@@ -93,9 +93,9 @@
     content: ' ';
     width: 0;
     height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-top: 12px solid $govuk-brand-colour;;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 8px solid $govuk-brand-colour;;
   }
 }
 
