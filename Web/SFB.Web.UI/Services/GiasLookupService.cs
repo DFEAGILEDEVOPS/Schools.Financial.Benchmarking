@@ -47,7 +47,7 @@ namespace SFB.Web.UI.Services
 
                 var result = await _client.SendAsync(request);
 
-                var isOk = result.StatusCode == HttpStatusCode.OK;
+                var isOk = result?.StatusCode == HttpStatusCode.OK;
                 
                 MemoryCache.Default.Set(
                     new CacheItem(key, isOk), 
