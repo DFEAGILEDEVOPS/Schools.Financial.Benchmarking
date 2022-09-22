@@ -69,7 +69,7 @@ function IncompleteDataModal(props: { schoolName: string;}) {
 let isInitial = true;
 export default function SadTrustTable({tableData, mode, dataFormat, captionText, phaseFilter, resetPhaseFilter}: Props) {
  
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const location = useLocation();
   const [sorting, setSorting] = useState<SortingState>([{
     'id': "schoolName",

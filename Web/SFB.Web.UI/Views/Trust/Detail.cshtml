@@ -102,12 +102,24 @@
             @if (!Model.IsReturnsDNS)
             {
                 <p class="govuk-body hide-in-print">There are several ways for you to compare this trust against others.</p>
-                <a href="/TrustComparison/SelectComparisonType?companyNo=@Model.CompanyNo&matName=@Model.Name&UID=@Model.UID" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
-                    Start a comparison
-                    <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-                        <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
-                    </svg>
-                </a>
+                if ((bool)ViewBag.ShouldShowDashboard)
+                {
+                    <a href="/TrustComparison/SelectComparisonType?companyNo=@Model.CompanyNo&matName=@Model.Name&UID=@Model.UID" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print sfb-qa-has-sad-button" data-module="govuk-button">
+                        Start a comparison
+                        <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                            <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"/>
+                        </svg>
+                    </a>
+                }
+                else
+                {
+                    <a href="/TrustComparison/SelectType?companyNo=@Model.CompanyNo&matName=@Model.Name" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print sfb-qa-no-sad-button" data-module="govuk-button">
+                        Start a comparison
+                        <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                            <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"/>
+                        </svg>
+                    </a>
+                }
             }
 
         </div>
@@ -136,7 +148,7 @@
     <div id="tabs-section" class="govuk-grid-column-full govuk-!-margin-top-6">
         <div class="govuk-tabs" data-module="govuk-tabs">
             <ul class="govuk-tabs__list">
-                @if (Model.AcademiesInFinanceList.Count > 1)
+                @if ((bool)ViewBag.ShouldShowDashboard)
                 {
                     <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
                         <a class="govuk-tabs__tab" href="#dashboard">
@@ -167,7 +179,7 @@
                     </li>
                 }
             </ul>
-            @if (Model.AcademiesInFinanceList.Count > 1)
+            @if ((bool)ViewBag.ShouldShowDashBoard)
             {
                 <div class="govuk-tabs__panel app-tabs__panel--no-border" id="dashboard">
                     @Html.Partial("Partials/TrustDashboard", Model)

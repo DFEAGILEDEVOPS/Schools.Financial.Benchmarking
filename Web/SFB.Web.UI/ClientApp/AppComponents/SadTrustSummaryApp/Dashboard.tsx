@@ -151,7 +151,6 @@ export default function Dashboard({uid}: Props) {
 
       setSadData(initialData?.Academies);
       const d = prepCategoryData(validAcademies);
-      console.log(d);
       setCategoryData(d.categories);
       setBandingMap(d.bandings);
       setRatingData(d.ratings);
@@ -170,8 +169,6 @@ export default function Dashboard({uid}: Props) {
                 // @ts-ignore
               return acc[curr] = 1, acc
               }
-            
-            
           }, {});
         
         ratingsCounts.push({

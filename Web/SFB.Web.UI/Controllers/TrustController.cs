@@ -49,6 +49,8 @@ namespace SFB.Web.UI.Controllers
             _giasLookupService = giasLookupService;
             _cscpLookupService = cscpLookupService;
         }
+        
+        private string[] exclusionPhaseList =  { "Nursery", "Pupil referral unit", "Special" , "16 plus"};
 
         public async Task<ActionResult> Index(int? companyNo, int? uid = null, UnitType unit = UnitType.AbsoluteMoney, TabType tab = TabType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
         {
@@ -195,7 +197,10 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Financing = financing;
             ViewBag.ChartFormat = format;
             ViewBag.EstablishmentType = EstablishmentType.MAT;
-
+            
+            var trustSchoolsPhases = trustVM.AcademiesInContextList.Select(x => x.OverallPhase).ToList();
+            
+            ViewBag.ShouldShowDashBoard = trustSchoolsPhases.Count(x => exclusionPhaseList.All(y => y != x)) > 0;
             return View("Detail", trustVM);
         }
 
