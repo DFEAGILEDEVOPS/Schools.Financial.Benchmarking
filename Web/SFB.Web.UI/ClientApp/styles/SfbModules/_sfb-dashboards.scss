@@ -145,13 +145,14 @@
       height: 60px;
       min-height: auto;
       margin-top: 10px;
+      margin-left: 20px;
       text-align: center;
     }
     
     &::before {
       @include govuk-media-query($until: dashBoardDeskTop) {
-        left: -1%;
-        bottom: 44%;
+        left: -4px;
+        bottom: 45%;
         transform: rotate(135deg) translate(50%);
         box-shadow: none;
       }
