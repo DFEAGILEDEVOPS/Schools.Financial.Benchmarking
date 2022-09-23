@@ -99,6 +99,7 @@ export default function SadTrustTable({tableData, mode, dataFormat, captionText,
       setData(tableData);
     }
     isInitial = false;
+    setIsLoading(false);
   }, [location]);
   
   useEffect(() => {
