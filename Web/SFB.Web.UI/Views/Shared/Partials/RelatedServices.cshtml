@@ -1,0 +1,39 @@
+﻿@using System.Configuration
+
+<div class="sfb-dashboard-panel">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h3 class="govuk-heading-m govuk-!-font-weight-regular">
+                Related services
+            </h3>
+            <h4 class="govuk-heading-s">
+                These services contain related information and statistics provided by the Department for Education
+            </h4>
+        </div>
+        <div class="govuk-grid-column-full">
+            <p>
+                <a href="https://explore-education-statistics.service.gov.uk/" target="_blank">Explore education statistics</a>
+                <br/>
+                Browse education statistical summaries, create tables and download data sets.
+            </p>
+
+            <p>
+                <a href="@ConfigurationManager.AppSettings["SptApiUrl"]" target="_blank">Find and compare schools in England</a>
+                <br/>
+                Search and check the performance of primary, secondary and special needs schools and colleges.
+            </p>
+
+            <p>
+                <a href="@ConfigurationManager.AppSettings["GiasApiUrl"]" target="_blank">Get information about schools</a>
+                <br/>
+                Find and download information about schools, colleges, educational organisations and governors in England.
+            </p>
+
+            <p>
+                <a href="https://www.gov.uk/government/organisations/department-for-education/about/statistics" target="_blank">Statistics at DfE</a>
+                <br />
+                View how and when the Department for Education publishes official statistics on education and children.
+            </p>
+        </div>
+    </div>
+</div>

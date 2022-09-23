@@ -639,6 +639,7 @@
 	<Content Include="public\govuk-frontend\images\*" />
     <Content Include="robots.txt" />
     <Content Include="tsconfig.json" />
+    <Content Include="Views\Shared\Partials\RelatedServices.cshtml" />
     <Content Include="Views\TrustComparison\SelectComparisonType.cshtml" />
     <Content Include="Views\TrustSelfAssessment\Index.cshtml" />
     <Content Include="Views\TrustSelfAssessment\Partials\BenchmarkCriteriaTable.cshtml" />
