@@ -72,10 +72,10 @@ function Layout({
           </details>
 
           <div>
-            <button className="sfb-button--download" onClick={(e) => HandleDownloadClick(e)}>
+            <button className="sfb-button--download" onClick={(e) => HandleDownloadClick(e)} disabled={isDownload || isPrinting}>
               Download page
             </button>
-            <button className="sfb-button--print" onClick={(e) => HandlePrintClick(e)}>
+            <button className="sfb-button--print" onClick={(e) => HandlePrintClick(e)} disabled={isDownload || isPrinting}>
               Print page
             </button>
             {(isDownload || isPrinting) &&

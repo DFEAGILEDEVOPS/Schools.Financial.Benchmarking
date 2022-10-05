@@ -15,6 +15,12 @@
     left: 0;
     top: 0.65em;
   }
+  
+  &:disabled {
+    &::before {
+      opacity: 0.5;
+    }
+  }
 }
 
 .sfb-button--download {
@@ -33,5 +39,11 @@
     position: absolute;
     left: 0;
     top: 0.65em;
+  }
+  
+  &:disabled {
+    &::before {
+      opacity: 0.5;
+    }
   }
 }
