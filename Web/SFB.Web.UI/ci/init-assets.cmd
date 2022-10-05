@@ -1,4 +1,4 @@
-call npm run-script build:newAndLegacy
+call npm run-script build:newAndLegacyDev
 @echo off
 echo Exit Code is %errorlevel%
 @echo on
