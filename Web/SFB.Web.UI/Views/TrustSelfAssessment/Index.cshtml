@@ -5,8 +5,7 @@
 @{
     ViewBag.Title = string.Concat("Self-assessment dashboard for ", @Model.TrustName);
     ViewBag.HasMigratedJs = true;
-    var navigationList = new List<KeyValuePair<string, string>>();
-   
+    ViewBag.bodyClasses = "sfb-sad-trust-page";
 }
 @section BackButtonContent{
  @Html.Partial("Partials/Breadcrumbs")
@@ -16,7 +15,7 @@
     <div class="govuk-grid-column-full govuk-!-padding-top-4">
         <h1 class="govuk-heading-xl">Self-assessment dashboard</h1>
     </div>
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-full">
         <p class="govuk-body-s sfb-highlight-container">
             Assessing schools in 
             <strong class="sfb-highlight">
@@ -32,57 +31,25 @@
             <strong>MAT central finance</strong>
         </p>
     </div>
-    <div class="govuk-grid-column-full">
-        <details class="govuk-details sfb-details" data-module="govuk-details">
-            <summary class="govuk-details__summary">
-                <span class="govuk-details__summary-text">
-                    View characteristics used
-                </span>
-            </summary>
-            <div class="govuk-details__text">
-                @Html.Partial("Partials/BenchmarkCriteriaTable")
-            </div>
-        </details>
-    </div>
+    
 </div>
+
 <div id="sad-trust-app">
-    <!-- TODO: Print / save -->
-    @* <div class="govuk-grid-row"> *@
-    @*     <div class="govuk-grid-column-full"> *@
-    @*         <div class="download-link pdf-ppt"> *@
-    @*             <div class="pdf"> *@
-    @*                 <button id="PdfLink" class="link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold"> *@
-    @*                     <img class="icon download-icon" src="~/public/assets/images/icons/download.svg" alt=""/> *@
-    @*                     <span id="PdfLinkText"> Download page</span> *@
-    @*                 </button> *@
-    @*             </div> *@
-    @*         </div> *@
-    @*         <div class="download-link"> *@
-    @*             <div class="print"> *@
-    @*                 <button id="PrintLink" class="no-underline govuk-!-font-size-16 govuk-!-font-weight-bold link-button"> *@
-    @*                     <img class="icon" src="~/public/assets/images/icons/print.svg" alt=""/><span id="PrintLinkText"> Print page</span> *@
-    @*                 </button> *@
-    @*             </div> *@
-    @*         </div> *@
-    @*     </div> *@
-    @* </div> *@
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-quarter sfb-panel__subnav">
             <nav class="sfb-subnav">
                 <ul class="sfb-subnav__section">
                     @foreach (var section in Model.Navigation)
                     {
-                        @panelLink(section)
+                        @PanelLink(section)
                     }
                 </ul>
             </nav>
         </div>
     </div>
-
-
 </div>
 
-@helper panelLink(KeyValuePair<string, string> navigationLink)
+@helper PanelLink(KeyValuePair<string, string> navigationLink)
 {
     var linkText = navigationLink.Value;
     
@@ -103,11 +70,12 @@
 {
     <script>
         var navigation = @Html.Raw(JsonConvert.SerializeObject(Model.Navigation));
-        var sadData = @Html.Raw(JsonConvert.SerializeObject(Model.Academies));
+        var sadData = [...@Html.Raw(JsonConvert.SerializeObject(Model.Academies))];
         var initialSelection = '@Model.CurrentCategory';
         var baseName = '@(string.Concat("TrustSelfAssessment/", Model.Uid))';
         var saBaseUrl = '@(string.Concat(System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"], "/"))';
         var modalMap = @Html.Raw(JsonConvert.SerializeObject(Model.ModalMappings));
+        var trustName = "@Html.Raw(Model.TrustName)";
     </script>
     <script src="@Html.Raw(Html.GetWebpackScriptUrl("SadTrustEntry.*.js"))"></script>
 }

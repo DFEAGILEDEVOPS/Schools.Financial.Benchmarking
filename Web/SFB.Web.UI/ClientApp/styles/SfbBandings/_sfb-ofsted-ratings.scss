@@ -42,6 +42,12 @@
   }
 }
 
+@media print {
+  .ofsted-rating--report-link{
+    display: none;
+  }
+}
+
 .ofsted-rating {
   display: inline-block;
   width: 1.4em;

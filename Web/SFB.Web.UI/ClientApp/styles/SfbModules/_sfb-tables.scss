@@ -107,4 +107,23 @@
 .sfb-sort-table__button-percentageOfExpenditure {
   min-width: 5.5em;
 }
+
+@media print {
+  .sfb-comparison-characteristics-table {
+  }
   
+  .sfb-sadtrust-table__wrapper {
+    page-break-before: always;
+  }
+  .sfb-sadtrust-table {
+    .table-school-name-link,
+    .sfb-sort-table__button {
+      text-decoration: none;
+      color: govuk-colour('black');
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+}

@@ -1,52 +1,47 @@
-import Navigation from './Navigation';
-import {BrowserRouter, Outlet, Route, Routes} from "react-router-dom";
-import {prepareTableRows} from "./prepareTableRows";
-import TableWrapper from "./TableWrapper";
-import {SadDataObject} from "./Models/sadTrustTablesModels";
+import React, {ChangeEvent, useState, StrictMode, useEffect} from 'react';
+import {Outlet, Route, Routes, useLocation} from 'react-router-dom';
+import Frame from 'react-frame-component';
+import {SadDataObject} from './Models/sadTrustTablesModels';
+import CookieManager from '../../AppModules/CookieManager';
+
 import SfbSelect from '../Global/FormControls/SfbSelect';
-import React, {ChangeEvent, useState, StrictMode} from 'react';
+import Navigation from './Navigation';
 import SfbSadMobileNav from './SfbSadMobileNav';
+import Views, {tableData} from './Views';
+import BenchmarkCriteriaTable from './BenchmarkCriteriaTable';
+import DownloadPdf from './DownloadPdf';
+
 declare var navigation: any;
 declare var sadData: any;
-declare var baseName: string;
+declare var trustName: string;
 
+const mainStyles = document.querySelector('head')?.querySelectorAll('link[rel="stylesheet"]')[0] as HTMLLinkElement;
+const styleSrc = mainStyles.href;
 
-const prepData = (data: SadDataObject[]) => {
-  return {
-    InYearBalance: prepareTableRows(data, 'InYearBalance'),
-    RevenueReserve: prepareTableRows(data, 'RevenueReserve'),
-    TeachingStaff: prepareTableRows(data, 'TeachingStaff'),
-    SupplyStaff: prepareTableRows(data, 'SupplyStaff'),
-    EducationSupportStaff: prepareTableRows(data, 'EducationSupportStaff'),
-    AdministrativeAndClericalStaff: prepareTableRows(data, 'AdministrativeAndClericalStaff'),
-    OtherStaffCosts: prepareTableRows(data, 'OtherStaffCosts'),
-    PremisesCosts: prepareTableRows(data, 'PremisesCosts'),
-    EducationalSupplies: prepareTableRows(data, 'EducationalSupplies'),
-    Energy: prepareTableRows(data, 'Energy'),
-    AverageTeacherCost: prepareTableRows(data, 'AverageTeacherCost'),
-    SeniorLeadersAsAPercentageOfWorkforce: prepareTableRows(data, 'SeniorLeadersAsAPercentageOfWorkforce'),
-    PupilToTeacherRatio: prepareTableRows(data, 'PupilToTeacherRatio'),
-    PupilToAdultRatio: prepareTableRows(data, 'PupilToAdultRatio'),
-    OfstedRating: prepareTableRows(data, 'OfstedRating'),
-    Ks2Score: prepareTableRows(data, 'Ks2Score'),
-    Progress8Score: prepareTableRows(data, 'Progress8Score'),
-  };
+declare global {
+  interface Window {
+    ga: any;
+  }
 }
-const tableData = prepData([...sadData.filter((x: SadDataObject) => x.LatestTerm !== null)]);
+let acceptedTrackingCookies = false;
+const policyCookie = CookieManager.getCookie('cookies_policy');
+if (policyCookie) {
+  const cookieSettings = JSON.parse(policyCookie);
+  acceptedTrackingCookies = cookieSettings.usage;
+}
 
 interface LayoutProps {
-  establishmentCount: number;
-  phaseFilter: string;
-  availablePhases: (string | undefined)[];
-  filterValue: string;
-  HandlePhaseChange: (e: ChangeEvent<HTMLSelectElement>) => void;
-  hasKs2Progress: boolean;
-  hasProgress8: boolean;
-}
-
-interface TableWrapperProps {
-  phaseFilter: string;
-  resetPhaseFilter: () => void;
+  establishmentCount: number
+  availablePhases: (string | undefined)[]
+  filterValue: string
+  HandlePhaseChange: (e: ChangeEvent<HTMLSelectElement>) => void
+  hasKs2Progress: boolean
+  hasProgress8: boolean
+  isLoading?: boolean
+  isPrinting: boolean
+  HandlePrintClick: (e: React.MouseEvent<HTMLButtonElement>) => void
+  isDownload: boolean
+  HandleDownloadClick: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 function Layout({
@@ -55,27 +50,64 @@ function Layout({
     HandlePhaseChange,
     filterValue,
     hasKs2Progress,
-    hasProgress8
+    hasProgress8,
+    isPrinting,
+    HandlePrintClick,
+    isDownload,
+    HandleDownloadClick
   }: LayoutProps) {
   return (
     <>
+      <div className="govuk-grid-row">
+        <div className="govuk-grid-column-full">
+          <details className="govuk-details sfb-details" data-module="govuk-details">
+            <summary className="govuk-details__summary">
+                <span className="govuk-details__summary-text">
+                    View characteristics used
+                </span>
+            </summary>
+            <div className="govuk-details__text">
+              <BenchmarkCriteriaTable academies={sadData}/>
+            </div>
+          </details>
+
+          <div>
+            <button className="sfb-button--download" onClick={(e) => HandleDownloadClick(e)}>
+              Download page
+            </button>
+            <button className="sfb-button--print" onClick={(e) => HandlePrintClick(e)}>
+              Print page
+            </button>
+            {(isDownload || isPrinting) &&
+              <p className="govuk-body-s">Preparing {isPrinting && "print preview"} {isDownload && "your download"}</p>
+            }
+          </div>
+          {establishmentCount < 15 &&
+            <hr className="govuk-section-break govuk-section-break--m"/>
+          }
+        </div>
+      </div>
+      
       {(establishmentCount >= 15 && availablePhases.length > 2) &&
         <>
-          <hr className="govuk-section-break govuk-section-break--m govuk-section-break--visible"/>
-          <SfbSelect
-            label="School phase"
-            id="school-phase"
-            options={availablePhases}
-            onChange={HandlePhaseChange}
-            skipLinkTarget="sad-trust-data-table"
-            value={filterValue} />
-          
-          <hr className="govuk-section-break govuk-section-break--m govuk-section-break--visible"/>
+          <div className="govuk-grid-row">
+            <div className="govuk-grid-column-full">
+              <hr className="govuk-section-break govuk-section-break--m govuk-section-break--visible"/>
+              <SfbSelect
+                label="School phase"
+                id="school-phase"
+                options={availablePhases}
+                onChange={HandlePhaseChange}
+                skipLinkTarget="sad-trust-data-table"
+                value={filterValue}/>
+              <hr className="govuk-section-break govuk-section-break--m govuk-section-break--visible"/>
+            </div>
+          </div>
         </>
       }
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-quarter sfb-panel__subnav-mobile">
-          <SfbSadMobileNav navigationItems={navigation} hasProgress8={hasProgress8} hasKs2Progress={hasKs2Progress} />
+          <SfbSadMobileNav navigationItems={navigation} hasProgress8={hasProgress8} hasKs2Progress={hasKs2Progress}/>
         </div>
         <div className="govuk-grid-column-one-quarter sfb-panel__subnav-desktop">
           <Navigation navigationItems={navigation} hasProgress8={hasProgress8} hasKs2Progress={hasKs2Progress}/>
@@ -84,255 +116,172 @@ function Layout({
           <Outlet/>
         </div>
       </div>
+
+      {isPrinting &&
+        <Frame 
+          id="sfb-dashboard-print-frame"
+          width="1070"
+          className="sfb-dashboard-print-frame"
+          initialContent={
+            `<!DOCTYPE html><html lang="en">
+              <head><title>${document.title}</title>
+              <link rel="stylesheet" href="${styleSrc}"/>
+                </head>
+                <body><div></div></body>
+                </html>`}>
+          <div className="govuk-grid-row">
+            <div className="govuk-grid-column-full sfb-print-container">
+              <BenchmarkCriteriaTable academies={sadData}/>
+              <Views.PrintAll
+                hasKs2Progress={hasKs2Progress}
+                hasProgress8={hasProgress8}
+                phaseFilter={'All'}
+                isLoading={false}/>
+            </div>
+          </div>
+        </Frame>
+      }
+      {isDownload &&
+        <Frame
+          id="sfb-dashboard-download-frame"
+          width="1070"
+          className="sfb-dashboard-print-frame"
+          initialContent={
+            `<!DOCTYPE html><html lang="en">
+                    <head><title>${document.title}</title>
+                    <link rel="stylesheet" href="${styleSrc}"/>
+                      </head>
+                      <body><div></div></body>
+                      </html>`}>
+          <div className="govuk-grid-row">
+            <div className="govuk-grid-column-full sfb-print-container">
+              <BenchmarkCriteriaTable academies={sadData} isDownload={true}/>
+              <DownloadPdf
+                hasKs2Progress={hasKs2Progress}
+                hasProgress8={hasProgress8}
+                phaseFilter={'All'}
+                isLoading={false}
+                trustName={trustName}/>
+            </div>
+          </div>
+        </Frame>
+      }
     </>
-
-  );
-}
-
-function InYearBalance({phaseFilter, resetPhaseFilter}: TableWrapperProps) {
-  return (
-    <TableWrapper
-      tableData={tableData.InYearBalance}
-      mode="income"
-      captionText="In year balance"
-      phaseFilter={phaseFilter}
-      resetPhaseFilter={resetPhaseFilter} />
-  );
-}
-
-function RevenueReserve({phaseFilter, resetPhaseFilter}: TableWrapperProps) {
-  return (
-    <TableWrapper
-      tableData={tableData.RevenueReserve}
-      mode="income"
-      captionText="Revenue reserve"
-      phaseFilter={phaseFilter}
-      resetPhaseFilter={resetPhaseFilter} />
-  );
-}
-
-function TeachingStaff({phaseFilter, resetPhaseFilter}: TableWrapperProps) {
-  return (
-    <TableWrapper
-      tableData={tableData.TeachingStaff}
-      mode="expenditure"
-      captionText="Teaching staff"
-      phaseFilter={phaseFilter}
-      resetPhaseFilter={resetPhaseFilter} />
-  );
-}
-
-function SupplyStaff({phaseFilter, resetPhaseFilter}: TableWrapperProps) {
-  return (
-    <TableWrapper
-      tableData={tableData.SupplyStaff}
-      mode="expenditure"
-      captionText="Supply staff"
-      phaseFilter={phaseFilter}
-      resetPhaseFilter={resetPhaseFilter} />
-  );
-}
-
-function EducationSupportStaff({phaseFilter, resetPhaseFilter}: TableWrapperProps) {
-  return (
-    <TableWrapper
-      tableData={tableData.EducationSupportStaff}
-      mode="expenditure"
-      captionText="Education support staff"
-      phaseFilter={phaseFilter}
-      resetPhaseFilter={resetPhaseFilter} />
-  );
-}
-
-function AdministrativeAndClericalStaff({phaseFilter, resetPhaseFilter}: TableWrapperProps) {
-  return (
-    <TableWrapper
-      tableData={tableData.AdministrativeAndClericalStaff}
-      mode="expenditure"
-      captionText="Administrative and clerical staff"
-      phaseFilter={phaseFilter}
-      resetPhaseFilter={resetPhaseFilter} />
-  );
-}
-
-function OtherStaffCosts({phaseFilter, resetPhaseFilter}: TableWrapperProps) {
-  return (
-    <TableWrapper
-      tableData={tableData.OtherStaffCosts}
-      mode="expenditure"
-      captionText="Other staff costs"
-      phaseFilter={phaseFilter}
-      resetPhaseFilter={resetPhaseFilter} />
-  );
-}
-
-function PremisesCosts({phaseFilter, resetPhaseFilter}: TableWrapperProps) {
-  return (
-    <TableWrapper
-      tableData={tableData.PremisesCosts}
-      mode="expenditure"
-      captionText="Premises costs"
-      phaseFilter={phaseFilter}
-      resetPhaseFilter={resetPhaseFilter} />
-  );
-}
-
-function EducationalSupplies({phaseFilter, resetPhaseFilter}: TableWrapperProps) {
-  return (
-    <TableWrapper
-      tableData={tableData.EducationalSupplies}
-      mode="expenditure"
-      captionText="Educational supplies"
-      phaseFilter={phaseFilter}
-      resetPhaseFilter={resetPhaseFilter} />
-  );
-}
-
-function Energy({phaseFilter, resetPhaseFilter}: TableWrapperProps) {
-  return (
-    <TableWrapper
-      tableData={tableData.Energy}
-      mode="expenditure"
-      captionText="Energy"
-      phaseFilter={phaseFilter}
-      resetPhaseFilter={resetPhaseFilter} />
-  );
-}
-
-function AverageTeacherCost({phaseFilter, resetPhaseFilter}: TableWrapperProps) {
-  return (
-    <TableWrapper
-      tableData={tableData.AverageTeacherCost}
-      mode="characteristics"
-      dataFormat="currency"
-      captionText="Average teacher cost"
-      phaseFilter={phaseFilter}
-      resetPhaseFilter={resetPhaseFilter} />
-  );
-}
-
-function SeniorLeadersAsAPercentageOfWorkforce({phaseFilter, resetPhaseFilter}: TableWrapperProps) {
-  return (
-    <TableWrapper
-      tableData={tableData.SeniorLeadersAsAPercentageOfWorkforce}
-      mode="characteristics"
-      dataFormat="percentage"
-      captionText="Senior leaders as a percentage of workforce"
-      phaseFilter={phaseFilter}
-      resetPhaseFilter={resetPhaseFilter}/>
-  );
-}
-
-function PupilToTeacherRatio({phaseFilter, resetPhaseFilter}: TableWrapperProps) {
-  return (
-    <TableWrapper
-      tableData={tableData.PupilToTeacherRatio}
-      mode="characteristics"
-      captionText="Pupil to teacher ratio"
-      phaseFilter={phaseFilter}
-      resetPhaseFilter={resetPhaseFilter}/>
-  );
-}
-
-function PupilToAdultRatio({phaseFilter, resetPhaseFilter}: TableWrapperProps) {
-  return (
-    <TableWrapper
-      tableData={tableData.PupilToAdultRatio}
-      mode="characteristics"
-      captionText="Pupil to adult ratio"
-      phaseFilter={phaseFilter}
-      resetPhaseFilter={resetPhaseFilter}/>
   );
 }
 
 
-function OfstedRating({phaseFilter, resetPhaseFilter}: TableWrapperProps) {
-  return (
-    <TableWrapper
-      tableData={tableData.OfstedRating}
-      mode="outcomes"
-      captionText="Ofsted rating"
-      phaseFilter={phaseFilter}
-      resetPhaseFilter={resetPhaseFilter}/>
-  )
-}
-
-function Ks2Score({phaseFilter, resetPhaseFilter}: TableWrapperProps) {
-  return (
-    <TableWrapper
-      tableData={tableData.Ks2Score}
-      mode="outcomes"
-      captionText="KS2 score"
-      phaseFilter={phaseFilter}
-      resetPhaseFilter={resetPhaseFilter}/>
-  );
-}
-
-function Progress8Score({phaseFilter, resetPhaseFilter}: TableWrapperProps) {
-  return (
-    <TableWrapper
-      tableData={tableData.Progress8Score}
-      mode="outcomes"
-      captionText="Progress 8 score"
-      phaseFilter={phaseFilter}
-      resetPhaseFilter={resetPhaseFilter} />
-  );
-}
+let isInitial = true;
 
 export default function SadTrustApp() {
   const phases: (string | undefined)[] = sadData.map((item: SadDataObject) => item.OverallPhase)
-    .filter((v:string, i: number, a: string) => a.indexOf(v) === i);
-  const allPhases = ['All', ...phases];
-  
+    .filter((v: string, i: number, a: string) => a.indexOf(v) === i);
+  const availablePhases = ['All', ...phases];
   const hasKs2Progress = tableData.Ks2Score.length > 0;
   const hasProgress8 = tableData.Progress8Score.length > 0;
-  
-  const [establishmentCount, setEstablishmentCount] = useState<number>(sadData.length);
+  const establishmentCount = sadData.length;
+  const [isPrint, setIsPrint] = useState<boolean>(false);
+  const [isDownload, setIsDownload] = useState<boolean>(false);
   const [phaseFilter, setPhaseFilter] = useState<string>('All');
-  const [availablePhases, setAvailablePhases] = useState<(string | undefined)[]>(allPhases);
-  const HandlePhaseChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const HandlePhaseChange = (e: ChangeEvent<HTMLSelectElement>): void => {
     setPhaseFilter(e.target.value);
   }
-  const ResetPhaseFilter = () => {
-    setPhaseFilter('All');
+
+  const HandlePrintClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    setIsPrint(true);
+    window.setTimeout(() => {
+      setIsPrint(false);
+    }, 4000);
   }
+
+  const HandleDownloadClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    setIsDownload(true);
+    window.setTimeout(() => {
+      setIsDownload(false);
+    }, 6000);
+  }
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (acceptedTrackingCookies) {
+      window.ga('set', 'page', window.location.toString());
+      window.ga('send', 'pageview');
+    }
+    if (!isInitial) {
+      setIsLoading(true);
+      setPhaseFilter('All');
+      window.scrollTo(0, 0);
+      const table = document.querySelector('.sfb-sadtrust-table');
+      if (table instanceof HTMLTableElement) {
+        table.focus();
+      }
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+
+      return () => {
+        clearTimeout(timer);
+      }
+    }
+    isInitial = false;
+    setIsLoading(false);
+  }, [location]);
 
   return (
     <StrictMode>
-    <BrowserRouter basename={baseName}>
       <Routes>
-        <Route path={"/"} 
+        <Route path={"/"}
                element={
-                  <Layout
-                    phaseFilter={phaseFilter}
-                    availablePhases={availablePhases}
-                    establishmentCount={establishmentCount}
-                    HandlePhaseChange={HandlePhaseChange}
-                    filterValue={phaseFilter}
-                    hasKs2Progress={hasKs2Progress}
-                    hasProgress8={hasProgress8}/>
+                 <Layout
+                   availablePhases={availablePhases}
+                   establishmentCount={establishmentCount}
+                   HandlePhaseChange={HandlePhaseChange}
+                   filterValue={phaseFilter}
+                   hasKs2Progress={hasKs2Progress}
+                   hasProgress8={hasProgress8}
+                   isPrinting={isPrint}
+                   HandlePrintClick={HandlePrintClick}
+                   isDownload={isDownload}
+                   HandleDownloadClick={HandleDownloadClick}
+                 />
                }>
-          
-          <Route path="/InYearBalance" element={<InYearBalance phaseFilter={phaseFilter} resetPhaseFilter={ResetPhaseFilter} />}/>
-          <Route path="/RevenueReserve" element={<RevenueReserve phaseFilter={phaseFilter} resetPhaseFilter={ResetPhaseFilter} />}/>
-          <Route path="/TeachingStaff" element={<TeachingStaff phaseFilter={phaseFilter} resetPhaseFilter={ResetPhaseFilter} />}/>
-          <Route path="/SupplyStaff" element={<SupplyStaff phaseFilter={phaseFilter} resetPhaseFilter={ResetPhaseFilter}  />}/>
-          <Route path="/EducationSupportStaff" element={<EducationSupportStaff phaseFilter={phaseFilter} resetPhaseFilter={ResetPhaseFilter} />}/>
-          <Route path="/AdministrativeAndClericalStaff" element={<AdministrativeAndClericalStaff phaseFilter={phaseFilter} resetPhaseFilter={ResetPhaseFilter} />}/>
-          <Route path="/OtherStaffCosts" element={<OtherStaffCosts phaseFilter={phaseFilter} resetPhaseFilter={ResetPhaseFilter} />}/>
-          <Route path="/PremisesCosts" element={<PremisesCosts phaseFilter={phaseFilter} resetPhaseFilter={ResetPhaseFilter} />}/>
-          <Route path="/EducationalSupplies" element={<EducationalSupplies  phaseFilter={phaseFilter} resetPhaseFilter={ResetPhaseFilter}  />}/>
-          <Route path="/Energy" element={<Energy  phaseFilter={phaseFilter} resetPhaseFilter={ResetPhaseFilter} />}/>
-          <Route path="/AverageTeacherCost" element={<AverageTeacherCost phaseFilter={phaseFilter} resetPhaseFilter={ResetPhaseFilter} />}/>
-          <Route path="/SeniorLeadersAsAPercentageOfWorkforce" element={<SeniorLeadersAsAPercentageOfWorkforce phaseFilter={phaseFilter} resetPhaseFilter={ResetPhaseFilter} />}/>
-          <Route path="/PupilToTeacherRatio" element={<PupilToTeacherRatio phaseFilter={phaseFilter} resetPhaseFilter={ResetPhaseFilter} />}/>
-          <Route path="/PupilToAdultRatio" element={<PupilToAdultRatio phaseFilter={phaseFilter} resetPhaseFilter={ResetPhaseFilter} />}/>
-          <Route path="/OfstedRating" element={<OfstedRating phaseFilter={phaseFilter} resetPhaseFilter={ResetPhaseFilter} />}/>
-          <Route path="/Ks2Score" element={<Ks2Score phaseFilter={phaseFilter} resetPhaseFilter={ResetPhaseFilter} />}/>
-          <Route path="/Progress8Score" element={<Progress8Score phaseFilter={phaseFilter} resetPhaseFilter={ResetPhaseFilter} />}/>
+
+          <Route path="/InYearBalance"
+                 element={<Views.InYearBalance phaseFilter={phaseFilter} isLoading={isLoading}/>}/>
+          <Route path="/RevenueReserve"
+                 element={<Views.RevenueReserve phaseFilter={phaseFilter} isLoading={isLoading}/>}/>
+          <Route path="/TeachingStaff"
+                 element={<Views.TeachingStaff phaseFilter={phaseFilter} isLoading={isLoading}/>}/>
+          <Route path="/SupplyStaff" element={<Views.SupplyStaff phaseFilter={phaseFilter} isLoading={isLoading}/>}/>
+          <Route path="/EducationSupportStaff"
+                 element={<Views.EducationSupportStaff phaseFilter={phaseFilter} isLoading={isLoading}/>}/>
+          <Route path="/AdministrativeAndClericalStaff"
+                 element={<Views.AdministrativeAndClericalStaff phaseFilter={phaseFilter} isLoading={isLoading}/>}/>
+          <Route path="/OtherStaffCosts"
+                 element={<Views.OtherStaffCosts phaseFilter={phaseFilter} isLoading={isLoading}/>}/>
+          <Route path="/PremisesCosts"
+                 element={<Views.PremisesCosts phaseFilter={phaseFilter} isLoading={isLoading}/>}/>
+          <Route path="/EducationalSupplies"
+                 element={<Views.EducationalSupplies phaseFilter={phaseFilter} isLoading={isLoading}/>}/>
+          <Route path="/Energy" element={<Views.Energy phaseFilter={phaseFilter} isLoading={isLoading}/>}/>
+          <Route path="/AverageTeacherCost"
+                 element={<Views.AverageTeacherCost phaseFilter={phaseFilter} isLoading={isLoading}/>}/>
+          <Route path="/SeniorLeadersAsAPercentageOfWorkforce"
+                 element={<Views.SeniorLeadersAsAPercentageOfWorkforce phaseFilter={phaseFilter}
+                                                                       isLoading={isLoading}/>}/>
+          <Route path="/PupilToTeacherRatio"
+                 element={<Views.PupilToTeacherRatio phaseFilter={phaseFilter} isLoading={isLoading}/>}/>
+          <Route path="/PupilToAdultRatio"
+                 element={<Views.PupilToAdultRatio phaseFilter={phaseFilter} isLoading={isLoading}/>}/>
+          <Route path="/OfstedRating" element={<Views.OfstedRating phaseFilter={phaseFilter} isLoading={isLoading}/>}/>
+          <Route path="/Ks2Score" element={<Views.Ks2Score phaseFilter={phaseFilter} isLoading={isLoading}/>}/>
+          <Route path="/Progress8Score"
+                 element={<Views.Progress8Score phaseFilter={phaseFilter} isLoading={isLoading}/>}/>
         </Route>
       </Routes>
-    </BrowserRouter>
     </StrictMode>
   )
 }

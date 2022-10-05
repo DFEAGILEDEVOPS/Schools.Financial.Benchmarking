@@ -592,6 +592,10 @@
     <Content Include="ClientApp\Entry\main.js" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Global\ModalComponents\SfbContentModal.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Global\SfbBanners\SfbWarning.tsx" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\BenchmarkCriteriaTable.tsx" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\DownloadPdf.tsx" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\SfbReportToPdf.tsx" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\Views.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustSummaryApp\CallOutModal.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustSummaryApp\TabPanel.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustSummaryApp\TrustSummaryMobileNav.tsx" />
@@ -604,6 +608,7 @@
     <Content Include="ClientApp\styles\SfbBandings\_variables.scss" />
     <Content Include="ClientApp\styles\SfbGlobal\_all.scss" />
     <Content Include="ClientApp\styles\SfbGlobal\_sfb-banners.scss" />
+    <Content Include="ClientApp\styles\SfbGlobal\_sfb-custom-buttons.scss" />
     <Content Include="ClientApp\styles\SfbGlobal\_sfb-custom-typography.scss" />
     <Content Include="ClientApp\styles\SfbGlobal\_sfb-details-element.scss" />
     <Content Include="ClientApp\styles\SfbGlobal\_sfb-icons.scss" />
@@ -644,7 +649,6 @@
     <Content Include="Views\TrustSelfAssessment\Index.cshtml" />
     <Content Include="Views\TrustSelfAssessment\Partials\BenchmarkCriteriaTable.cshtml" />
     <Content Include="Views\TrustSelfAssessment\Partials\Breadcrumbs.cshtml" />
-    <Content Include="Views\TrustSelfAssessment\Test.cshtml" />
     <Content Include="Views\Trust\Partials\TrustDashboard.cshtml" />
     <Content Include="webpack.config.js" />
     <Content Include="z_App_Offline.htm" />
@@ -1076,7 +1080,6 @@
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\SadTrustApp.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\SadTrustTable.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\SfbSadMobileNav.tsx" />
-    <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\TableWrapper.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustSummaryApp\CharacteristicsTable.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustSummaryApp\Dashboard.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Search\AddSchoolsManually.ts" />

@@ -11,7 +11,24 @@ $govuk-font-url-function: 'font-url';
 
 
 @import "node_modules/govuk-frontend/govuk/all";
+@media print {
+  @page {
+    size: 330mm 427mm;
+    margin: 14mm;
+  }
+  .sfb-print-container {
+    width: 1170px;
+  }
+}
+body {
+  -webkit-print-color-adjust: exact !important;
+  color-adjust: exact;
+}
 
+.sfb-dashboard-print-frame {
+  position: absolute;
+  left: -10000em;
+}
 // non Govuk Styles
 @import "SfbGlobal/all";
 @import "SfbModules/all";

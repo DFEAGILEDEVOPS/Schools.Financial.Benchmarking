@@ -12,3 +12,15 @@
     line-height: 2.2;
   }
 }
+
+@media print {
+  .sfb-highlight a[href]::after {
+    content: '';
+  }
+  
+  .sfb-sad-trust-page {
+    .govuk-breadcrumbs__link::after {
+      content: '';
+    }
+  }
+}

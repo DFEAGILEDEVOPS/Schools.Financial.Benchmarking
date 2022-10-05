@@ -9,3 +9,8 @@
     margin-top: 3px;
   }
 }
+
+@media print {
+  .sfb-help-icon { display: none };
+}
+

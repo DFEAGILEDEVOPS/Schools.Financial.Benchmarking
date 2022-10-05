@@ -1,0 +1,37 @@
+﻿.sfb-button--print {
+  position: relative;
+  background-color: transparent;
+  border: 0;
+  padding: govuk-spacing(2) govuk-spacing(2) govuk-spacing(2) govuk-spacing(6);
+  @include govuk-font(16, 'bold');
+  cursor: pointer;
+  
+  &::before {
+    background-image: url('/public/assets/images/icons/print.svg');
+    content: '';
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+  }
+}
+
+.sfb-button--download {
+  position: relative;
+  background-color: transparent;
+  border: 0;
+  padding: govuk-spacing(2) govuk-spacing(2) govuk-spacing(2) govuk-spacing(6);
+  @include govuk-font(16, 'bold');
+  cursor: pointer;
+
+  &::before {
+    background-image: url('/public/assets/images/icons/download.svg');
+    content: '';
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+  }
+}

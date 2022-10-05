@@ -44,3 +44,10 @@
   padding: 0;
   text-decoration: underline;
 }
+
+@media print {
+  .sfb-panel__subnav-desktop,
+  .sfb-trust-sad__mobile-nav-launcher {
+    display: none;
+  }
+}
