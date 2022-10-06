@@ -612,6 +612,8 @@
     <Content Include="ClientApp\styles\SfbGlobal\_sfb-custom-typography.scss" />
     <Content Include="ClientApp\styles\SfbGlobal\_sfb-details-element.scss" />
     <Content Include="ClientApp\styles\SfbGlobal\_sfb-icons.scss" />
+    <Content Include="ClientApp\styles\SfbGovukOverrides\_accordion.scss" />
+    <Content Include="ClientApp\styles\SfbGovukOverrides\_all.scss" />
     <Content Include="ClientApp\styles\SfbModules\_sfb-dashboards.scss" />
     <Content Include="ClientApp\styles\SfbModules\_sfb-loading-message.scss" />
     <Content Include="ClientApp\styles\SfbModules\_all.scss" />

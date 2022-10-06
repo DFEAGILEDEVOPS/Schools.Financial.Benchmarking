@@ -1,15 +1,8 @@
 ﻿@model SFB.Web.UI.Models.TrustViewModel
 
-<p class="govuk-body govuk-!-margin-top-3 govuk-!-margin-bottom-3">
-    This trust is made up of <span class="govuk-!-font-weight-bold">@Model.AcademiesInContextList.Count</span> of schools.
-    At the time of the <span class="govuk-!-font-weight-bold">@Model.LatestTerm</span> financial submission there were <span class="govuk-!-font-weight-bold">@Model.AcademiesInFinanceList.Count</span> schools in scope for financial benchmarking.
-    Post 16 academies are included for distribution purposes, but they cannot be benchmarked.
-    <a class="govuk-link" href="/TrustSchools?uid=@Model.UID&companyNo=@Model.CompanyNo&matname=@Model.Name">Compare schools in this trust</a>
-</p>
-
 <div class="govuk-accordion govuk-!-margin-bottom-3 app-accordion--no-open-all" data-module="govuk-accordion" id="schools-in-trust-accordion">
-    <div class="govuk-accordion__section current">
-        <div class="govuk-accordion__section-header">
+    <div class="govuk-accordion__section current ">
+        <div class="govuk-accordion__section-header sfb-accordion-hide-top-border">
             <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button" id="CurrentHeader">
                     Schools currently in this trust
@@ -45,6 +38,9 @@
                     </div>
                 }
             </div>
+            <p class="govuk-body">
+                <a class="govuk-link" href="/TrustSchools?uid=@Model.UID&companyNo=@Model.CompanyNo&matname=@Model.Name">Compare schools in this trust</a>
+            </p>
         </div>
     </div>
 
