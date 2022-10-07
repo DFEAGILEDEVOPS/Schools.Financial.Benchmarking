@@ -11,9 +11,10 @@ export default function searchPanelInputManager(){
     window.addEventListener('hashchange', function (){
       const locationHash = window.location.hash;
       const panel = document.querySelector(locationHash);
-      const inputs = panel?.querySelectorAll('.govuk-radios__input , .govuk-button');
+      const inputs = panel?.querySelectorAll('.govuk-button');
       inputs?.forEach(input => input.removeAttribute('disabled'));
     });
+    
     radios.forEach((radio) => {
       if (radio instanceof HTMLInputElement) {
         radio.addEventListener('change', function() {
