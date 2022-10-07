@@ -145,10 +145,11 @@
         </div>
         <div class="govuk-grid-column-full  no-padding">
             <p class="govuk-body-s govuk-!-margin-top-3 govuk-!-margin-bottom-3">
-                This trust has <span class="govuk-!-font-weight-bold">@Model.AcademiesInContextList.Count</span> schools.
+                This trust has <span class="govuk-!-font-weight-bold">@Model.AcademiesInContextList.Count</span>
+                @(Model.AcademiesInContextList.Count > 1 ?  "schools." : "school.")
                 At the time of the <span class="govuk-!-font-weight-bold">@Model.LatestTerm</span>
                 financial submission there were <span class="govuk-!-font-weight-bold">@Model.AcademiesInFinanceList.Count</span>
-                schools in scope for financial benchmarking.
+                @(Model.AcademiesInFinanceList.Count > 1 ?  "schools." : "school.") in scope for financial benchmarking.
                 Post 16 academies are included for distribution purposes, but cannot be benchmarked.
             </p>
         </div>
