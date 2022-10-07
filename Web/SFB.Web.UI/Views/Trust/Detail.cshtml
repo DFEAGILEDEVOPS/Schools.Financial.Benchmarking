@@ -148,8 +148,10 @@
                 This trust has <span class="govuk-!-font-weight-bold">@Model.AcademiesInContextList.Count</span>
                 @(Model.AcademiesInContextList.Count > 1 ?  "schools." : "school.")
                 At the time of the <span class="govuk-!-font-weight-bold">@Model.LatestTerm</span>
-                financial submission there were <span class="govuk-!-font-weight-bold">@Model.AcademiesInFinanceList.Count</span>
-                @(Model.AcademiesInFinanceList.Count > 1 ?  "schools." : "school.") in scope for financial benchmarking.
+                financial submission there
+                @(Model.AcademiesInFinanceList.Count > 1 ?  "were" : "was") 
+                <span class="govuk-!-font-weight-bold">@Model.AcademiesInFinanceList.Count</span>
+                @(Model.AcademiesInFinanceList.Count > 1 ?  "schools" : "school") in scope for financial benchmarking.
                 Post 16 academies are included for distribution purposes, but cannot be benchmarked.
             </p>
         </div>
