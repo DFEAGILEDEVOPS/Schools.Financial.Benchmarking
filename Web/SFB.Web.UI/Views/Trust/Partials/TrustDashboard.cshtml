@@ -1,0 +1,79 @@
+﻿@using SFB.Web.UI.Helpers;
+@using SFB.Web.UI.Helpers.Constants
+@model SFB.Web.UI.Models.TrustViewModel
+<p class="govuk-body-s">
+    Data for academies in a MAT includes an apportioned share of
+    <strong>MAT central finance</strong> on a pro-rata basis using FTE pupil numbers.
+
+</p>
+<div class="sfb-dashboard-panel sfb-call-out-box__container">
+    @CalloutBox("Expenditure", Model.TotalRevenueExpenditure)
+    @CalloutBox("Income", Model.TotalRevenueIncome)
+    @CalloutBox("In-year balance", Model.InYearBalance)
+    @CalloutBox("Revenue reserve", Model.RevenueReserve, "Revenue reserve", @HelpTooltipText.RevenueReserveExplanation)
+</div>
+
+<div class="sfb-dashboard-panel" id="sad-dashboard-app"></div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h2 class="govuk-heading-l">Next steps</h2>
+    </div>
+</div>
+<div class="sfb-dashboard-panel">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h3 class="govuk-heading-m">
+                Resources for improved financial efficiency
+            </h3>
+            <h4 class="govuk-heading-s">
+                The School resource management collection helps ensure that every pound counts
+            </h4>
+        </div>
+        <div class="govuk-grid-column-one-half">
+            <p class="govuk-body-m">The tools and links in the collection are for school leaders, school business professionals, staff and governing bodies in maintained schools, academies, and free schools, as well as local authorities. They help improve outcomes for pupils by getting the best value from school resources.</p>
+        </div>
+        <div class="govuk-grid-column-one-half">
+            <ul class="govuk-list">
+                <li>
+                    <a class="govuk-link sfb_gtm_panel_next_steps sfb_gtm_panel_next_steps_fsrmc" target="_blank" title="Link will open in a new page" rel="external noopener noreferrer" href="https://www.gov.uk/government/collections/schools-financial-health-and-efficiency">Full school resource management collection</a>
+                </li>
+                <li>
+                    <a class="govuk-link sfb_gtm_panel_next_steps sfb_gtm_panel_next_steps_pmyw" target="_blank" title="Link will open in a new page" rel="external noopener noreferrer" href="https://www.gov.uk/government/collections/schools-financial-health-and-efficiency#school-workforce">Plan and manage your workforce</a>
+                </li>
+                <li>
+                    <a class="govuk-link sfb_gtm_panel_next_steps sfb_gtm_panel_next_steps_atfnc" target="_blank" title="Link will open in a new page" rel="external noopener noreferrer" href="https://www.gov.uk/government/collections/schools-financial-health-and-efficiency#non-staff-costs">Advice and tools for non-staff costs</a>
+                </li>
+                <li>
+                    <a class="govuk-link sfb_gtm_panel_next_steps sfb_gtm_panel_next_steps_sbpg" target="_blank" title="Link will open in a new page" rel="external noopener noreferrer" href="https://www.gov.uk/government/collections/schools-financial-health-and-efficiency#school-business-professionals">School business professionals guidance</a>
+                </li>
+                <li>
+                    <a class="govuk-link sfb_gtm_panel_next_steps sfb_gtm_panel_next_steps_gfg" target="_blank" title="Link will open in a new page" rel="external noopener noreferrer" href="https://www.gov.uk/government/collections/schools-financial-health-and-efficiency#guidance-for-governors">Guidance for governors</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("Partials/RelatedServices")
+
+@helper CalloutBox(string title, decimal? total, string helpTextTitle = "", string helpTextContent = "")
+{
+    var formattedValue = total.GetValueOrDefault().ToString("C0");
+    
+    <div class="sfb-call-out-box-wrapper">
+        <div class="sfb-call-out-box">
+            <h2 class="govuk-heading-m sfb-call-out-box__header">@title</h2>
+            <span class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+                <abbr title="@formattedValue" aria-label="@formattedValue pounds" class="inc-total summary">@total.GetValueOrDefault().FormatMoney()</abbr>
+                @if (helpTextContent != "")
+                {
+                    <span class="modal-placeholder" 
+                          id="modal-@helpTextTitle.Replace(" ", String.Empty).ToLower()"
+                          data-modal-text="@helpTextContent"></span>
+                }
+                
+            </span>
+        </div>
+    </div>
+}

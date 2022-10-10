@@ -1,0 +1,82 @@
+﻿@using Newtonsoft.Json
+@using SFB.Web.UI.Helpers
+@model SFB.Web.UI.Models.TrustSelfAssessmentModel
+
+@{
+    ViewBag.Title = string.Concat("Self-assessment dashboard for ", @Model.TrustName);
+    ViewBag.HasMigratedJs = true;
+    ViewBag.bodyClasses = "sfb-sad-trust-page";
+}
+@section BackButtonContent{
+ @Html.Partial("Partials/Breadcrumbs")
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full govuk-!-padding-top-4">
+        <h1 class="govuk-heading-xl">Self-assessment dashboard</h1>
+    </div>
+    <div class="govuk-grid-column-full">
+        <p class="govuk-body-s sfb-highlight-container">
+            Assessing schools in 
+            <strong class="sfb-highlight">
+                @Html.ActionLink(
+                    @Model.TrustName,
+                    "Detail",
+                    "Trust",
+                    new { companyno = @Model.CompanyNumber },
+                    new { @class="govuk-link govuk-link--inverse"}
+                    )
+            </strong>
+            using <strong>2020/2021</strong> finance data. This data includes each academy's share of
+            <strong>MAT central finance</strong>
+        </p>
+    </div>
+    
+</div>
+
+<div id="sad-trust-app">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-quarter sfb-panel__subnav">
+            <nav class="sfb-subnav">
+                <ul class="sfb-subnav__section">
+                    @foreach (var section in Model.Navigation)
+                    {
+                        @PanelLink(section)
+                    }
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+@helper PanelLink(KeyValuePair<string, string> navigationLink)
+{
+    var linkText = navigationLink.Value;
+    
+    var containerClasses = "sfb-subnav__item";
+    if (Model.CurrentCategory.ToString() == navigationLink.Key)
+    {
+        containerClasses = string.Concat(containerClasses, " sfb-subnav__item--current");
+    }
+    var linkClasses = "sfb-subnav__link govuk-link govuk-link--no-visited-state govuk-link--no-underline";
+    <li class="@containerClasses">
+        <a class="@linkClasses" href="@navigationLink.Key">@linkText</a>
+    </li>
+    
+}
+
+
+@section ViewScripts
+{
+    <script>
+        var navigation = @Html.Raw(JsonConvert.SerializeObject(Model.Navigation));
+        var sadData = [...@Html.Raw(JsonConvert.SerializeObject(Model.Academies))];
+        var initialSelection = '@Model.CurrentCategory';
+        var baseName = '@(string.Concat("TrustSelfAssessment/", Model.Uid))';
+        var saBaseUrl = '@(string.Concat(System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"], "/"))';
+        var modalMap = @Html.Raw(JsonConvert.SerializeObject(Model.ModalMappings));
+        var trustName = "@Html.Raw(Model.TrustName)";
+    </script>
+    <script src="@Html.Raw(Html.GetWebpackScriptUrl("SadTrustEntry.*.js"))"></script>
+}
+

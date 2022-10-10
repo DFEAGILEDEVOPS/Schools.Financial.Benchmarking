@@ -24,7 +24,7 @@ namespace SFB.Web.UI.Controllers
     public class TrustController : Controller
     {
         private readonly IFinancialDataService _financialDataService;
-        private readonly IContextDataService _contexDataService;
+        private readonly IContextDataService _contextDataService;
         private readonly IHistoricalChartBuilder _historicalChartBuilder;
         private readonly IFinancialCalculationsService _fcService;
         private readonly ITrustHistoryService _trustHistoryService;
@@ -41,7 +41,7 @@ namespace SFB.Web.UI.Controllers
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
-            _contexDataService = contextDataService;
+            _contextDataService = contextDataService;
             _fcService = fcService;
             _csvBuilder = csvBuilder;
             _benchmarkBasketService = benchmarkBasketService;
@@ -49,6 +49,8 @@ namespace SFB.Web.UI.Controllers
             _giasLookupService = giasLookupService;
             _cscpLookupService = cscpLookupService;
         }
+        
+        private string[] exclusionPhaseList =  { "Nursery", "Pupil referral unit", "Special" , "16 plus"};
 
         public async Task<ActionResult> Index(int? companyNo, int? uid = null, UnitType unit = UnitType.AbsoluteMoney, TabType tab = TabType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
         {
@@ -195,7 +197,10 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Financing = financing;
             ViewBag.ChartFormat = format;
             ViewBag.EstablishmentType = EstablishmentType.MAT;
-
+            
+            var trustSchoolsPhases = trustVM.AcademiesInContextList.Select(x => x.OverallPhase).ToList();
+            
+            ViewBag.ShouldShowDashBoard = trustSchoolsPhases.Count(x => exclusionPhaseList.All(y => y != x)) > 0;
             return View("Detail", trustVM);
         }
 
@@ -249,7 +254,7 @@ namespace SFB.Web.UI.Controllers
         {
             var trustVM = await BuildFinancialTrustVMAsync(companyNo, tab, chartGroup, matFinancing);
             
-            trustVM.AcademiesInContextList = (await _contexDataService.GetAcademiesByUidAsync(trustVM.UID.GetValueOrDefault())).OrderBy(a => a.EstablishmentName).ToList();
+            trustVM.AcademiesInContextList = (await _contextDataService.GetAcademiesByUidAsync(trustVM.UID.GetValueOrDefault())).OrderBy(a => a.EstablishmentName).ToList();
 
             if (trustVM.UID != null)
             {

@@ -1,0 +1,251 @@
+﻿@use "../SfbBandings/variables" as v;
+@include mq-add-breakpoint(dashBoardDeskTop, 950px);
+
+.sfb-dashboard-panel {
+  background-color: govuk-colour('light-grey');
+  padding: govuk-spacing(5) govuk-spacing(7) govuk-spacing(4);
+  margin-bottom: govuk-spacing(4);
+  overflow: hidden;
+
+  @include govuk-media-query($until: tablet) {
+    padding: govuk-spacing(3) govuk-spacing(3) govuk-spacing(2);
+  }
+}
+
+.sfb-call-out-box-wrapper {
+  width: 25%;
+  text-align: center;
+  
+  @include govuk-media-query($until: tablet) {
+    width: 100%;
+    display: block;
+  }
+  
+}
+
+.sfb-call-out-box__container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: govuk-spacing(4) govuk-spacing(4) govuk-spacing(5);
+}
+
+.sfb-call-out-box {
+  background-color: govuk-colour('white');
+  border: 1px solid $govuk-border-colour;
+  box-shadow: 1px 1px govuk-colour('mid-grey');
+  border-radius: govuk-spacing(1);
+  position: relative;
+  min-height: 100px;
+  padding: govuk-spacing(1) govuk-spacing(1) govuk-spacing(3);
+  margin: 0 auto;
+  max-width: 90%;
+  
+  @include govuk-media-query($until: tablet) {
+    margin-bottom: govuk-spacing(6);
+  }
+  
+  &::before {
+      content: "";
+      position: absolute;
+      bottom: -18px;
+      left: 48%;
+      height: 20px;
+      width: 20px;
+      background: govuk-colour('white');
+      transform: rotate( 45deg ) translate(-50%);
+      border-bottom: inherit;
+      border-right: inherit;
+      box-shadow: inherit;
+  }
+
+  .sfb-call-out-box__header {
+    margin: 10px 0;
+  }
+}
+
+
+
+.sfb-panel-tabs {
+  border-bottom: $govuk-border-colour 1px solid;
+  margin-bottom: govuk-spacing(4);
+  padding-bottom: 0;
+  display: none;
+
+  ul {
+    display: flex;
+    justify-content: space-between;
+    //align-items: flex-end; 
+    margin: 0;
+    padding: 0;
+
+    li {
+      list-style: none;
+      padding: 0 5px 0;
+      margin: 0 govuk-spacing(1) 0 0;
+      width: 12.5%;
+    }
+  }
+  
+  @include govuk-media-query($from: dashBoardDeskTop) {
+    display: block;
+  }
+}
+
+.sfb-sad-dashboard-mobile-nav {
+  display: block;
+  
+  @include govuk-media-query($from: dashBoardDeskTop) {
+    display: none;
+  }
+}
+
+.sfb-panel-tab {
+  border-bottom: 3px solid govuk-colour('light-grey');
+  display: block;
+  float: left;
+  text-decoration: none;
+  
+  &:focus {
+    box-shadow: none;
+    background-color: transparent;
+    color: $govuk-link-colour;
+  }
+}
+
+.sfb-panel-tab__selected {
+  font-weight: bold;
+  border-color: govuk-colour('blue');
+}
+
+.sfb-panel-tabs__tab_content {
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  
+  @include govuk-media-query($until: dashBoardDeskTop) {
+    display: block;
+  }
+}
+
+.sfb-rating-panel-card {
+  width: 14.2857%;
+  text-align: center;
+  position: relative;
+  padding-bottom: govuk-spacing(8);
+
+  .sfb-call-out-box {
+    width: 100px;
+    height: 80px;
+    margin: 0 auto;
+    padding: govuk-spacing(1);
+    
+    @include govuk-media-query($until: dashBoardDeskTop) {
+      width: 40%;
+      height: 60px;
+      min-height: auto;
+      margin-top: 10px;
+      margin-left: 20px;
+      text-align: center;
+    }
+    
+    &::before {
+      @include govuk-media-query($until: dashBoardDeskTop) {
+        left: -4px;
+        bottom: 45%;
+        transform: rotate(135deg) translate(50%);
+        box-shadow: none;
+      }
+    }
+  }
+  
+  .sfb-call-out-box__header {
+    margin: 0;
+    @include govuk-font(24, 'bold')
+  }
+  
+  .sfb-call-out-box__subtext {
+    margin: 0;
+    padding: 0;
+    @include govuk-font(16, 'bold')
+  }
+  
+  @include govuk-media-query($until: dashBoardDeskTop) {
+    text-align: left;
+    width: auto;
+    padding-bottom: 0;
+    margin-bottom: govuk-spacing(2);
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+
+    .sfb-call-out-box__content {
+      position: relative;
+      top: -10px;
+      max-width: 61%;
+      margin: 0 auto;
+    }
+  }
+}
+
+
+@include govuk-media-query($from: dashBoardDeskTop) {
+  .sfb-rating-panel-card-7 {
+    padding-bottom: 70px;
+  }
+
+  .sfb-rating-panel-card-5 {
+    width: 20%;
+    padding-bottom: 70px;
+  }
+
+  .sfb-rating-panel-card-3 {
+    width: 33.333333%;
+  }
+}
+
+.sfb-rating-panel-banding {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  border-top: 12px solid;
+
+  @include govuk-media-query($until: dashBoardDeskTop) {
+    width: calc(50% - 15px);
+    position: relative;
+    border-top: 0;
+    border-left: 12px solid;
+    background-color: govuk-colour('white');
+    @include govuk-font(16);
+  }
+  
+  p {
+    @include govuk-font(14);
+    padding: 0 govuk-spacing(1);
+    margin: 0;
+
+    @include govuk-media-query($until: dashBoardDeskTop) {
+      padding: govuk-spacing(4) govuk-spacing(1);
+      margin-bottom: govuk-spacing(1);
+      
+      @include govuk-font(16);
+    }
+  }
+}
+
+.sfb-rating-panel-banding__red {
+  border-color: v.$dashboard-red;
+}
+
+.sfb-rating-panel-banding__amber {
+  border-color: v.$dashboard-amber;
+}
+
+.sfb-rating-panel-banding__lightgreen {
+  border-color: v.$dashboard-light-green;
+}
+
+.sfb-rating-panel-banding__darkgreen {
+  border-color: v.$dashboard-green;
+}

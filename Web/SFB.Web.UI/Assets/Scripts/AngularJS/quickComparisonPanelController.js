@@ -12,8 +12,15 @@ app.controller('QuickComparisonPanelController',
 
                 $scope.compList = null;
                 $http.get('/benchmarkCharts/GetSchoolListFromSimpleCriteria?id=' + $scope.id).then(function (response) {
-                    $scope.compList = response.data;
-                    self.renderQcChart();
+                   response.data.schools = response.data.schools.map((s) => {
+                     if (s.SchoolName === ' ' && s.FederationName) {
+                       s.SchoolName = s.FederationName;
+                     }
+                     return s;
+                   });
+                   
+                   $scope.compList = response.data;
+                   self.renderQcChart();
                 });
 
                 self.changeQcTab = function(chartName, event) {

@@ -1,0 +1,88 @@
+﻿@use "variables" as v;
+
+.ofsted-rating--container {
+  display: flex;
+  justify-content: space-between;
+  min-width: 510px;
+  
+  @include govuk-media-query($until: tablet) {
+    min-width: auto;
+  }
+}
+
+.ofsted-rating__detail {
+  width: 80%;
+}
+
+.ofsted-rating--score {
+  display: inline-block;
+}
+
+.ofsted-rating--text {
+  display: inline-block;
+}
+
+.ofsted-rating--report-link {
+  display: inline-block;
+  padding: 0 govuk-spacing(2);
+  position: relative;
+
+  &::before {
+    content: "|";
+    display: inline;
+    position: absolute;
+    left: 2px;
+  }
+  
+  &::after {
+    content: "|";
+    display: inline;
+    position: absolute;
+    right: 2px;
+  }
+}
+
+@media print {
+  .ofsted-rating--report-link{
+    display: none;
+  }
+}
+
+.ofsted-rating {
+  display: inline-block;
+  width: 1.4em;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 3px;
+  color: govuk-colour('white');
+  margin-right: govuk-spacing(1);
+}
+
+.ofsted-rating-1 {
+  background-color: v.$ofsted-green;
+}
+
+.ofsted-rating-2 {
+  background-color: v.$ofsted-blue;
+}
+
+.ofsted-rating-3 {
+  background-color: v.$ofsted-amber;
+  color: govuk-colour('black');
+}
+
+.ofsted-rating-4 {
+  background-color: v.$ofsted-red;
+}
+
+.ofsted-rating-0 {
+  background-color: #1d70b8;
+  width: auto;
+  font-weight: normal;
+  padding: 0 5px;
+}
+
+.rating-unknown {
+  background-color: govuk-colour('white');
+  border: 2px solid govuk-colour('black');
+}

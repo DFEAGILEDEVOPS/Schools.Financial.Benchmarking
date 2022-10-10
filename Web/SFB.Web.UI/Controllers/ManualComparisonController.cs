@@ -31,8 +31,9 @@ namespace SFB.Web.UI.Controllers
 
         public ManualComparisonController(ISchoolBenchmarkListService benchmarkBasketService, ILocalAuthoritiesService laService, 
             IContextDataService contextDataService, IValidationService valService, ILocationSearchService locationSearchService, 
-            ISchoolSearchService schoolSearchService, IFilterBuilder filterBuilder, ILaSearchService laSearchService, IManualBenchmarkListService manualBenchmarkListService)
-            : base(schoolSearchService, null, benchmarkBasketService, filterBuilder)
+            ISchoolSearchService schoolSearchService, IFilterBuilder filterBuilder, ILaSearchService laSearchService, IManualBenchmarkListService manualBenchmarkListService,
+            IPlacesLookupService placesLookupService)
+            : base(schoolSearchService, null, benchmarkBasketService, filterBuilder, placesLookupService)
         {
             _laService = laService;
             _laSearchService = laSearchService;

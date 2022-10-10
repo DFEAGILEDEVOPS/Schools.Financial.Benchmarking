@@ -77,7 +77,7 @@
                 <td class="govuk-table__cell">
                     <span class="rating rating-@Model.OfstedRating"> @Model.OfstedRating </span><span class="rating-text"> @Model.OfstedRatingText </span>
                     <span class="ofsted-divider" aria-hidden="true"> | </span>
-                    <a target="_blank" rel="external noopener noreferrer\" class="govuk-link" href="https://reports.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/@Model.Id.ToString()"> Ofsted report<span class="govuk-visually-hidden">Opens in a new window</span></a>
+                    <a target="_blank" rel="external noopener noreferrer" class="govuk-link" href="https://reports.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/@Model.Id.ToString()"> Ofsted report<span class="govuk-visually-hidden">Opens in a new window</span></a>
                     <span class="ofsted-divider" aria-hidden="true"> | </span>
                     <span> Inspected @Model.OfstedInspectionDate</span>
                 </td>
@@ -198,16 +198,16 @@
         @if (Model.HasCscpUrl || Model.HasGiasUrl)
         {
             <tr class="govuk-table__row">
-                <th scope="row" class="govuk-table__header">Data from other services:</th>
+                <th scope="row" class="govuk-table__header">View this school's data from other services:</th>
                 <td class="govuk-table__cell">
                     @if (Model.HasCscpUrl)
                     {
-                        <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_spt" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Find and compare schools in England<span class="govuk-visually-hidden"> Opens in a new window</span></a>
+                        <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_spt cscp-ext-link" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Find and compare schools in England<span class="govuk-visually-hidden"> Opens in a new window</span></a>
                         <br/>
                     }
                     @if (Model.HasGiasUrl)
                     {
-                        <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get information about schools<span class="govuk-visually-hidden"> Opens in a new window</span></a>
+                        <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_more_info gias-ext-link" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get information about schools<span class="govuk-visually-hidden"> Opens in a new window</span></a>
                     }
 
                 </td>

@@ -170,7 +170,7 @@
                 liveSearch.displayResults(response, this.searchState);
                 liveSearch.toggleSortControl();
                 $('.pagination a').on('click', liveSearch.pageChange.bind(liveSearch));
-            }).error(function () {
+            }).fail(function () {
                 liveSearch.showErrorIndicator();
             });
         } else {

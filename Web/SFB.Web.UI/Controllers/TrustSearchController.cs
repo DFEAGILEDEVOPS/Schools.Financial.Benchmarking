@@ -33,8 +33,9 @@ namespace SFB.Web.UI.Controllers
             ILaSearchService laSearchService, ILocationSearchService locationSearchService, IFilterBuilder filterBuilder,
             IValidationService valService, IContextDataService contextDataService,
             ITrustSearchService trustSearchService, ISchoolSearchService schoolSearchService,
-            ISchoolBenchmarkListService benchmarkBasketService)
-            : base(schoolSearchService, trustSearchService, benchmarkBasketService, filterBuilder)
+            ISchoolBenchmarkListService benchmarkBasketService,
+            IPlacesLookupService placesLookupService)
+            : base(schoolSearchService, trustSearchService, benchmarkBasketService, filterBuilder, placesLookupService)
         {
             _laService = laService;
             _laSearchService = laSearchService;
@@ -184,7 +185,7 @@ namespace SFB.Web.UI.Controllers
         {
             dynamic response = await _trustSearchService.SuggestTrustByNameAsync(name);
 
-            var json = JsonConvert.SerializeObject(response);
+            var json = JsonConvert.SerializeObject(response.Matches);
             return Content(json, "application/json");
         }
 

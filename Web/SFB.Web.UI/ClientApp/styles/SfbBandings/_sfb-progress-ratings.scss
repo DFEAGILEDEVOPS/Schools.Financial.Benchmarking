@@ -1,0 +1,58 @@
+﻿@use "variables" as v;
+
+.progress-score-wrapper {
+  display: flex;
+  justify-content: space-between;
+  min-width: 240px;
+  
+  @include govuk-media-query($until: tablet) {
+    min-width: auto;
+    margin-right: 0;
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+}
+
+.progress-score-container {
+  font-size: 16px;
+  padding: govuk-spacing(1) govuk-spacing(3);
+  border-radius: 3px;
+  width: 80%;
+  display: inline-block;
+  text-align: center;
+  color: govuk-colour('black');
+  margin-right: govuk-spacing(2);
+
+  @include govuk-media-query($until: tablet) {
+    margin-bottom: govuk-spacing(1);
+    margin-right: 0;
+  }
+  
+  &.progress-well-below-average {
+    background-color: v.$progress-well-below;
+    color: govuk-colour('white');
+  }
+  
+  &.progress-below-average {
+    background-color: v.$progress-below;
+  }
+  
+  &.progress-average {
+    background-color: v.$progress-average;
+  }
+  
+  &.progress-above-average {
+    background-color: v.$progress-above;
+  }
+  
+  &.progress-well-above-average {
+    background-color: v.$progress-well-above;
+    color: govuk-colour('white');
+  }
+  
+  &.progress-unknown {
+    background-color: govuk-colour('light-grey');
+    border: 2px solid govuk-colour('black');
+  }
+}

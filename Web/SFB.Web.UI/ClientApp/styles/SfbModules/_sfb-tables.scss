@@ -1,0 +1,129 @@
+﻿
+.sfb-comparison-characteristics-table {
+  @include govuk-font(16);
+  table-layout: fixed;
+  border-bottom: 2px solid govuk-colour('black');
+}
+
+.sfb-comparison-characteristics-table-cell__name {
+  @include govuk-media-query($from: tablet) {
+    width: 25%;
+  }
+}
+
+.sfb-table__row--top-border {
+  border-top: 2px solid govuk-colour('black');
+}
+
+.sfb-sadtrust-table {
+  @include govuk-font(16);
+  
+  .table-school-name-link {
+    display: inline;
+    margin-right: govuk-spacing(1);
+  }
+  
+  @include govuk-media-query($until: tablet) {
+    .govuk-table,
+    .govuk-table__head,
+    .govuk-table__body,
+    .govuk-table__header,
+    .govuk-table__cell,
+    .govuk-table__row {
+      display: block;
+    }
+    
+    .govuk-table__head .govuk-table__row {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    .govuk-table__body .govuk-table__row {
+      border-bottom: 1px solid govuk-colour('black');
+    }
+    
+    .govuk-table__cell {
+      position: relative;
+      padding-left: 50%;
+    }
+
+    .govuk-table__cell::before {
+      content: attr(data-label);
+      position: absolute;
+      top: govuk-spacing(2);
+      left: 0;
+      width: 48%;
+      padding-right: govuk-spacing(2);
+    }
+  }
+}
+
+.sfb-sort-table__header {
+  font-weight: normal;
+}
+
+.sfb-sort-table__button {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  color: $govuk-brand-colour;
+  
+  &.sorted-asc,
+  &.sorted-desc {
+    font-weight: bold;
+  }
+
+  &.sorted-asc::after {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    content: ' ';
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 8px solid $govuk-brand-colour;
+  }
+
+  &.sorted-desc::after {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    content: ' ';
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 8px solid $govuk-brand-colour;;
+  }
+}
+
+.sfb-sort-table__button-schoolData {
+  min-width: 7em;
+}
+
+.sfb-sort-table__button-percentageOfIncome,
+.sfb-sort-table__button-percentageOfExpenditure {
+  min-width: 5.5em;
+}
+
+@media print {
+  .sfb-comparison-characteristics-table {
+  }
+  
+  .sfb-sadtrust-table__wrapper {
+    page-break-before: always;
+  }
+  .sfb-sadtrust-table {
+    .table-school-name-link,
+    .sfb-sort-table__button {
+      text-decoration: none;
+      color: govuk-colour('black');
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+}

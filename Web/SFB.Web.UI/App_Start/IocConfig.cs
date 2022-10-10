@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -21,6 +22,7 @@ using SFB.Web.ApplicationCore.Services.LocalAuthorities;
 using SFB.Web.Infrastructure.Logging;
 using SFB.Web.Infrastructure.SearchEngine;
 using System.Web.Hosting;
+using SFB.Web.UI.Models;
 
 namespace SFB.Web.UI
 {
@@ -101,6 +103,13 @@ namespace SFB.Web.UI
             builder.Register(c => new CscpLookupService(c.ResolveNamed<HttpClient>("CscpClient"))).As<ICscpLookupService>();
             builder.RegisterInstance(CreateGiasClient()).SingleInstance().Named<HttpClient>("GiasClient");
             builder.Register(c => new GiasLookupService(c.ResolveNamed<HttpClient>("GiasClient"))).As<IGiasLookupService>();
+            
+            builder.RegisterType<AzureMapsService>().As<IAzureMapsService>();
+            builder.RegisterType<PlacesLookupService>().As<IPlacesLookupService>();
+
+            var selfAssessmentModalContent =
+                System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/App_data/SelfAssessmentModalContent.json"));
+            builder.RegisterInstance(new SelfAssessmentModalContentService(selfAssessmentModalContent)).As<ISelfAssessmentModalContentService>();
         }
         
         public static HttpClient CreateCscpClient()

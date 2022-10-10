@@ -16,6 +16,10 @@
 
     .trust-element {
         margin: 20px 0;
+        width: 800px;
+        @include govuk-media-query($until: tablet) {
+          width: 240px;
+        }
     }
 
 

@@ -163,7 +163,7 @@ class SchoolsResultsViewModel {
                     this.cache[serialisedState] = response;
                     this.updateLiveCount(response.count);
                     this.map.renderMapPinsForAzureMap(response);
-                }).error(function (error) {
+                }).fail(function (error) {
                     console.log("Error loading map pins: " + error);
                 });
             }

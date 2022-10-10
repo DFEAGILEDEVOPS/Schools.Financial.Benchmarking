@@ -1,4 +1,4 @@
-call npm run-script init-assets
+call npm run-script build:newAndLegacy
 @echo off
 echo Exit Code is %errorlevel%
 @echo on

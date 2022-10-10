@@ -1,0 +1,16 @@
+﻿.sfb-help-icon {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  font-size: 16px;
+  background-color: #1d70b8;
+  
+  .rating-container & {
+    margin-top: 3px;
+  }
+}
+
+@media print {
+  .sfb-help-icon { display: none };
+}
+

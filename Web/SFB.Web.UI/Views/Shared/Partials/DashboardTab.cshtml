@@ -27,7 +27,11 @@
 
 <div class="govuk-!-margin-top-5">
     <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Next Steps</h2>
-    <div id="NextStepsPanel" class="dashboard-panel govuk-!-padding-5">
+    <div id="NextStepsPanel">
         @Html.Partial("Partials/NextStepsPanel", Model)
     </div>
+</div>
+
+<div class="govuk-!-margin-top-5">
+    @Html.Partial("Partials/RelatedServices")
 </div>

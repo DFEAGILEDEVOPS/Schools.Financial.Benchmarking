@@ -1,6 +1,7 @@
 ﻿@using SFB.Web.UI.Helpers.Constants
 @model SFB.Web.UI.Models.SearchViewModel
 
+
 <div id="SchoolOrCollegeNameIdAccordion" class="govuk-radios__item js-accordion">
     <input class="govuk-radios__input" id="SchoolOrCollegeNameId" name="option" type="radio"
            @Html.Raw(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_NAME_ID))

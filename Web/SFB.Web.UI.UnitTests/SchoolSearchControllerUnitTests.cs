@@ -36,6 +36,7 @@ namespace SFB.Web.UI.UnitTests
         private Mock<ISchoolSearchService> _mockSchoolSearchService;
         private Mock<ITrustSearchService> _mockTrustSearchService;
         private Mock<ISchoolBenchmarkListService> _mockCookieManager;
+        private Mock<IPlacesLookupService> _mockPlacesLookupService;
 
         [SetUp]
         public void Setup()
@@ -56,6 +57,7 @@ namespace SFB.Web.UI.UnitTests
             _mockSchoolSearchService = new Mock<ISchoolSearchService>();
             _mockTrustSearchService = new Mock<ITrustSearchService>();
             _mockCookieManager = new Mock<ISchoolBenchmarkListService>();
+            _mockPlacesLookupService = new Mock<IPlacesLookupService>();
         }
 
         //[Test]
@@ -101,7 +103,7 @@ namespace SFB.Web.UI.UnitTests
             _mockLaSearchService.Setup(m => m.SearchContains("Test")).Returns(() => laSearchResponse);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
  
@@ -119,7 +121,7 @@ namespace SFB.Web.UI.UnitTests
             _mockLocationSearchService.Setup(m => m.SuggestLocationName("Test")).Returns(() => new SuggestionQueryResult(new List<Disambiguation>() { new Disambiguation { Text= "Test" }  }));
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -151,7 +153,7 @@ namespace SFB.Web.UI.UnitTests
             _mockSchoolSearchService.Setup(m => m.SearchSchoolByNameAsync("Test", 0, 50, null, null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, new FilterBuilder(),
-                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -185,7 +187,7 @@ namespace SFB.Web.UI.UnitTests
             _mockSchoolSearchService.Setup(m => m.SearchSchoolByNameAsync("Test", 0, 50, null, null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, new FilterBuilder(),
-                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -220,7 +222,7 @@ namespace SFB.Web.UI.UnitTests
             _mockSchoolSearchService.Setup(m => m.SearchSchoolByNameAsync("Test", 0, 50, null, null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, new FilterBuilder(),
-                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -268,7 +270,7 @@ namespace SFB.Web.UI.UnitTests
             _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCodeAsync("123", 0, 50, "EstablishmentName", null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, _mockContextDataService.Object, 
-                _mockSchoolSearchService.Object,  _mockCookieManager.Object);
+                _mockSchoolSearchService.Object,  _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -284,7 +286,7 @@ namespace SFB.Web.UI.UnitTests
         {
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object,
                 _mockFilterBuilder.Object, _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object, 
-                _mockCookieManager.Object);
+                _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -298,7 +300,7 @@ namespace SFB.Web.UI.UnitTests
         public async Task SearchActionRedirectsToSchoolViewIfValidUrnProvidedInHomePage()
         {
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, 
-                _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
+                _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             var result = await controller.Search("", SearchTypes.SEARCH_BY_NAME_ID, "123456", null, null, null, null, false, null, 0);
 
@@ -323,7 +325,7 @@ namespace SFB.Web.UI.UnitTests
                 .Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService,
-                _mockContextDataService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _mockContextDataService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
             var result = await controller.Search("Test (ABC 3DX)", SearchTypes.SEARCH_BY_NAME_ID, "123456", null, null, null, null, false, null, 2, null, "AddSchool");
@@ -341,7 +343,7 @@ namespace SFB.Web.UI.UnitTests
 
             var controller = new SchoolSearchController(_mockLaService.Object, 
                 _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, 
-                _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
+                _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             var result = await controller.Search("123456", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
 
@@ -364,7 +366,7 @@ namespace SFB.Web.UI.UnitTests
             _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstabAsync("1234567", false)).Returns((string urn, bool openOnly) => task);
                        
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, 
-                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -405,7 +407,7 @@ namespace SFB.Web.UI.UnitTests
                 .Returns((string laEstab, int skip, int take, string @orderby, NameValueCollection queryParams) => SearchSchoolByLaEstabTask);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, 
-                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -441,7 +443,7 @@ namespace SFB.Web.UI.UnitTests
                 .Returns((string laEstab, int skip, int take, string @orderby, NameValueCollection queryParams) => schoolTask);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -468,7 +470,7 @@ namespace SFB.Web.UI.UnitTests
                 .Returns((string laEstab, int skip, int take, string @orderby, NameValueCollection queryParams) => schoolTask);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -493,7 +495,7 @@ namespace SFB.Web.UI.UnitTests
             _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstabAsync("1234567", false)).Returns((string urn, bool openOnly) => dataObjectTask);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, 
-                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -518,7 +520,7 @@ namespace SFB.Web.UI.UnitTests
             _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstabAsync("1234567", false)).Returns((string urn, bool openOnly) => dataObjectTask);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, 
-                _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
+                _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -545,7 +547,7 @@ namespace SFB.Web.UI.UnitTests
                 .Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);            
             
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, 
-                _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
+                _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object, _mockPlacesLookupService.Object);
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
             var result = await controller.Search("Test", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, string.Empty, 2);
@@ -569,7 +571,7 @@ namespace SFB.Web.UI.UnitTests
                 .Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService,
-                _mockContextDataService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _mockContextDataService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
             var result = await controller.Search("Test (SQR 3NT)", SearchTypes.SEARCH_BY_NAME_ID, "123", null, null, null, null, false, string.Empty, 2, null, "addSchools");

@@ -54,7 +54,7 @@ class FederationDetailsViewModel {
             url: `/federation/getmapdata?fuid=${fuid}`
         }).done((response) => {            
             this.map.renderFederatonSchoolPinsForAzureMap(response);
-        }).error(function (error) {
+        }).fail(function (error) {
             console.log("Error loading map pins: " + error);
         });
     }

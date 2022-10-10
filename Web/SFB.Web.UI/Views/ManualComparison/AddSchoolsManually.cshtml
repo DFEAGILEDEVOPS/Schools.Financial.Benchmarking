@@ -1,4 +1,5 @@
-﻿@using SFB.Web.UI.Models
+﻿@using SFB.Web.UI.Helpers
+@using SFB.Web.UI.Models
 
 @model SchoolViewModel
 
@@ -6,6 +7,7 @@
     ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
     ViewBag.Title = "Enter schools by name";
     ViewBag.pageClass = "add-schools-manually";
+    ViewBag.HasMigratedJs = true;
     if (Model is SchoolViewModelWithNoDefaultSchool)
     {
         ViewBag.HomeSchoolId = null;
@@ -77,7 +79,7 @@
     </div>
 }
 
-<div class="govuk-grid-column-three-quarters no-padding">
+<div class="govuk-grid-column-three-quarters no-padding" id="manual-add-app">
     <div id="SchoolsToAdd">
         @Html.Partial("Partials/SchoolsToAdd", Model.ManualComparisonList.BenchmarkSchools.Where(t => t.Urn != Model.ManualComparisonList.HomeSchoolUrn).ToList())
     </div>
@@ -94,10 +96,11 @@
 <input type="hidden" id="openOnly" value="@ViewBag.OpenOnly.ToString()" />
 
 @section ViewScripts {
-
-    <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
-    <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script>
-        DfE.Views.AddSchoolsManuallyViewModel = new AddSchoolsManuallyViewModel();
-    </script>
+    <script>var localAuthorities = [];</script>
+    <script src="@Html.Raw(Html.GetWebpackScriptUrl("AddSchoolsManually.*.js"))"></script>
+    @* <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script> *@
+    @* <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script> *@
+    @* <script> *@
+    @*     DfE.Views.AddSchoolsManuallyViewModel = new AddSchoolsManuallyViewModel(); *@
+    @* </script> *@
 }

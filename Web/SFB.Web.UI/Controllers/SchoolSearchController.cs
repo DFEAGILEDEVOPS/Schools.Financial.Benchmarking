@@ -12,6 +12,9 @@ using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.ApplicationCore.Services.Search;
 using SFB.Web.UI.Helpers.Constants;
 using System;
+using System.Net;
+using System.Text;
+using Newtonsoft.Json.Serialization;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Attributes;
 using SFB.Web.ApplicationCore.Entities;
@@ -38,8 +41,9 @@ namespace SFB.Web.UI.Controllers
             IValidationService valService, 
             IContextDataService contextDataService,
             ISchoolSearchService schoolSearchService,
-            ISchoolBenchmarkListService benchmarkBasketService)
-            : base(schoolSearchService, null, benchmarkBasketService, filterBuilder)
+            ISchoolBenchmarkListService benchmarkBasketService,
+            IPlacesLookupService placesLookupService)
+            : base(schoolSearchService, null, benchmarkBasketService, filterBuilder, placesLookupService)
         {
             _laService = laService;
             _laSearchService = laSearchService;
@@ -258,10 +262,31 @@ namespace SFB.Web.UI.Controllers
             if (!IsNumeric(nameId))
             {
                 dynamic response = await _schoolSearchService.SuggestSchoolByNameAsync(nameId, openOnly);
-                json = JsonConvert.SerializeObject(response);
+                json = JsonConvert.SerializeObject(response.Matches);
             }
 
             return Content(json, "application/json");
+        }
+
+        [Route("SchoolSearch/SuggestPlace"), HttpGet]
+        public async Task<ActionResult> SuggestPlace(string text)
+        {
+            if (!QueryValidator.ValidatePlaceSuggestionQuery(text))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            return new ContentResult
+            {
+                ContentType = "application/json",
+                Content = JsonConvert.SerializeObject(await _placesLookupService.SearchAsync(text, true), new JsonSerializerSettings
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver(), 
+                    StringEscapeHandling = StringEscapeHandling.EscapeHtml
+                }),
+                ContentEncoding = Encoding.UTF8
+            };
+
         }
 
         private ActionResult ErrorView(string searchType, string referrer, string errorMessage, SchoolComparisonListModel schoolComparisonList)

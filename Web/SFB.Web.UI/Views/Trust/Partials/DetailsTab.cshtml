@@ -1,15 +1,8 @@
 ﻿@model SFB.Web.UI.Models.TrustViewModel
 
-<p class="govuk-body govuk-!-margin-top-3 govuk-!-margin-bottom-3">
-    This trust is made up of <span class="govuk-!-font-weight-bold">@Model.AcademiesInContextList.Count</span> of schools.
-    At the time of the <span class="govuk-!-font-weight-bold">@Model.LatestTerm</span> financial submission there were <span class="govuk-!-font-weight-bold">@Model.AcademiesInFinanceList.Count</span> schools in scope for financial benchmarking.
-    Post 16 academies are included for distribution purposes, but they cannot be benchmarked.
-    <a class="govuk-link" href="/TrustSchools?uid=@Model.UID&companyNo=@Model.CompanyNo&matname=@Model.Name">Compare schools in this trust</a>
-</p>
-
 <div class="govuk-accordion govuk-!-margin-bottom-3 app-accordion--no-open-all" data-module="govuk-accordion" id="schools-in-trust-accordion">
-    <div class="govuk-accordion__section current">
-        <div class="govuk-accordion__section-header">
+    <div class="govuk-accordion__section current ">
+        <div class="govuk-accordion__section-header sfb-accordion-hide-top-border">
             <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button" id="CurrentHeader">
                     Schools currently in this trust
@@ -45,6 +38,9 @@
                     </div>
                 }
             </div>
+            <p class="govuk-body">
+                <a class="govuk-link" href="/TrustSchools?uid=@Model.UID&companyNo=@Model.CompanyNo&matname=@Model.Name">Compare schools in this trust</a>
+            </p>
         </div>
     </div>
 
@@ -171,16 +167,16 @@
     @if (Model.HasCscpUrl || Model.HasGiasUrl)
     {
         <dl class="metadata-school-detail__dl">
-            <dt class="metadata-school-detail__dt govuk-body">Data from other services:</dt>
+            <dt class="metadata-school-detail__dt govuk-body">View this trust's data on other services:</dt>
             <dd class="metadata-school-detail__dd govuk-body">
                 @if (Model.HasCscpUrl)
                 {
-                    <a class="govuk-link trust-ext-link" rel="external noopener noreferrer" target="_blank" title="Find and compare schools in England link will open in a new page" href="https://www.compare-school-performance.service.gov.uk/multi-academy-trust/@(Model.UID)">Find and compare schools in England</a>
+                    <a class="govuk-link trust-ext-link cscp-ext-link" rel="external noopener noreferrer" target="_blank" title="Find and compare schools in England link will open in a new page" href="https://www.compare-school-performance.service.gov.uk/multi-academy-trust/@(Model.UID)">Find and compare schools in England</a>
                     <br/>
                 }
                 @if (Model.HasGiasUrl)
                 {
-                    <a class="govuk-link trust-ext-link" rel="external noopener noreferrer" target="_blank" title="Get information link will open in a new page" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@(Model.UID)">Get information about schools</a>
+                    <a class="govuk-link trust-ext-link gias-ext-link" rel="external noopener noreferrer" target="_blank" title="Get information link will open in a new page" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@(Model.UID)">Get information about schools</a>
                 }
             </dd>
         </dl>

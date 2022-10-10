@@ -1,9 +1,11 @@
-﻿@model SFB.Web.UI.Models.TrustSelectionViewModel
+﻿@using SFB.Web.UI.Helpers
+@model SFB.Web.UI.Models.TrustSelectionViewModel
 
 @{
     ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
     ViewBag.Title = "Enter trusts by name";
     ViewBag.pageClass = "trust-comparison";
+    ViewBag.HasMigratedJs = true;
 }
 
 
@@ -50,7 +52,9 @@
 </div>
 
 <div id="TrustsToCompare">
-    @Html.Partial("Partials/TrustsToCompare", Model.TrustComparisonList.Trusts.Where(t => t.CompanyNo != Model.BenchmarkTrust.CompanyNo).ToList())
+    <div id="manual-add-app">
+        @Html.Partial("Partials/TrustsToCompare", Model.TrustComparisonList.Trusts.Where(t => t.CompanyNo != Model.BenchmarkTrust.CompanyNo).ToList())
+    </div>
 </div>
 
 <div class="control-buttons">
@@ -69,10 +73,12 @@
 </div>
 
 @section ViewScripts {
+<script>var localAuthorities = [];</script>
 
-    <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
-    <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script>
-        DfE.Views.TrustCompareViewModel = new TrustCompareManualViewModel();
-    </script>
+    <script src="@Html.Raw(Html.GetWebpackScriptUrl("AddTrustsManually.*.js"))"></script>
+    @* <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script> *@
+    @* <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script> *@
+    @* <script> *@
+    @*     DfE.Views.TrustCompareViewModel = new TrustCompareManualViewModel(); *@
+    @* </script> *@
 }
