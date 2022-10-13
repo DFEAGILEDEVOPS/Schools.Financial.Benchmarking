@@ -223,7 +223,7 @@
       <HintPath>..\packages\RestSharp.106.10.1\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="SFB.Artifacts.ApplicationCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFB.Artifacts.ApplicationCore.1.0.196.68790\lib\netstandard2.0\SFB.Artifacts.ApplicationCore.dll</HintPath>
+      <HintPath>..\packages\SFB.Artifacts.ApplicationCore.1.0.286.70555\lib\netstandard2.0\SFB.Artifacts.ApplicationCore.dll</HintPath>
     </Reference>
     <Reference Include="SFB.Artifacts.Infrastructure, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFB.Artifacts.Infrastructure.1.0.180.68406\lib\netstandard2.0\SFB.Artifacts.Infrastructure.dll</HintPath>
@@ -641,9 +641,9 @@
     <Content Include="public\assets\images\icons\table.svg" />
     <Content Include="public\assets\images\icons\warning.svg" />
     <Content Include="public\assets\images\progress.svg" />
-	<Content Include="public\build\*" />
-	<Content Include="public\govuk-frontend\fonts\*" />
-	<Content Include="public\govuk-frontend\images\*" />
+    <Content Include="public\build\*" />
+    <Content Include="public\govuk-frontend\fonts\*" />
+    <Content Include="public\govuk-frontend\images\*" />
     <Content Include="robots.txt" />
     <Content Include="tsconfig.json" />
     <Content Include="Views\Shared\Partials\RelatedServices.cshtml" />
@@ -1045,8 +1045,8 @@
     <Content Include="Views\Trust\Partials\FinanceTab.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="public\govuk-frontend\" />
     <Folder Include="Views\EmComparison\" />
+	<Folder Include="public\govuk-frontend\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
