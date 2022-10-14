@@ -1,6 +1,6 @@
 ﻿import axios, {AxiosError, AxiosResponse} from 'axios';
 import {SearchSuggestion} from '../Models/Suggestions';
-import {SadDataObject, SadHelpText, TrustSadResponse} from "../AppComponents/SadTrustApp/Models/sadTrustTablesModels";
+import {SadHelpText, TrustSadResponse} from '../AppComponents/SadTrustApp/Models/sadTrustTablesModels';
 
 axios.interceptors.response.use(
   async (response) => {
