@@ -1,4 +1,8 @@
-﻿@{    
+﻿@using SFB.Web.UI.Helpers
+@using SFB.Web.UI.Helpers.Constants
+@model SFB.Web.UI.Models.TrustListViewModel
+
+@{    
     switch (Model.SearchType)
     {
         case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
@@ -23,21 +27,10 @@
 }
 
 @section InsideHead{
-
-    <link rel="stylesheet" href="~/node_modules/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="~/node_modules/leaflet.markercluster/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="~/node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css" />
-    <link rel="stylesheet" href="~/node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
-
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="~/node_modules/leaflet/dist/leaflet.js"></script>
-    <script src="~/node_modules/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-    <script src='~/node_modules/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js'></script>
-
+    @* styles for maps and charting libs *@
+    <link rel="stylesheet" href="@Html.Raw(Html.GetWebpackScriptUrl("vendorStyles.*.css"))"/>
 }
 
-@using SFB.Web.UI.Helpers.Constants
-@model SFB.Web.UI.Models.TrustListViewModel
 
 @switch (Model.SearchType)
 {
@@ -66,7 +59,7 @@
 <a href="#pagetop" class="govuk-link page-top hide-in-print">Back to top</a>
 
 @section ViewScripts{
-    <script src="~/node_modules/lodash/lodash.min.js"></script>
+    <script src="@Html.Raw(Html.GetWebpackScriptUrl("MapChartVendor.*.js"))"></script>
     <script>
         DfE.Views.SchoolsResultsViewModel = new SchoolsResultsViewModel('@(ViewBag.tab)', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
     </script>

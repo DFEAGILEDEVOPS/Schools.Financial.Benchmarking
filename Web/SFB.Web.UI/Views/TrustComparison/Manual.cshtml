@@ -74,11 +74,5 @@
 
 @section ViewScripts {
 <script>var localAuthorities = [];</script>
-
-    <script src="@Html.Raw(Html.GetWebpackScriptUrl("AddTrustsManually.*.js"))"></script>
-    @* <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script> *@
-    @* <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script> *@
-    @* <script> *@
-    @*     DfE.Views.TrustCompareViewModel = new TrustCompareManualViewModel(); *@
-    @* </script> *@
+<script src="@Html.Raw(Html.GetWebpackScriptUrl("AddTrustsManually.*.js"))"></script>
 }

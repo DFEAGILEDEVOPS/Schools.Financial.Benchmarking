@@ -440,7 +440,9 @@ class BenchmarkChartManager {
             onrendered: () => {
                 applyChartStyles(el);
                 restructureSchoolNames(el.id);
-                insertProgressLabel();
+                if (document.querySelectorAll('.chart-scores-header').length > 0) {
+                  insertProgressLabel();
+                }
             }
         });
     }

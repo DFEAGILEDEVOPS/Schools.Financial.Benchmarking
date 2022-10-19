@@ -75,17 +75,10 @@
     </script>
     
     <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
-
-    @* <link href="/public/assets/stylesheets/main.css?v=@version" rel="stylesheet" type="text/css"> *@
     <link rel="stylesheet" type="text/css" href="@Html.Raw(Html.GetWebpackScriptUrl("corestyles.*.css"))"/>
     <style>
-        .c3 svg {
-            font: 14px sans-serif;
-        }
-
-        .c3-bar._expanded_ {
-            fill-opacity: 1;
-        }
+        .c3 svg { font: 14px sans-serif;}
+        .c3-bar._expanded_ { fill-opacity: 1;}
     </style>
     @if (acceptedAnalytics)
     {
@@ -351,31 +344,16 @@
     <div id="global-app-error" class="app-error hidden"></div>
   @if (ViewBag.HasMigratedJs == null)
   {
-      <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
-          <script src="~/node_modules/@("@")babel/polyfill/dist/polyfill.min.js"></script>
-      
-          <script src="/public/assets/scripts/application.js?v=@version"></script>
-          <script src="~/node_modules/govuk-frontend/govuk/all.js"></script>
-          <script>
-          window.GOVUKFrontend.initAll(); 
-      </script> 
+      @* <script src="~/public/vendorScripts/jquery.min.js"></script> *@
+      <script src="@Html.Raw(Html.GetWebpackScriptUrl("VendorLibs.*.js"))"></script>
+      <script src="/public/assets/scripts/application.js?v=@version"></script>
       @(RenderSection("ViewScripts", required: false))
-
-      <script>
-    $('.sticky-div').Stickyfill();
-</script>
+      <script>$('.sticky-div').Stickyfill();</script>
   }
   else
   {
       <script src="@Html.Raw(Html.GetWebpackScriptUrl("main.*.js"))"></script>
       @(RenderSection("ViewScripts", required: false))
   }
-
-    
-
-
-
-
 </body>
-
 </html>
