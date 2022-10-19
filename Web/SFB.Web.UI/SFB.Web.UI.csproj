@@ -19,7 +19,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>51351</IISExpressSSLPort>
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -644,6 +644,8 @@
     <Content Include="public\assets\images\icons\save.svg" />
     <Content Include="public\assets\images\icons\table.svg" />
     <Content Include="public\assets\images\icons\warning.svg" />
+    <Content Include="public\assets\images\leaflet-fullscreen\fullscreen%402x.png" />
+    <Content Include="public\assets\images\leaflet-fullscreen\fullscreen.png" />
     <Content Include="public\assets\images\progress.svg" />
     <Content Include="public\build\*" />
     <Content Include="public\govuk-frontend\fonts\*" />
@@ -1061,7 +1063,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\EmComparison\" />
-	<Folder Include="public\govuk-frontend\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
