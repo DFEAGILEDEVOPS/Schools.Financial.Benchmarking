@@ -546,6 +546,7 @@
   <ItemGroup>
     <Content Include=".babelrc" />
     <Content Include=".browserslistrc" />
+    <Content Include="analytics.txt" />
     <Content Include="App_Data\SelfAssessmentModalContent.json" />
     <Content Include="Assets\images\favicon.ico" />
     <Content Include="Assets\images\govuk-apple-touch-icon-152x152.png" />
