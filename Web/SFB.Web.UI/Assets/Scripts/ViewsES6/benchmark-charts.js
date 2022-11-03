@@ -1,5 +1,4 @@
-﻿const { jsPDF } = window.jspdf || {};
-class BenchmarkChartsViewModel {
+﻿class BenchmarkChartsViewModel {
 
     constructor() {
 

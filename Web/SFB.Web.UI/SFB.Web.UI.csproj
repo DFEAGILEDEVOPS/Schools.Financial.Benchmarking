@@ -19,7 +19,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>51351</IISExpressSSLPort>
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -546,6 +546,7 @@
   <ItemGroup>
     <Content Include=".babelrc" />
     <Content Include=".browserslistrc" />
+    <Content Include="analytics.txt" />
     <Content Include="App_Data\SelfAssessmentModalContent.json" />
     <Content Include="Assets\images\favicon.ico" />
     <Content Include="Assets\images\govuk-apple-touch-icon-152x152.png" />
@@ -599,7 +600,10 @@
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustSummaryApp\CallOutModal.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustSummaryApp\TabPanel.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustSummaryApp\TrustSummaryMobileNav.tsx" />
+    <TypeScriptCompile Include="ClientApp\Entry\chooseRegion.ts" />
     <TypeScriptCompile Include="ClientApp\Entry\TrustDashboard.tsx" />
+    <Content Include="ClientApp\Entry\MapChartVendor.js" />
+    <Content Include="ClientApp\Entry\VendorLibs.js" />
     <Content Include="ClientApp\styles\corestyles.scss" />
     <Content Include="ClientApp\styles\SfbBandings\_sfb-ofsted-ratings.scss" />
     <Content Include="ClientApp\styles\SfbBandings\_all.scss" />
@@ -621,6 +625,7 @@
     <Content Include="ClientApp\styles\SfbModules\_sfb-modals.scss" />
     <Content Include="ClientApp\styles\SfbModules\_sfb-sad-sidenav.scss" />
     <Content Include="ClientApp\styles\SfbModules\_sfb-tables.scss" />
+    <Content Include="ClientApp\styles\vendorStyles.scss" />
     <Content Include="public\assets\images\asc-g.gif" />
     <Content Include="public\assets\images\chart.svg" />
     <Content Include="public\assets\images\checklist.svg" />
@@ -640,10 +645,23 @@
     <Content Include="public\assets\images\icons\save.svg" />
     <Content Include="public\assets\images\icons\table.svg" />
     <Content Include="public\assets\images\icons\warning.svg" />
+    <Content Include="public\assets\images\leaflet-fullscreen\fullscreen%402x.png" />
+    <Content Include="public\assets\images\leaflet-fullscreen\fullscreen.png" />
     <Content Include="public\assets\images\progress.svg" />
     <Content Include="public\build\*" />
     <Content Include="public\govuk-frontend\fonts\*" />
     <Content Include="public\govuk-frontend\images\*" />
+    <Content Include="public\vendorScripts\angular.min.js" />
+    <Content Include="public\vendorScripts\clipboard.min.js" />
+    <Content Include="public\vendorScripts\html2canvas.min.js" />
+    <Content Include="public\vendorScripts\jquery.js" />
+    <Content Include="public\vendorScripts\jquery.min.js" />
+    <Content Include="public\vendorScripts\jquery.min.map" />
+    <Content Include="public\vendorScripts\jquery.validate.min.js" />
+    <Content Include="public\vendorScripts\jszip.min.js" />
+    <Content Include="public\vendorScripts\polyfill.js" />
+    <Content Include="public\vendorScripts\polyfill.min.js" />
+    <Content Include="public\vendorScripts\pptxgen.min.js" />
     <Content Include="robots.txt" />
     <Content Include="tsconfig.json" />
     <Content Include="Views\Shared\Partials\RelatedServices.cshtml" />

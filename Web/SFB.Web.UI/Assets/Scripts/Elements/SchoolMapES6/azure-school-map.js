@@ -61,7 +61,11 @@
         },
 
         addMarker: function () {
-            L.marker(this.centreLatLng).addTo(this.azureMap);
+          const blackIcon = L.icon({
+            iconUrl: '/public/assets/images/icons/icon-location.png',
+            iconSize: [20, 32]
+          });
+            L.marker(this.centreLatLng, { icon: blackIcon }).addTo(this.azureMap);
         }
     };
 

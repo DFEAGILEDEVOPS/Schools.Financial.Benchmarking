@@ -1,10 +1,12 @@
 ﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.UI.Helpers
 
 @model SFB.Web.UI.Models.SchoolViewModel
 @{
     ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
     ViewBag.Title = "Where should comparison schools come from?";
     ViewBag.pageClass = "comparison-step-two";
+    ViewBag.HasMigratedJs = true;
 }
 
 @section BackButtonContent{
@@ -96,7 +98,7 @@
                                 <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
                             }
                             <input id="FindSchoolByLaCode"
-                                   class="govuk-input govuk-!-width-one-half @Html.Raw(Model.HasError() && Model.ErrorMessage != "Select area type" ? "govuk-input--error" : "")"
+                                   class="govuk-input  @Html.Raw(Model.HasError() && Model.ErrorMessage != "Select area type" ? "govuk-input--error" : "")"
                                    name="lacodename"
                                    type="text" />
                             <input type="hidden" id="SelectedLocalAuthorityId" name="SelectedLocalAuthorityId" />
@@ -123,9 +125,6 @@
 </section>
 
 @section ViewScripts {
-
-    <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
-    <script>
-        DfE.Views.CriteriaByAreaViewModel = new CriteriaByAreaViewModel(@Html.Raw(ViewBag.Authorities));
-    </script>
+    <script>var localAuthorities = @Html.Raw(ViewBag.Authorities);</script>
+    <script src="@Html.Raw(Html.GetWebpackScriptUrl("chooseRegion.*.js"))"></script>
 }

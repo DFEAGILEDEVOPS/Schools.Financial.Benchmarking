@@ -251,6 +251,8 @@ export const manualAddTrust = manualAddTrustByName;
 
 export const setup = actions.setUp;
 
+export const establishmentLA = establishmentLa;
+
 const autoSuggest = {
   actions,
   suggestionComponents
