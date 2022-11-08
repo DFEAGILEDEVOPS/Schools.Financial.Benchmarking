@@ -179,7 +179,9 @@ class BenchmarkChartManager {
                     $(this).on('click', () => window.open("/trust/detail?companyNo=" + urn, '_self'));
                 } else {
                     $(this).on('click', () => {
-                        dataLayer.push({ 'event': 'bmc_school_link_click' });
+                      if (typeof dataLayer !== 'undefined') {
+                        dataLayer.push({'event': 'bmc_school_link_click'});
+                      }
                         window.open("/school?urn=" + urn, '_self');
                     });
                 }

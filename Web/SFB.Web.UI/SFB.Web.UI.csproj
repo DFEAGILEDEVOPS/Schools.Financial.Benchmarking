@@ -1064,6 +1064,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\EmComparison\" />
+	<Folder Include="public\govuk-frontend\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
