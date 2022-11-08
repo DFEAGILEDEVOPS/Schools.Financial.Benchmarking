@@ -89,5 +89,8 @@ namespace SFB.Web.UI.Models
         public bool IsFederation => ContextData.IsFederation;
 
         public bool IsUnderReview { get; set; }
+        public bool HasCscpUrl { get; set; }
+        public bool HasGiasUrl { get; set; }
+        
     }
 }

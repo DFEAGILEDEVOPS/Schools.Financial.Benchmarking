@@ -60,11 +60,17 @@
         </tr>
          <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">View this federation's data from other services:</th>
-            <td class="govuk-table__cell">
-                <a rel="external noopener noreferrer" class="govuk-link spt_link_js sfb_gtm_spt" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Find and compare schools in England<span class="govuk-visually-hidden"> Opens in a new window</span></a>
-                <br />
-                <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get information about schools<span class="govuk-visually-hidden"> Opens in a new window</span></a>
-            </td>
+             <td class="govuk-table__cell">
+                  @if (Model.HasCscpUrl)
+                 {
+                     <a class="govuk-link trust-ext-link cscp-ext-link" rel="external noopener noreferrer" target="_blank" title="Find and compare schools in England link will open in a new page" href="https://www.compare-school-performance.service.gov.uk/multi-academy-trust/@(Model.UID)">Find and compare schools in England</a>
+                     <br/>
+                 }
+                 @if (Model.HasGiasUrl)
+                 {
+                     <a class="govuk-link trust-ext-link gias-ext-link" rel="external noopener noreferrer" target="_blank" title="Get information link will open in a new page" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@(Model.UID)">Get information about schools</a>
+                 }
+             </td>
         </tr>
     </tbody>
 </table>

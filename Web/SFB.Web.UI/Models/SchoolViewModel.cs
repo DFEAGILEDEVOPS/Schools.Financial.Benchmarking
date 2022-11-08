@@ -317,7 +317,6 @@ namespace SFB.Web.UI.Models
             }
             return string.Empty;
         }
-        public bool HasCscpUrl { get; set; }
-        public bool HasGiasUrl { get; set; }
+        
     }
 }

@@ -87,8 +87,5 @@ namespace SFB.Web.UI.Models
         {            
             base.ComparisonList = comparisonList;            
         }
-
-        public bool HasCscpUrl { get; set; }
-        public bool HasGiasUrl { get; set; }
     }
 }

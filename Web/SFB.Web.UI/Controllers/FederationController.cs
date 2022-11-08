@@ -31,10 +31,14 @@ namespace SFB.Web.UI.Controllers
         private readonly ILocalAuthoritiesService _laService;
         private readonly IDownloadCSVBuilder _csvBuilder;
         private readonly ISchoolBenchmarkListService _benchmarkBasketService;
+        private readonly IGiasLookupService _giasLookupService;
+        private readonly ICscpLookupService _cscpLookupService;
 
         public FederationController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService,
             IFinancialCalculationsService fcService, IContextDataService contextDataService, ILocalAuthoritiesService laService, 
-            IDownloadCSVBuilder csvBuilder, ISchoolBenchmarkListService benchmarkBasketService)
+            IDownloadCSVBuilder csvBuilder, ISchoolBenchmarkListService benchmarkBasketService, 
+            IGiasLookupService giasLookupService,
+            ICscpLookupService cscpLookupService)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
@@ -43,6 +47,8 @@ namespace SFB.Web.UI.Controllers
             _laService = laService;
             _csvBuilder = csvBuilder;
             _benchmarkBasketService = benchmarkBasketService;
+            _giasLookupService = giasLookupService;
+            _cscpLookupService = cscpLookupService;
         }
 
         public async Task<ActionResult> Index(long fuid,
@@ -84,6 +90,11 @@ namespace SFB.Web.UI.Controllers
             var chartGroup = DetectDefaultChartGroupFromTabType(tab);
 
             var vm = await BuildFullFederationViewModelAsync(fuid, tab, chartGroup, unit);
+            var hasGiasUrl = await _giasLookupService.GiasHasPage((int)vm.UID.GetValueOrDefault(), true);
+            var hasCscpUrl = await _cscpLookupService.CscpHasPage((int)vm.UID.GetValueOrDefault(), true);
+            
+            vm.HasCscpUrl = hasCscpUrl;
+            vm.HasGiasUrl = hasGiasUrl;
 
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
