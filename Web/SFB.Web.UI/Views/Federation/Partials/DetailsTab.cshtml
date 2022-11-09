@@ -54,24 +54,27 @@
             <th scope="row" class="govuk-table__header">Has sixth form:</th>
             <td class="govuk-table__cell">@Model.Has6Form</td>
         </tr>
+    <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">Has nursery:</th>
+        <td class="govuk-table__cell">@Model.HasNursery</td>
+    </tr>
+    @if (Model.HasCscpUrl || Model.HasGiasUrl)
+    {
         <tr class="govuk-table__row">
-            <th scope="row" class="govuk-table__header">Has nursery:</th>
-            <td class="govuk-table__cell">@Model.HasNursery</td>
-        </tr>
-         <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">View this federation's data from other services:</th>
-             <td class="govuk-table__cell">
-                  @if (Model.HasCscpUrl)
-                 {
-                     <a class="govuk-link trust-ext-link cscp-ext-link" rel="external noopener noreferrer" target="_blank" title="Find and compare schools in England link will open in a new page" href="https://www.compare-school-performance.service.gov.uk/multi-academy-trust/@(Model.UID)">Find and compare schools in England</a>
-                     <br/>
-                 }
-                 @if (Model.HasGiasUrl)
-                 {
-                     <a class="govuk-link trust-ext-link gias-ext-link" rel="external noopener noreferrer" target="_blank" title="Get information link will open in a new page" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@(Model.UID)">Get information about schools</a>
-                 }
-             </td>
+            <td class="govuk-table__cell">
+                @if (Model.HasCscpUrl)
+                {
+                    <a class="govuk-link trust-ext-link cscp-ext-link" rel="external noopener noreferrer" target="_blank" title="Find and compare schools in England link will open in a new page" href="https://www.compare-school-performance.service.gov.uk/multi-academy-trust/@(Model.UID)">Find and compare schools in England</a>
+                    <br/>
+                }
+                @if (Model.HasGiasUrl)
+                {
+                    <a class="govuk-link trust-ext-link gias-ext-link" rel="external noopener noreferrer" target="_blank" title="Get information link will open in a new page" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@(Model.UID)">Get information about schools</a>
+                }
+            </td>
         </tr>
+    }
     </tbody>
 </table>
 
