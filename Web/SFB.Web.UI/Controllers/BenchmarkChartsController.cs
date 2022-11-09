@@ -810,7 +810,7 @@ namespace SFB.Web.UI.Controllers
 
         [HttpPost]
         public async Task<PartialViewResult> GetQCChart(
-            int id,
+            long id,
             string chartName, 
             ChartGroupType chartGroup, 
             ChartFormat format,
@@ -1012,7 +1012,7 @@ namespace SFB.Web.UI.Controllers
             return benchmarkCharts;
         }
 
-        private async Task<List<ChartViewModel>> BuildSchoolBenchmarkChartAsync(int comparisonSchoolId, SchoolComparisonListModel comparisonList, TabType revGroup, ChartGroupType chartGroup, string chartName, UnitType? showValue, CentralFinancingType cFinancing)
+        private async Task<List<ChartViewModel>> BuildSchoolBenchmarkChartAsync(long comparisonSchoolId, SchoolComparisonListModel comparisonList, TabType revGroup, ChartGroupType chartGroup, string chartName, UnitType? showValue, CentralFinancingType cFinancing)
         {
             var establishmentType = DetectEstablishmentType(comparisonList);
 
