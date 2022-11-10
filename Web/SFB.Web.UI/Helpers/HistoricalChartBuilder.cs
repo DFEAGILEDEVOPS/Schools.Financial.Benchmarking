@@ -1666,8 +1666,7 @@ namespace SFB.Web.UI.Helpers
                     MoreInfo = @"<p>Where there is funding, this includes:</p>
                                 <ul>
                                 <li>pupil-focused extended school funding and/or grants</li>
-                                <li>pupil premium</li>
-                                <li>ESG</li>
+                                <li>pupil premium</li>                             
                                 <li>SEN</li>
                                 <li>funding for minority ethnic pupils</li>
                                 </ul>",
@@ -1720,19 +1719,8 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
-                            Id = 377003,
-                            Name = "ESG",
-                            FieldName = SchoolTrustFinanceDataFieldNames.ESG,
-                            TabType = TabType.Income,
-                            ChartGroup = ChartGroupType.GrantFunding,
-                            ChartSchoolType = ChartSchoolType.Academy,
-                            MoreInfo =
-                                @"<p>This is the value of the Education Services Grant provided by the Education Funding Agency to the school.</p>"
-                        },
-                        new ChartViewModel
-                        {
                             Id = 37004,
-                            Name = "High needs top-up funding",
+                            Name = "SEN funding",
                             FieldName = SchoolTrustFinanceDataFieldNames.SEN,
                             TabType = TabType.Income,
                             ChartGroup = ChartGroupType.GrantFunding,

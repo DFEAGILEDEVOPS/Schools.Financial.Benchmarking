@@ -1597,7 +1597,6 @@ namespace SFB.Web.UI.Helpers
                                 <ul>
                                 <li>pupil-focused extended school funding and/or grants</li>
                                 <li>pupil premium</li>
-                                <li>ESG</li>
                                 <li>SEN</li>
                                 <li>funding for minority ethnic pupils</li>
                                 </ul>",
@@ -1646,15 +1645,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new DataTableColumnViewModel
                         {
-                            Name = "ESG",
-                            FieldName = SchoolTrustFinanceDataFieldNames.ESG,
-                            ChartSchoolType = ChartSchoolType.Academy,
-                            MoreInfo =
-                                @"<p>This is the value of the Education Services Grant provided by the Education Funding Agency to the school.</p>"
-                        },
-                        new DataTableColumnViewModel
-                        {
-                            Name = "High needs top-up funding",
+                            Name = "SEN funding",
                             FieldName = SchoolTrustFinanceDataFieldNames.SEN,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo = @"<p>This is funding outside the school budget share. </p>
