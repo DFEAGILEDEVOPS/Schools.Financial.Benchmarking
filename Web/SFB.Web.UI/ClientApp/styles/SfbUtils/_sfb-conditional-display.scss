@@ -1,0 +1,7 @@
+﻿.sfb-filter-container__desktop {
+  display: none;
+  
+  @include govuk-media-query($from: tablet) {
+    display: block;
+  }
+}
