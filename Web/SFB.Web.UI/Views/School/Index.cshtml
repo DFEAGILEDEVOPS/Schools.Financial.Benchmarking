@@ -347,6 +347,7 @@
         DfE.Views.SchoolDetailsViewModel = new SchoolViewModel(@Model.Id, @Model.Lat, @Model.Lng, '@Model.HasCoordinates', '@ViewBag.ChartFormat', '@ConfigurationManager.AppSettings["AzureMapsAPIKey"]');
         DfE.Views.WorkforceChartWrapperViewModel = new ChartWrapper();
         DfE.Views.FinancialChartWrapperViewModel = new ChartWrapper();
+        GOVUK.Modal.Load();
     </script>
 }
 
