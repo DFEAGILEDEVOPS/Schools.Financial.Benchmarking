@@ -90,6 +90,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.IsSATinLatestFinance = schoolVM.IsSATinLatestFinance;
             ViewBag.EstablishmentType = schoolVM.EstablishmentType;
             ViewBag.ChartFormat = format;
+            ViewBag.ShouldShowDashBoard = schoolVM.LatestYearFinancialData?.TotalExpenditure != null;
 
             return View("Index", schoolVM);
         }

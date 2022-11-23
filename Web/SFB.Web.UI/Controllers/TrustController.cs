@@ -165,7 +165,6 @@ namespace SFB.Web.UI.Controllers
 
             trustVM.HasCscpUrl = hasCscpUrl;
             trustVM.HasGiasUrl = hasGiasUrl;
-
             if (!trustVM.HasLatestYearFinancialData)
             {
                 if (trustVM.AcademiesInFinanceList.Count == 1)
@@ -200,7 +199,8 @@ namespace SFB.Web.UI.Controllers
             
             var trustSchoolsPhases = trustVM.AcademiesInContextList.Select(x => x.OverallPhase).ToList();
             
-            ViewBag.ShouldShowDashBoard = trustSchoolsPhases.Count(x => exclusionPhaseList.All(y => y != x)) > 0;
+            var hasDashboardPhases = trustSchoolsPhases.Count(x => exclusionPhaseList.All(y => y != x)) > 0;
+            ViewBag.ShouldShowDashBoard = trustVM.LatestYearFinancialData?.InYearBalance != null && hasDashboardPhases;
             return View("Detail", trustVM);
         }
 
