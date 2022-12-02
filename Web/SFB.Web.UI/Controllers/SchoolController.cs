@@ -118,7 +118,8 @@ namespace SFB.Web.UI.Controllers
         ChartGroupType chartGroup,
         UnitType unit,
         CentralFinancingType financing = CentralFinancingType.Include,
-        ChartFormat format = ChartFormat.Charts)
+        ChartFormat format = ChartFormat.Charts,
+        Boolean isSchoolPage = false)
         {
             await _schoolVMBuilder.BuildCoreAsync(urn);
             _schoolVMBuilder.SetTab(revGroup);
@@ -131,6 +132,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.IsSatInLatestFinance = schoolVM.IsSATinLatestFinance;
             ViewBag.ChartGroup = chartGroup;
             ViewBag.EstablishmentType = schoolVM.EstablishmentType;
+            ViewBag.IsSchoolPage = isSchoolPage;
 
             return PartialView("Partials/Chart", schoolVM);
         }

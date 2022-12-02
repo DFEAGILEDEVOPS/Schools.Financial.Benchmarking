@@ -4,6 +4,12 @@
 @using SFB.Web.UI.Models
 @model EstablishmentViewModelBase
 
+@{
+    var drillAction = (bool)ViewBag.IsSchoolPage ?
+        "DfE.Views.FinancialChartWrapperViewModel.selectGrouping" :
+        "DfE.Views.HistoricalCharts.selectGrouping";
+}
+
 <div id="historical-charts-accordion">
     <div class="govuk-accordion app-accordion--no-open-all app-accordion--no-border-bottom govuk-!-margin-bottom-0" data-module="govuk-accordion" id="accordion-chart">
         @for (var index = 0; index < Model.HistoricalCharts.Count; index++)
@@ -17,9 +23,11 @@
 
                     if (historicalChart.DrillInto != null)
                     {
+                        var clickHandler = string.Concat(drillAction, "('", @historicalChart.DrillInto, "','", @historicalChart.TabName.ToLower(), "')");
                         <div class="charts-section__chart-container__chart-header">
                             <h2 class="charts-section__chart-container__chart-header__h2 charts-section__chart-container__chart-header__h2--inline">@historicalChart.Name</h2>
-                            <button class="charts-section__chart-container__chart-header__a charts-section__chart-container__chart-header__a--inline hide-in-print link-button no-padding" onclick="DfE.Views.HistoricalCharts.selectGrouping('@historicalChart.DrillInto','@historicalChart.TabName.ToLower()')">
+                            <button class="charts-section__chart-container__chart-header__a charts-section__chart-container__chart-header__a--inline hide-in-print link-button no-padding" 
+                                    onclick="@clickHandler">
                                 @if (ViewBag.ChartFormat == ChartFormat.Charts)
                                 {
                                     <span class="view-more">All @historicalChart.Name.Replace("total", "").ToLower() charts</span>

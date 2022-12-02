@@ -214,6 +214,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.EstablishmentType = EstablishmentType.MAT;
             ViewBag.UnitType = unit;
             ViewBag.Financing = financing;
+            ViewBag.IsSchoolPage = false;
 
             return PartialView("Partials/Chart", trustVM);
         }
