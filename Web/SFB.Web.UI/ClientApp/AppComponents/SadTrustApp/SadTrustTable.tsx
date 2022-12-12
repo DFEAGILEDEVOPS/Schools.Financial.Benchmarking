@@ -263,7 +263,7 @@ export default function SadTrustTable({
         cell: ({row}) => (
           <div className="rating-container">
             <div className={`rating-box ${row.original.thresholdRating?.RatingColour}`}>
-              {row.original.thresholdRating?.RatingText}
+              {row.original.thresholdRating?.RatingText ? row.original.thresholdRating?.RatingText : 'Not available'}
             </div>
             {!isDownload &&
               <SfbSadHelpModal

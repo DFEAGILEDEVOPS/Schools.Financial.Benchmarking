@@ -94,8 +94,7 @@ export const prepareTableRows = (sadData: SadDataObject[], targetCategory: strin
       } else if (data.AssessmentAreaType === 'School characteristics') {
         if (data.AssessmentAreaName === 'Average teacher cost') {
           const ratingFigure = SadAssesmentAreas.filter(a => a.AssessmentAreaName === "Teaching staff")[0]?.SchoolDataLatestTerm;
-
-          if (typeof ratingFigure !== 'undefined') {
+          if (typeof ratingFigure !== 'undefined' && teachersTotal > 0) {
             const ratingValue = +(ratingFigure / teachersTotal).toFixed(3);
 
             out.schoolData = ratingValue;
