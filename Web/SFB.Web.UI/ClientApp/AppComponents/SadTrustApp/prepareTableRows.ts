@@ -113,23 +113,21 @@ export const prepareTableRows = (sadData: SadDataObject[], targetCategory: strin
         }
 
         if (data.AssessmentAreaName === 'Pupil to teacher ratio') {
-          const ratingFigure = NumberOfPupilsLatestTerm / teachersTotal;
-          out.schoolData = ratingFigure;
-
-          if (typeof ratingFigure !== 'undefined') {
+          if (typeof ratingFigure !== 'undefined' && teachersTotal > 0) {
+            const ratingFigure = NumberOfPupilsLatestTerm / teachersTotal;
+            out.schoolData = ratingFigure;
             out.thresholdRating = data.AllTresholds.find(t => (ratingFigure >= t.ScoreLow || t.ScoreLow == null)
               && (ratingFigure <= t.ScoreHigh || t.ScoreHigh == null));
           }
         }
 
         if (data.AssessmentAreaName === 'Pupil to adult ratio') {
-          const ratingValue = +(NumberOfPupilsLatestTerm / ratingFigure).toFixed(3);
-
-          out.schoolData = ratingValue;
-
-          out.thresholdRating = data.AllTresholds.find(t => (ratingValue >= t.ScoreLow || t.ScoreLow == null)
-            && (ratingValue <= t.ScoreHigh || t.ScoreHigh == null));
-
+          if (ratingFigure > 0) {
+            const ratingValue = +(NumberOfPupilsLatestTerm / ratingFigure).toFixed(3);
+            out.schoolData = ratingValue;
+            out.thresholdRating = data.AllTresholds.find(t => (ratingValue >= t.ScoreLow || t.ScoreLow == null)
+              && (ratingValue <= t.ScoreHigh || t.ScoreHigh == null));
+          }
         }
       }
 
