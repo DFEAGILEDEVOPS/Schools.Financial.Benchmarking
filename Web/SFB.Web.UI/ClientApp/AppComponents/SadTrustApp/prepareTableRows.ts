@@ -106,9 +106,8 @@ export const prepareTableRows = (sadData: SadDataObject[], targetCategory: strin
 
         if (data.AssessmentAreaName === 'Senior leaders as a percentage of workforce') {
           out.schoolData = (TeachersLeaderLastTerm / ratingFigure) * 100;
-
           if (typeof ratingFigure !== 'undefined') {
-            const ratingValue = +(ratingFigure / ratingFigure).toFixed(3);
+            const ratingValue = +(TeachersLeaderLastTerm / ratingFigure).toFixed(3);
             out.thresholdRating = data.AllTresholds.find(t => (ratingValue >= t.ScoreLow || t.ScoreLow == null)
               && (ratingValue <= t.ScoreHigh || t.ScoreHigh == null));
           }
