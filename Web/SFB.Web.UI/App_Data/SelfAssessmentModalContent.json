@@ -3,7 +3,7 @@
     "id": 0,
     "assessmentArea" : "Ofsted",
     "title" : "Ofsted rating",
-    "textContent" : "<p>Schools Ofsted rating is taken from the most recent rating available to DfE through Get Information about schools serves.  There can be a few days delay between the Ofsted publication of a rating and linking through to GIAS and ultimately to Schools Financial Benchmarking.</p><p>Schools rated Inadequate receive a red rating; schools rated Requires Improvement receive an amber rating; schools rated Good receive a light green rating; and schools rated Outstanding receive a dark green rating.</p>"
+    "textContent" : "<p>The Ofsted rating values for each school in Schools Financial Benchmarking are populated from the most recent ratings available to the DfE held in  'Get Information About Schools' (GIAS) service.  There can be a few days delay between the publication of a new rating by Ofsted and its availability in GIAS and subsequent referencing by Schools Financial Benchmarking.</p>"
   },
   {
     "id": 1,
