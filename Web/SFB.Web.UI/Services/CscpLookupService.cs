@@ -4,7 +4,8 @@ using System.Net;
 using System.Net.Http;
 using System.Runtime.Caching;
 using System.Threading.Tasks;
-using StackExchange.Redis;
+using Polly;
+using Polly.Wrap;
 
 namespace SFB.Web.UI.Services
 { 
@@ -25,6 +26,12 @@ namespace SFB.Web.UI.Services
              return collection;
          }
        
+         private static readonly AsyncPolicyWrap RetryPolicy = Policy.TimeoutAsync(1).WrapAsync(
+             Policy.Handle<HttpRequestException>()
+                 .WaitAndRetryAsync(new[]
+                 {
+                     TimeSpan.FromSeconds(1),
+                 }));
          public async Task<bool> CscpHasPage(int urn, bool isMat)
          {
              var collection = GetCollection(isMat);
@@ -35,26 +42,35 @@ namespace SFB.Web.UI.Services
              {
                  return (bool) value;
              }
-             else
+
+             try
              {
                  var baseUrl = $"{_client.BaseAddress.AbsoluteUri}";
-                
-                 baseUrl = isMat ?
-                     $"{baseUrl}multi-academy-trust/{urn}": 
-                     $"{baseUrl}school/{urn}";
-                
+
+                 baseUrl = isMat ? $"{baseUrl}multi-academy-trust/{urn}" : $"{baseUrl}school/{urn}";
+
                  var request = new HttpRequestMessage(HttpMethod.Head, $"{baseUrl}");
 
-                 var result = await _client.SendAsync(request);
+                 var result = await RetryPolicy.ExecuteAsync(async () => await _client.SendAsync(request));
 
                  var isOk = result?.StatusCode == HttpStatusCode.OK;
-                
+
                  MemoryCache.Default.Set(
-                     new CacheItem(key, isOk), 
-                     new CacheItemPolicy{AbsoluteExpiration = DateTimeOffset.Now.AddHours(Double.Parse(ConfigurationManager.AppSettings["ExternalServiceCacheHours"]))}
+                     new CacheItem(key, isOk),
+                     new CacheItemPolicy
+                     {
+                         AbsoluteExpiration =
+                             DateTimeOffset.Now.AddHours(
+                                 Double.Parse(ConfigurationManager.AppSettings["ExternalServiceCacheHours"]))
+                     }
                  );
 
                  return isOk;
+             }
+             catch (Exception e)
+             {
+                 Console.WriteLine(e);
+                 throw;
              }
          }
 
