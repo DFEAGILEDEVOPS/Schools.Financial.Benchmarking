@@ -48,7 +48,8 @@
                     <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
                     <strong class="govuk-warning-text__text">
                         <span class="govuk-warning-text__assistive">Warning</span>
-                        This school's finance data is part of a federated budget, the combined federation finance can be seen on its federation page.
+                        This school’s finance data is not displayed, but can be downloaded, as it’s part of a federated
+                        budget. The full federated data is shown on the federation page.
                     </strong>
                 </div>
             </div>
@@ -108,62 +109,64 @@
 
 <div id="container" class="govuk-grid-row">
     <div id="banners-section" class="govuk-grid-column-full">
-        @if (!Model.IsReturnsDNS)
+        @if (Model.IsPartOfFederation)
         {
-            <div class="blue-banner">
+            <div class="bordered-banner--blue">
                 <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
-                @if (Model.IsPartOfFederation)
-                {
-                    <p class="govuk-body">View this school’s federation <a class="govuk-link fed-link" href="/federation/detail?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
-                }
-                else
-                {
+                <p>To view or compare finance data go to this school's federation page.</p>
+                
+                <div>
+                    <a class="govuk-button"
+                       data-module="govuk-button"
+                       href="/federation/detail?fuid=@Model.FederationsCode">Continue to federation</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            if (!Model.IsReturnsDNS)
+            {
+                <div class="blue-banner">
+                    <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
                     <div class="hide-in-print">
                         <p class="govuk-body">There are now several ways for you to compare this school against others.</p>
                     </div>
 
-
                     <a href="school/start-benchmarking?urn=@Model.Id" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
                         Start a comparison
                         <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-                            <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+                            <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"/>
                         </svg>
                     </a>
 
-                    if (Model.IsMATinLatestFinance)
+                    @if (Model.IsMATinLatestFinance)
                     {
                         <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
                         <p class="govuk-body">
                             View this school’s trust <a href="/trust/detail?companyNo=@Server.UrlEncode(Model.CompanyNoInLatestFinance.ToString())" class="govuk-link mat-link" aria-label="Link to trust page">@Model.TrustNameInLatestFinance</a> which can be compared against other trusts.
                         </p>
                     }
-                }
-            </div>
-        }
-        else
-        {
-            <div class="blue-banner">
-                <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
+                    
+                </div>
+            }
+            else
+            {
+                <div class="blue-banner">
+                    <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
 
-                @if (Model.EstablishmentStatus == "Open" && Model.OverallPhaseNonTertiary)
-                {
-                    if (Model.IsPartOfFederation)
-                    {
-                        <p class="govuk-body">View this school’s federation <a class="govuk-link fed-link" href="/federation/detail?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
-                    }
-                    else
+                    @if (Model.EstablishmentStatus == "Open" && Model.OverallPhaseNonTertiary)
                     {
                         <p class="govuk-body mb-1">This school has no data for the last year of submission, you can only create a self-assessment dashboard.</p>
 
                         <a href="@ConfigurationManager.AppSettings["SelfAssessmentUrl"]/edit-data/@Model.Id/add-new" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
                             Go to the self-assessment dashboard
                             <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-                                <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+                                <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"/>
                             </svg>
                         </a>
                     }
-                }
-            </div>
+                </div>
+            }
         }
     </div>
 
@@ -248,7 +251,7 @@
                         Details
                     </a>
                 </li>
-                @if (Model.HasSomeHistoricalFinancialData)
+                @if (Model.HasSomeHistoricalFinancialData && !Model.IsPartOfFederation)
                 {
                     <li class="govuk-tabs__list-item">
                         <a class="govuk-tabs__tab sfb_gtm_panel_tab_finance" href="#finance">
@@ -274,7 +277,7 @@
             <div class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden" id="details">
                 @Html.Partial("Partials/DetailsTab", Model)
             </div>
-            @if (Model.HasSomeHistoricalFinancialData)
+            @if (Model.HasSomeHistoricalFinancialData && !Model.IsPartOfFederation)
             {
                 <div class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden" id="finance">
                     @Html.Partial("Partials/FinanceTab", Model)
