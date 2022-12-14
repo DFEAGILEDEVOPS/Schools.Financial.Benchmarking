@@ -79,7 +79,11 @@ export default function SfbSadHelpModal(props: Props) {
                           <div className={panelClassName}>
                             {(props.unitFormat === 'percentage') &&
                               <>{(threshold.ScoreLow * 100).toFixed(1)}%
-                                - {(threshold.ScoreHigh * 100).toFixed(1)}%</>
+                                {threshold.ScoreHigh ? 
+                                `- ${(threshold.ScoreHigh * 100).toFixed(1)}%` :
+                                ` and above`
+                                }
+                              </>
                             }
                             {(props.unitFormat === 'currency' && threshold.ScoreHigh) &&
                               <>£{numberWithCommas(threshold.ScoreLow.toFixed(2))} -

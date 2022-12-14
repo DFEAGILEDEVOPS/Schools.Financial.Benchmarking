@@ -86,7 +86,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
-            await controller.Index(123);
+            await controller.Detail(123);
 
             mockFinancialDataService.Verify(m => m.GetTrustFinancialDataObjectByCompanyNoAsync(123, "2014 / 2015", MatFinancingType.TrustAndAcademies));
         }
@@ -151,7 +151,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
-            var action = controller.Index(123);
+            var action = controller.Detail(123);
 
             action.Wait();
 
@@ -219,7 +219,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
-            var action = controller.Index(123);
+            var action = controller.Detail(123);
 
             action.Wait();
 

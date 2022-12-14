@@ -23,6 +23,7 @@
   width: 80%;
   display: inline-block;
   text-align: center;
+  background-color: govuk-colour("light-grey");
 
   @include govuk-media-query($from: tablet, $until: desktop) {
     width: 67%;

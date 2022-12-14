@@ -235,7 +235,7 @@
     <div id="tabs-section" class="govuk-grid-column-full govuk-!-margin-top-6">
         <div class="govuk-tabs" data-module="govuk-tabs">
             <ul class="govuk-tabs__list">
-                @if (Model.HasLatestYearFinancialData && !Model.Is16Plus && !Model.IsPartOfFederation)
+                @if (ViewBag.ShouldShowDashBoard && !Model.Is16Plus && !Model.IsPartOfFederation)
                 {
                     <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
                         <a class="govuk-tabs__tab sfb_gtm_panel_tab_dashboard" href="#dashboard">
@@ -265,7 +265,7 @@
                     </li>
                 }
             </ul>
-            @if (Model.HasLatestYearFinancialData && !Model.Is16Plus && !Model.IsPartOfFederation)
+            @if (ViewBag.ShouldShowDashBoard && !Model.Is16Plus && !Model.IsPartOfFederation)
             {
                 <div class="govuk-tabs__panel app-tabs__panel--no-border" id="dashboard">
                     @Html.Partial("Partials/DashboardTab", Model)

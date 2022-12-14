@@ -218,6 +218,10 @@ const actions = {
           if (actionKeys.indexOf(keyName) > -1) {
             shouldGetResults = false;
           }
+          
+          if (input.value.length === 0) {
+            _hiddenInput.value = '';
+          }
 
           if (input.value.length > MINCHARS && shouldGetResults) {
             interval = setTimeout(async function () {
@@ -228,6 +232,12 @@ const actions = {
               }
                
             }, 200);
+          }
+        });
+      } else {
+        input.addEventListener('keyup', async (e) => {
+          if (input.value.length === 0) {
+            _hiddenInput.value = '';
           }
         });
       }

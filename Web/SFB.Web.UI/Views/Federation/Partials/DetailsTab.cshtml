@@ -1,7 +1,9 @@
 ﻿@model SFB.Web.UI.Models.FederationViewModel
 
 <div class="govuk-!-margin-top-3">
-    <p class="govuk-body govuk-!-font-size-19">This federation is a combination of <span class="govuk-!-font-weight-bold">@Model.SchoolsInFederation.Count</span> school’s finance and workforce data and can be compared against other schools and federations. You can still compare the individual schools unless they did not submit financial data due to federated budgets.</p>
+    <p class="govuk-body govuk-!-font-size-19">This federation is a combination of
+        <span class="govuk-!-font-weight-bold">@Model.SchoolsInFederation.Count</span> 
+        school’s finance and workforce data and can be compared against other schools and federations.</p>
     <div class="govuk-accordion app-accordion--no-open-all" data-module="govuk-accordion" id="schools-in-federation-accordion">
         <div class="govuk-accordion__section ">
             <div class="govuk-accordion__section-header">
