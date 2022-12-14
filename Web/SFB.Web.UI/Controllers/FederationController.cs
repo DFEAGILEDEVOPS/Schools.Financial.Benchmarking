@@ -119,6 +119,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.UnitType = unit;
             ViewBag.ChartFormat = format;
             ViewBag.EstablishmentType = EstablishmentType.Federation;
+            ViewBag.IsSchoolPage = true;
 
             return PartialView("Partials/Chart", vm);
         }

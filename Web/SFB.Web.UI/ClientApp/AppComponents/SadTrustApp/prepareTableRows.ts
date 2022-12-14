@@ -94,8 +94,7 @@ export const prepareTableRows = (sadData: SadDataObject[], targetCategory: strin
       } else if (data.AssessmentAreaType === 'School characteristics') {
         if (data.AssessmentAreaName === 'Average teacher cost') {
           const ratingFigure = SadAssesmentAreas.filter(a => a.AssessmentAreaName === "Teaching staff")[0]?.SchoolDataLatestTerm;
-
-          if (typeof ratingFigure !== 'undefined') {
+          if (typeof ratingFigure !== 'undefined' && teachersTotal > 0) {
             const ratingValue = +(ratingFigure / teachersTotal).toFixed(3);
 
             out.schoolData = ratingValue;
@@ -106,32 +105,29 @@ export const prepareTableRows = (sadData: SadDataObject[], targetCategory: strin
 
         if (data.AssessmentAreaName === 'Senior leaders as a percentage of workforce') {
           out.schoolData = (TeachersLeaderLastTerm / ratingFigure) * 100;
-
           if (typeof ratingFigure !== 'undefined') {
-            const ratingValue = +(ratingFigure / ratingFigure).toFixed(3);
+            const ratingValue = +(TeachersLeaderLastTerm / ratingFigure).toFixed(3);
             out.thresholdRating = data.AllTresholds.find(t => (ratingValue >= t.ScoreLow || t.ScoreLow == null)
               && (ratingValue <= t.ScoreHigh || t.ScoreHigh == null));
           }
         }
 
         if (data.AssessmentAreaName === 'Pupil to teacher ratio') {
-          const ratingFigure = NumberOfPupilsLatestTerm / teachersTotal;
-          out.schoolData = ratingFigure;
-
-          if (typeof ratingFigure !== 'undefined') {
+          if (typeof ratingFigure !== 'undefined' && teachersTotal > 0) {
+            const ratingFigure = NumberOfPupilsLatestTerm / teachersTotal;
+            out.schoolData = ratingFigure;
             out.thresholdRating = data.AllTresholds.find(t => (ratingFigure >= t.ScoreLow || t.ScoreLow == null)
               && (ratingFigure <= t.ScoreHigh || t.ScoreHigh == null));
           }
         }
 
         if (data.AssessmentAreaName === 'Pupil to adult ratio') {
-          const ratingValue = +(NumberOfPupilsLatestTerm / ratingFigure).toFixed(3);
-
-          out.schoolData = ratingValue;
-
-          out.thresholdRating = data.AllTresholds.find(t => (ratingValue >= t.ScoreLow || t.ScoreLow == null)
-            && (ratingValue <= t.ScoreHigh || t.ScoreHigh == null));
-
+          if (ratingFigure > 0) {
+            const ratingValue = +(NumberOfPupilsLatestTerm / ratingFigure).toFixed(3);
+            out.schoolData = ratingValue;
+            out.thresholdRating = data.AllTresholds.find(t => (ratingValue >= t.ScoreLow || t.ScoreLow == null)
+              && (ratingValue <= t.ScoreHigh || t.ScoreHigh == null));
+          }
         }
       }
 

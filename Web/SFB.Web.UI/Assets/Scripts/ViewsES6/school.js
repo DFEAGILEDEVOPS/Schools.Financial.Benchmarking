@@ -182,7 +182,8 @@
             "&name=" +
             nameParameter +
             "&format=" +
-            formatParameter;
+            formatParameter +
+            "&isSchoolPage=true";
 
         if (financingParameter) {
             url += "&financing=" + financingParameter;
@@ -232,7 +233,8 @@
             "&name=" +
             nameParameter +
             "&format=" +
-            formatParameter;
+            formatParameter +
+            "&isSchoolPage=true";
 
         if (financingParameter) {
             url += "&financing=" + financingParameter;

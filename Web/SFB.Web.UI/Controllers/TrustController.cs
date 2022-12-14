@@ -58,76 +58,18 @@ namespace SFB.Web.UI.Controllers
             {
                 var trustFinance = await _financialDataService.GetTrustFinancialDataObjectByUidAsync(uid.GetValueOrDefault(), await LatestMATTermAsync());
                 companyNo = trustFinance.CompanyNumber;
-                return RedirectToActionPermanent("Index", "Trust", new RouteValueDictionary { 
-                    { "companyNo", companyNo },
-                    { "unit",  unit},
-                    { "tab",  tab},
-                    { "financing", financing},
-                    { "format",  format}
-                });
             }
-
-            ChartGroupType chartGroup;
-            switch (tab)
-            {
-                case TabType.Expenditure:
-                    chartGroup = ChartGroupType.TotalExpenditure;
-                    break;
-                case TabType.Income:
-                    chartGroup = ChartGroupType.TotalIncome;
-                    break;
-                case TabType.Balance:
-                    chartGroup = ChartGroupType.InYearBalance;
-                    break;
-                default:
-                    chartGroup = ChartGroupType.All;
-                    break;
-            }
-
-            var trustVM = await BuildFullTrustVMAsync(companyNo.GetValueOrDefault(), tab, chartGroup, financing);
-
-            if (!trustVM.HasLatestYearFinancialData)
-            {
-                if(trustVM.AcademiesInFinanceList.Count == 1)
-                {
-                    return RedirectToActionPermanent("Detail", "School", new RouteValueDictionary { { "urn", trustVM.AcademiesInFinanceList.First().URN } });
-                }
-                return RedirectToActionPermanent("SuggestTrust", "TrustSearch", new RouteValueDictionary { { "trustNameId", companyNo } });
-            }
-
-            UnitType unitType;
-            switch (tab)
-            {
-                case TabType.Workforce:
-                    unitType = UnitType.AbsoluteCount;
-                    break;
-                case TabType.Balance:
-                    unitType = unit == UnitType.AbsoluteMoney || unit == UnitType.PerPupil || unit == UnitType.PerTeacher ? unit : UnitType.AbsoluteMoney;
-                    break;
-                default:
-                    unitType = unit;
-                    break;
-            }
-
-            _fcService.PopulateHistoricalChartsWithFinancialData(trustVM.HistoricalCharts, trustVM.HistoricalFinancialDataModels, trustVM.LatestTerm, tab, unitType, EstablishmentType.Academies);
-
-            ViewBag.Tab = tab;
-            ViewBag.ChartGroup = chartGroup;
-            ViewBag.UnitType = unitType;
-            ViewBag.Financing = financing;
-            ViewBag.ChartFormat = format;
-            ViewBag.EstablishmentType = EstablishmentType.MAT;
-
-            return View(trustVM);
+            return RedirectToActionPermanent("Detail", "Trust", new RouteValueDictionary { 
+                { "companyNo", companyNo },
+                { "unit",  unit},
+                { "tab",  tab},
+                { "financing", financing},
+                { "format",  format}
+            });
         }
 
         public async Task<ActionResult> Detail(int? companyNo, int? uid = null, UnitType unit = UnitType.AbsoluteMoney, TabType tab = TabType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
         {
-            if (FeatureManager.IsDisabled(Features.RevisedSchoolPage))
-            {
-                return Redirect($"/trust?companyNo={companyNo}&uid={uid}");
-            }
-
             if (companyNo == null && uid.HasValue)
             {
                 var trustFinance = await _financialDataService.GetTrustFinancialDataObjectByUidAsync(uid.GetValueOrDefault(), await LatestMATTermAsync());
@@ -165,7 +107,6 @@ namespace SFB.Web.UI.Controllers
 
             trustVM.HasCscpUrl = hasCscpUrl;
             trustVM.HasGiasUrl = hasGiasUrl;
-
             if (!trustVM.HasLatestYearFinancialData)
             {
                 if (trustVM.AcademiesInFinanceList.Count == 1)
@@ -200,7 +141,8 @@ namespace SFB.Web.UI.Controllers
             
             var trustSchoolsPhases = trustVM.AcademiesInContextList.Select(x => x.OverallPhase).ToList();
             
-            ViewBag.ShouldShowDashBoard = trustSchoolsPhases.Count(x => exclusionPhaseList.All(y => y != x)) > 0;
+            var hasDashboardPhases = trustSchoolsPhases.Count(x => exclusionPhaseList.All(y => y != x)) > 0;
+            ViewBag.ShouldShowDashBoard = trustVM.LatestYearFinancialData?.InYearBalance != null && hasDashboardPhases;
             return View("Detail", trustVM);
         }
 
@@ -214,6 +156,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.EstablishmentType = EstablishmentType.MAT;
             ViewBag.UnitType = unit;
             ViewBag.Financing = financing;
+            ViewBag.IsSchoolPage = false;
 
             return PartialView("Partials/Chart", trustVM);
         }
