@@ -131,9 +131,6 @@ namespace SFB.Web.UI.Models
                     new OptionVM("Voluntary controlled", "Voluntary controlled school", BenchmarkCriteria.TypeOfEstablishment),
                     new OptionVM("Pupil referral unit", "Pupil referral unit", BenchmarkCriteria.TypeOfEstablishment),
                     new OptionVM("Miscellaneous", "Miscellaneous", BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Studio school", "Studio school", BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Academy converter", "Academy converter", BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Academy special converter", "Academy special converter", BenchmarkCriteria.TypeOfEstablishment),
                 });
 
             TypeOfEstabAcademiesMultipleChoiceVM = new BenchmarkCriteriaMultipleChoiceVM(
@@ -153,7 +150,6 @@ namespace SFB.Web.UI.Models
                     new OptionVM("Studio school", "Studio school", BenchmarkCriteria.TypeOfEstablishment),
                     new OptionVM("Free school special", "Free school special", BenchmarkCriteria.TypeOfEstablishment),
                     new OptionVM("Free school - alternative provision", "Free school alternative provision", BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Pupil referral unit", "Pupil referral unit", BenchmarkCriteria.TypeOfEstablishment),
                     new OptionVM("Academy alternative provision converter", "Academy alternative provision converter", BenchmarkCriteria.TypeOfEstablishment),
                     new OptionVM("Academy alternative provision sponsor led", "Academy alternative provision sponsor led", BenchmarkCriteria.TypeOfEstablishment)
                 });
