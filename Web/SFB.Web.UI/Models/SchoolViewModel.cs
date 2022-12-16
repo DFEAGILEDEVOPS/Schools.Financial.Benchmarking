@@ -7,6 +7,7 @@ using SFB.Web.ApplicationCore.Helpers.Enums;
 using System.Collections.Generic;
 using SFB.Web.ApplicationCore.Models;
 using System.Configuration;
+using SFB.Web.ApplicationCore.Services.DataAccess;
 
 namespace SFB.Web.UI.Models
 {
@@ -190,7 +191,7 @@ namespace SFB.Web.UI.Models
 
         public string HasSixthForm => ContextData.OfficialSixthForm == "Has a sixth form" ? "Yes" : "No";
         
-        public bool Is16Plus => ContextData.OverallPhase == "16 Plus";
+        public bool Is16Plus => string.Equals(ContextData.OverallPhase,  "16 Plus", StringComparison.OrdinalIgnoreCase);
 
         public string HasNursery => ContextData.NurseryProvision == "Has Nursery Classes" ? "Yes" : "No";
 
