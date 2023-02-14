@@ -1,163 +1,278 @@
-﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+﻿@using SFB.Web.ApplicationCore.Helpers.Constants
+@using SFB.Web.ApplicationCore.Helpers.Enums
 @using SFB.Web.UI.Helpers.Constants
 
 @model SFB.Web.UI.Models.SchoolViewModel
 
 <div ng-if="compList.count > 0">
-    <h3 class="govuk-heading-m">
-        A quick comparison of this school’s expenditure against similar schools
-    </h3>
+<h3 class="govuk-heading-m">
+    A quick comparison of this school’s expenditure against similar schools
+</h3>
 
-    <details class="govuk-details govuk-!-margin-bottom-2" data-module="govuk-details">
-        <summary class="govuk-details__summary hide-in-print">
-            <span class="govuk-details__summary-text govuk-!-font-size-16">
-                View characteristics used
-            </span>
-        </summary>
-        <div class="govuk-details__text govuk-!-font-size-16 show-in-print" id="qc_criteriaTables">
-            <table id="qc-criteriaTable" class="govuk-table govuk-!-font-size-16">
-                <thead class="govuk-table__head">
-                    <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header">Characteristic</th>
-                        <th scope="col" class="govuk-table__header">Default school value</th>
-                        <th scope="col" class="govuk-table__header">Comparison criteria</th>
-                    </tr>
-                </thead>
-                <tbody class="govuk-table__body">
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Finance type</td>
-                        @if (Model.EstablishmentType == EstablishmentType.Academies)
-                        {
-                            <td class="govuk-table__cell">Academy</td>
-                        }
-                        else
-                        {
-                            <td class="govuk-table__cell">Maintained</td>
-                        }
-                        <td class="govuk-table__cell">@Model.EstablishmentType</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Number of pupils</td>
-                        <td class="govuk-table__cell">@Model.TotalPupils</td>
-                        <td class="govuk-table__cell">{{compList.criteria.MinNoPupil}} - {{compList.criteria.MaxNoPupil}}</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">School phase</td>
-                        <td class="govuk-table__cell">@Model.OverallPhase</td>
-                        <td class="govuk-table__cell">{{compList.criteria.SchoolOverallPhase[0]}}</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Urban / rural location</td>
-                        <td class="govuk-table__cell">@Model.UrbanRural</td>
-                        <td class="govuk-table__cell">{{compList.criteria.UrbanRural.toString()}}</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Percentage of pupils eligible for free school meals</td>
-                        <td class="govuk-table__cell">@decimal.Round(Model.FSM.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
-                        <td class="govuk-table__cell">{{compList.criteria.MinPerFSM}}% - {{compList.criteria.MaxPerFSM}}%</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Pupils with special educational needs who have statements or education and health care plans</td>
-                        <td class="govuk-table__cell">@decimal.Round(Model.SEN.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
-                        <td class="govuk-table__cell">{{compList.criteria.MinPerSEN}}% - {{compList.criteria.MaxPerSEN}}%</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Pupils with English as an additional language</td>
-                        <td class="govuk-table__cell">@decimal.Round(Model.EAL.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
-                        <td class="govuk-table__cell">{{compList.criteria.MinPerEAL}}% - {{compList.criteria.MaxPerEAL}}%</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Within your local authority</td>
-                        <td class="govuk-table__cell">-</td>
-                        <td class="govuk-table__cell">No</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </details>
-    <div class="govuk-!-font-size-16 chartTable hide-in-print">
-        <button type="button" ng-hide="format=='Charts'" ng-click="ctrl.switchTo('Charts')" class="view-charts-tables view-charts-tables--qc charts a-button"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-        <button type="button" ng-hide="format=='Tables'" ng-click="ctrl.switchTo('Tables')" class="view-charts-tables view-charts-tables--qc tables a-button"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="govuk-visually-hidden"> - Recommended option for screen readers</span></span></button>
-    </div>
-
-    <div class="qc-glossary">
-        <span class="help-icon hide-in-print">
-            <span class="icon dark-blue">
-                <a href="#" class="js-modal" role="button" data-modal-title="Quick comparison glossary" data-modal-text="@HelpTooltipText.QuickComparisonGlossary" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                    <span class="govuk-visually-hidden">Open more info text for quick comparison glossary opens a popup</span>
-                </a>
-            </span>
+<details class="govuk-details govuk-!-margin-bottom-2" data-module="govuk-details">
+    <summary class="govuk-details__summary hide-in-print">
+        <span class="govuk-details__summary-text govuk-!-font-size-16">
+            View characteristics used
         </span>
-    </div>
+    </summary>
+    <div class="govuk-details__text govuk-!-font-size-16 show-in-print" id="qc_criteriaTables">
+        <table id="qc-criteriaTable" class="govuk-table govuk-!-font-size-16">
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Characteristic</th>
+                <th scope="col" class="govuk-table__header">Default school value</th>
+                <th scope="col" class="govuk-table__header">Comparison criteria</th>
+            </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Finance type</td>
+                @if (Model.EstablishmentType == EstablishmentType.Academies)
+                {
+                    <td class="govuk-table__cell">Academy</td>
+                }
+                else
+                {
+                    <td class="govuk-table__cell">Maintained</td>
+                }
+                <td class="govuk-table__cell">@Model.EstablishmentType</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Number of pupils</td>
+                <td class="govuk-table__cell">@Model.TotalPupils</td>
+                <td class="govuk-table__cell">{{compList.criteria.MinNoPupil}} - {{compList.criteria.MaxNoPupil}}</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">School phase</td>
+                <td class="govuk-table__cell">@Model.OverallPhase</td>
+                <td class="govuk-table__cell">{{compList.criteria.SchoolOverallPhase[0]}}</td>
+            </tr>
+            @if (Model.OverallPhase == "Special")
+            {
+                <tr class="govuk-table__row" ng-if="compList.criteria.MinLowestAgePupils">
+                    <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.LOWEST_AGE_PUPILS</td>
+                    <td class="govuk-table__cell">@Model.LatestYearFinancialData.LowestAgePupils</td>
+                    <td class="govuk-table__cell">{{compList.criteria.MinLowestAgePupils}} - {{compList.criteria.MaxLowestAgePupils}}</td>
+                </tr>
 
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-            <nav class="app-navigation app-navigation--gray-back govuk-clearfix govuk-!-margin-bottom-6" id="qcNav" aria-label="Chart group tabs" ng-if="!isMobile">
-                <ul class="app-navigation__list app-width-container" role="tablist">
-                    <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === 'Total expenditure'}" role="presentation">
-                        <a role="tab" aria-controls="benchmarkChartsList" aria-selected="{{activeTab === 'Total expenditure'}}"
+                <tr class="govuk-table__row" ng-if="compList.criteria.MinHighestAgePupils">
+                    <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.HIGHEST_AGE_PUPILS</td>
+                    <td class="govuk-table__cell">@Model.LatestYearFinancialData.HighestAgePupils</td>
+                    <td class="govuk-table__cell">{{compList.criteria.MinHighestAgePupils}} - {{compList.criteria.MaxHighestAgePupils}}</td>
+                </tr>
+                <tr class="govuk-table__row" ng-if="compList.criteria.MinAutisticDisorder">
+                    <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.AUTISTIC_DISORDER</td>
+                    <td class="govuk-table__cell">@Model.SenCharacteristics.Find(x => x.DataName == "Primary_need_asd_percent").Value%</td>
+                    <td class="govuk-table__cell">{{compList.criteria.MinAutisticDisorder}}% - {{compList.criteria.MaxAutisticDisorder}}%</td>
+                </tr>
+                <tr class="govuk-table__row" ng-if="compList.criteria.MinModLearnDiff">
+                    <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.MODERATE_LEARNING_DIFFICULTY</td>
+                    <td class="govuk-table__cell">@Model.SenCharacteristics.Find(x => x.DataName == "Primary_need_mld_percent").Value%</td>
+                    <td class="govuk-table__cell">{{compList.criteria.MinModLearnDiff}}% - {{compList.criteria.MinModLearnDiff}}%</td>
+                </tr>
+                <tr class="govuk-table__row" ng-if="complList.criteria.MinSpeechNeeds">
+                    <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.SPEECH_NEEDS</td>
+                    <td class="govuk-table__cell">@Model.SenCharacteristics.Find(x => x.DataName == "Primary_need_slcn_percent").Value%</td>
+                    <td class="govuk-table__cell">{{complList.criteria.MinSpeechNeeds}}% - {{complList.criteria.MaxSpeechNeeds}}%</td>
+                </tr>
+                <tr class="govuk-table__row" ng-if="compList.criteria.MinSevLearnDiff">
+                    <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.SEVERE_LEARNING_DIFFICULTY</td>
+                    <td class="govuk-table__cell">@Model.SenCharacteristics.Find(x => x.DataName == "Primary_need_sld_percent").Value%</td>
+                    <td class="govuk-table__cell">{{compList.criteria.MinSevLearnDiff}}% - {{compList.criteria.MaxSevLearnDiff}}%</td>
+                </tr>
+                <tr class="govuk-table__row" ng-if="compList.criteria.MinPhysicalDisability">
+                    <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.PHYSICAL_DISABILITY</td>
+                    <td class="govuk-table__cell">@Model.SenCharacteristics.Find(x => x.DataName == "Primary_need_pd_percent").Value%</td>
+                    <td class="govuk-table__cell">{{compList.criteria.MinPhysicalDisability}}% - {{compList.criteria.MaxPhysicalDisability}}%</td>
+                </tr>
+                <tr class="govuk-table__row" ng-if="compList.criteria.MinSocialHealth">
+                    <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.SOCIAL_HEALTH</td>
+                    <td class="govuk-table__cell">@Model.SenCharacteristics.Find(x => x.DataName == "Primary_need_semh_percent").Value%</td>
+                    <td class="govuk-table__cell">{{compList.criteria.MinSocialHealth}}% - {{compList.criteria.MaxSocialHealth}}%</td>
+                </tr>
+                <tr class="govuk-table__row" ng-if="compList.criteria.MinSpecLearnDiff">
+                    <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.SPECIFIC_LEARNING_DIFFICULTY</td>
+                    <td class="govuk-table__cell">@Model.SenCharacteristics.Find(x => x.DataName == "Primary_need_spld_percent").Value%</td>
+                    <td class="govuk-table__cell">{{compList.criteria.MinSpecLearnDiff}}% - {{compList.criteria.MaxSpecLearnDiff}}%</td>
+                </tr>
+                <tr class="govuk-table__row" ng-if="compList.criteria.MinProfLearnDiff">
+                    <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.PROF_LEARNING_DIFFICULTY</td>
+                    <td class="govuk-table__cell">@Model.SenCharacteristics.Find(x => x.DataName == "Primary_need_pmld_percent").Value%</td>
+                    <td class="govuk-table__cell">{{compList.criteria.MinProfLearnDiff}}% - {{compList.criteria.MaxProfLearnDiff}}%</td>
+                </tr>
+                <tr class="govuk-table__row" ng-if="compList.criteria.MinVisualImpairment">
+                    <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.VISUAL_IMPAIRMENT</td>
+                    <td class="govuk-table__cell">@Model.SenCharacteristics.Find(x => x.DataName == "Primary_need_vi_percent").Value%</td>
+                    <td class="govuk-table__cell">{{compList.criteria.MinVisualImpairment}}% - {{compList.criteria.MaxVisualImpairment}}%</td>
+                </tr>
+                <tr class="govuk-table__row" ng-if="compList.criteria.MinMSImpairment">
+                    <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.MULTI_SENSORY_IMPAIRMENT</td>
+                    <td class="govuk-table__cell">@Model.SenCharacteristics.Find(x => x.DataName == "Primary_need_msi_percent").Value%</td>
+                    <td class="govuk-table__cell">{{compList.criteria.MinMSImpairment}}% - {{compList.criteria.MaxMSImpairment}}%</td>
+                </tr>
+                <tr class="govuk-table__row" ng-if="compList.criteria.MinOtherLearningDiff">
+                    <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF</td>
+                    <td class="govuk-table__cell">@Model.SenCharacteristics.Find(x => x.DataName == "Primary_need_oth_percent").Value%</td>
+                    <td class="govuk-table__cell">{{compList.criteria.MinOtherLearningDiff}}% - {{compList.criteria.MaxOtherLearningDiff}}%</td>
+                </tr>
+                <tr class="govuk-table__row" ng-if="compList.criteria.MinHearingImpairment">
+                    <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.HEARING_IMPAIRMENT</td>
+                    <td class="govuk-table__cell">@Model.SenCharacteristics.Find(x => x.DataName == "Primary_need_hi_percent").Value%</td>
+                    <td class="govuk-table__cell">{{compList.criteria.MinHearingImpairment}}% - {{compList.criteria.MaxHearingImpairment}}%</td>
+                </tr>
+            }
+            else
+            {
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Urban / rural location</td>
+                    <td class="govuk-table__cell">@Model.UrbanRural</td>
+                    <td class="govuk-table__cell">{{compList.criteria.UrbanRural.toString()}}</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Percentage of pupils eligible for free school meals</td>
+                    <td class="govuk-table__cell">@decimal.Round(Model.FSM.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                    <td class="govuk-table__cell">{{compList.criteria.MinPerFSM}}% - {{compList.criteria.MaxPerFSM}}%</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Pupils with special educational needs who have statements or education and health care plans</td>
+                    <td class="govuk-table__cell">@decimal.Round(Model.SEN.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                    <td class="govuk-table__cell">{{compList.criteria.MinPerSEN}}% - {{compList.criteria.MaxPerSEN}}%</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Pupils with English as an additional language</td>
+                    <td class="govuk-table__cell">@decimal.Round(Model.EAL.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                    <td class="govuk-table__cell">{{compList.criteria.MinPerEAL}}% - {{compList.criteria.MaxPerEAL}}%</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Within your local authority</td>
+                    <td class="govuk-table__cell">-</td>
+                    <td class="govuk-table__cell">No</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</details>
+<div class="govuk-!-font-size-16 chartTable hide-in-print">
+    <button type="button" ng-hide="format=='Charts'" ng-click="ctrl.switchTo('Charts')" class="view-charts-tables view-charts-tables--qc charts a-button">
+        <img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt=""/><span> View as charts</span>
+    </button>
+    <button type="button" ng-hide="format=='Tables'" ng-click="ctrl.switchTo('Tables')" class="view-charts-tables view-charts-tables--qc tables a-button">
+        <img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt=""/><span> View as tables<span class="govuk-visually-hidden"> - Recommended option for screen readers</span></span>
+    </button>
+</div>
+
+<div class="qc-glossary">
+    <span class="help-icon hide-in-print">
+        <span class="icon dark-blue">
+            <a href="#" class="js-modal" role="button" data-modal-title="Quick comparison glossary" data-modal-text="@HelpTooltipText.QuickComparisonGlossary" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                <span class="govuk-visually-hidden">Open more info text for quick comparison glossary opens a popup</span>
+            </a>
+        </span>
+    </span>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <nav class="app-navigation app-navigation--gray-back govuk-clearfix govuk-!-margin-bottom-6" id="qcNav" aria-label="Chart group tabs" ng-if="!isMobile">
+            <ul class="app-navigation__list app-width-container" role="tablist">
+                <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === 'Total expenditure'}" role="presentation">
+                    <a role="tab" aria-controls="benchmarkChartsList" aria-selected="{{activeTab === 'Total expenditure'}}"
+                       class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+                       ng-click="ctrl.changeQcTab('Total expenditure', $event)"
+                       href="#benchmarkChartsList">
+                        <span class="test">Total expenditure</span>
+                    </a>
+                </li>
+                <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === 'Staff total'}" role="presentation">
+                    <a role="tab" aria-controls="benchmarkChartsList" aria-selected="{{activeTab === 'Staff total'}}"
+                       class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+                       ng-click="ctrl.changeQcTab('Staff total', $event)"
+                       href="#benchmarkChartsList">
+                        <span class="test">Staff</span>
+                    </a>
+                </li>
+                <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === 'Premises total'}" role="presentation">
+                    <a role="tab" aria-controls="benchmarkChartsList" aria-selected="{{activeTab === 'Premises total'}}"
+                       class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+                       ng-click="ctrl.changeQcTab('Premises total', $event)"
+                       href="#benchmarkChartsList">
+                        <span class="test">Premises</span>
+                    </a>
+                </li>
+                <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === 'Occupation total'}" role="presentation">
+                    <a role="tab" aria-controls="benchmarkChartsList" aria-selected="{{activeTab === 'Occupation total'}}"
+                       class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+                       ng-click="ctrl.changeQcTab('Occupation total', $event)"
+                       href="#benchmarkChartsList">
+                        <span class="test">Occupation</span>
+                    </a>
+                </li>
+                <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === 'Supplies and services total'}" role="presentation">
+                    <a role="tab" aria-controls="benchmarkChartsList" aria-selected="{{activeTab === 'Supplies and services total'}}"
+                       class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+                       ng-click="ctrl.changeQcTab('Supplies and services total', $event)"
+                       href="#benchmarkChartsList">
+                        <span class="test">Supplies and services</span>
+                    </a>
+                </li>
+                @if (Model.EstablishmentType == EstablishmentType.Maintained)
+                {
+                    <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === 'Community expenditure total'}" role="presentation">
+                        <a role="tab" aria-controls="benchmarkChartsList" aria-selected="{{activeTab === 'Community expenditure total'}}"
                            class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
-                           ng-click="ctrl.changeQcTab('Total expenditure', $event)"
-                           href="#benchmarkChartsList"><span class="test">Total expenditure</span></a>
+                           ng-click="ctrl.changeQcTab('Community expenditure total', $event)"
+                           href="#benchmarkChartsList">
+                            <span class="test">Community expenditure</span>
+                        </a>
                     </li>
-                    <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === 'Staff total'}" role="presentation">
-                        <a role="tab" aria-controls="benchmarkChartsList" aria-selected="{{activeTab === 'Staff total'}}"
-                           class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
-                           ng-click="ctrl.changeQcTab('Staff total', $event)"
-                           href="#benchmarkChartsList"><span class="test">Staff</span></a>
-                    </li>
-                    <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === 'Premises total'}" role="presentation">
-                        <a role="tab" aria-controls="benchmarkChartsList" aria-selected="{{activeTab === 'Premises total'}}"
-                           class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
-                           ng-click="ctrl.changeQcTab('Premises total', $event)"
-                           href="#benchmarkChartsList"><span class="test">Premises</span></a>
-                    </li>
-                    <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === 'Occupation total'}" role="presentation">
-                        <a role="tab" aria-controls="benchmarkChartsList" aria-selected="{{activeTab === 'Occupation total'}}"
-                           class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
-                           ng-click="ctrl.changeQcTab('Occupation total', $event)"
-                           href="#benchmarkChartsList"><span class="test">Occupation</span></a>
-                    </li>
-                    <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === 'Supplies and services total'}" role="presentation">
-                        <a role="tab" aria-controls="benchmarkChartsList" aria-selected="{{activeTab === 'Supplies and services total'}}"
-                           class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
-                           ng-click="ctrl.changeQcTab('Supplies and services total', $event)"
-                           href="#benchmarkChartsList"><span class="test">Supplies and services</span></a>
-                    </li>
-                    @if (Model.EstablishmentType == EstablishmentType.Maintained)
-                    {
-                        <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === 'Community expenditure total'}" role="presentation">
-                            <a role="tab" aria-controls="benchmarkChartsList" aria-selected="{{activeTab === 'Community expenditure total'}}"
-                               class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
-                               ng-click="ctrl.changeQcTab('Community expenditure total', $event)"
-                               href="#benchmarkChartsList"><span class="test">Community expenditure</span></a>
-                        </li>
-                    }
-                    <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === 'Special facilities total'}" role="presentation">
-                        <a role="tab" aria-controls="benchmarkChartsList" aria-selected="{{activeTab === 'Special facilities total'}}"
-                           class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
-                           ng-click="ctrl.changeQcTab('Special facilities total', $event)"
-                           href="#benchmarkChartsList"><span class="test">Special facilities</span></a>
-                    </li>
-                </ul>
-            </nav>
-            <fieldset class="govuk-fieldset govuk-!-margin-bottom-1" ng-if="isMobile">
-                <legend class="govuk-visually-hidden">Chart group filter</legend>
-                <div>
-                    <label class="govuk-label govuk-visually-hidden" for="aaSelect">Chart group</label>
-                    <select name="cgSelect" id="cgSelect" class="govuk-select" ng-model="activeTab" style="width: 100%" ng-change="ctrl.changeQcTab(activeTab, $event)">
-                        <option value="Total expenditure" >Total expenditure</option>
-                        <option value="Staff total">Staff</option>
-                        <option value="Premises total">Premises</option>
-                        <option value="Occupation total">Occupation</option>
-                        <option value="Supplies and services total">Supplies and services</option>
-                        <option value="Community expenditure total">Community expenditure</option>
-                        <option value="Special facilities total">Special facilities</option>
-                    </select>
-                </div>
-            </fieldset>
-            <div id="benchmarkChartsList"></div>
-            <div class="govuk-!-margin-top-4 govuk-!-display-inline-block govuk-body">See the <a class="govuk-link sfb_gtm_panel_full_qc" href="/BenchmarkCharts/GenerateFromSimpleCriteria?Urn=@Model.Id&EstType=@Model.EstablishmentType&ComparisonType=Basic&SimpleCriteria.IncludeFsm=true&SimpleCriteria.IncludeSen=true&SimpleCriteria.IncludeEal=true">full version</a> of this quick comparison</div>
+                }
+                <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === 'Special facilities total'}" role="presentation">
+                    <a role="tab" aria-controls="benchmarkChartsList" aria-selected="{{activeTab === 'Special facilities total'}}"
+                       class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+                       ng-click="ctrl.changeQcTab('Special facilities total', $event)"
+                       href="#benchmarkChartsList">
+                        <span class="test">Special facilities</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <fieldset class="govuk-fieldset govuk-!-margin-bottom-1" ng-if="isMobile">
+            <legend class="govuk-visually-hidden">Chart group filter</legend>
+            <div>
+                <label class="govuk-label govuk-visually-hidden" for="aaSelect">Chart group</label>
+                <select name="cgSelect" id="cgSelect" class="govuk-select" ng-model="activeTab" style="width: 100%" ng-change="ctrl.changeQcTab(activeTab, $event)">
+                    <option value="Total expenditure">Total expenditure</option>
+                    <option value="Staff total">Staff</option>
+                    <option value="Premises total">Premises</option>
+                    <option value="Occupation total">Occupation</option>
+                    <option value="Supplies and services total">Supplies and services</option>
+                    <option value="Community expenditure total">Community expenditure</option>
+                    <option value="Special facilities total">Special facilities</option>
+                </select>
+            </div>
+        </fieldset>
+        <div id="benchmarkChartsList"></div>
+        <div class="govuk-!-margin-top-4 govuk-!-display-inline-block govuk-body">
+            @if (Model.OverallPhase == "Special")
+            {
+                <text>See the</text>
+                <a class="govuk-link sfb_gtm_panel_full_qc"
+                   href="/BenchmarkCharts/SpecialsComparison?Urn=@Model.Id&EstType=@Model.EstablishmentType&ComparisonType=Basic&SimpleCriteria.IncludeFsm=true&SimpleCriteria.IncludeSen=true&SimpleCriteria.IncludeEal=true">
+                    full version
+                </a>
+                <text>of this quick comparison</text>
+            }
+            else
+            {
+                <text>See the</text>
+                <a class="govuk-link sfb_gtm_panel_full_qc"
+                   href="/BenchmarkCharts/GenerateFromSimpleCriteria?Urn=@Model.Id&EstType=@Model.EstablishmentType&ComparisonType=Basic&SimpleCriteria.IncludeFsm=true&SimpleCriteria.IncludeSen=true&SimpleCriteria.IncludeEal=true">
+                    full version
+                </a>
+                <text>of this quick comparison</text>
+            }
         </div>
     </div>
+</div>
 </div>

@@ -569,7 +569,7 @@ namespace SFB.Web.UI.Controllers
                                 ErrorMessage = ErrorMessages.BMBasketLimitExceed
                             });
                     }
-                     _schoolBenchmarkListService.AddSchoolsToBenchmarkList(comparisonResult);
+                    _schoolBenchmarkListService.AddSchoolsToBenchmarkList(comparisonResult);
                     break;
             }
 
