@@ -12,7 +12,7 @@
         string.Format("{0}Schools Financial Benchmarking - GOV.UK", ViewBag.ErrorPrefix ?? "");
     var version = typeof(HomeController).Assembly.GetName().Version.ToString();
     var userCookiePreferences = Request.Cookies[CookieNames.COOKIE_POLICY];
-    var hasSetPreferences = Request.Cookies["cookies_preferences_set"];
+    var hasSetPreferences = Request.Cookies["cookies_preferences_set_"];
     var acceptedAnalytics = false;
     if (userCookiePreferences != null)
     {
@@ -23,6 +23,8 @@
             acceptedAnalytics = cookiePolicy.Usage;
         }
     }
+
+    var suppressCookieModal = ViewBag.SuppressCookieModal != null;
 }
 <!DOCTYPE html>
 <html lang="en" class="govuk-template ">
@@ -132,86 +134,23 @@
 </head>
 
 <body class="govuk-template__body @(ViewBag.bodyClasses)">
-<script>
+<div id="ts-modal-page">
+    <script>
         document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
     </script>
 
-@if (acceptedAnalytics)
-{
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=@System.Configuration.ConfigurationManager.AppSettings["GoogleTagManagerId"]"
-                height="0" width="0" style="display:none;visibility:hidden">
-        </iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-}
-@if (hasSetPreferences == null)
-{
-    <div class="govuk-cookie-banner" data-nosnippet role="region" aria-label="Cookies on Schools financial benchmarking">
-            <div id="govuk-cookie-banner-message" class="govuk-cookie-banner__message govuk-width-container">
-    
-                <div class="govuk-grid-row">
-                    <div class="govuk-grid-column-two-thirds">
-                        <h2 class="govuk-cookie-banner__heading govuk-heading-m">Cookies on Schools financial benchmarking</h2>
-    
-                        <div class="govuk-cookie-banner__content">
-                            <p class="govuk-body">We use some essential cookies to make this service work.</p>
-                            <p class="govuk-body">We&rsquo;d like to set additional cookies so we can remember your settings, understand how people use the service and make improvements.</p>
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="govuk-button-group">
-                    <button value="accept" type="button" name="cookies" class="govuk-button" data-module="govuk-button" id="acceptAllCookies">
-                        Accept additional cookies
-                    </button>
-                    <button value="reject" type="button" name="cookies" class="govuk-button" data-module="govuk-button" id="rejectAllCookies">
-                        Reject additional cookies
-                    </button>
-                    <a class="govuk-link" href="~/Help/cookies">View cookies</a>
-                </div>
-            </div>
-    
-            <div class="govuk-cookie-banner__message govuk-width-container hidden" hidden id="govuk-cookie-accept-confirmation">
-    
-                <div class="govuk-grid-row">
-                    <div class="govuk-grid-column-two-thirds">
-    
-                        <div class="govuk-cookie-banner__content">
-                            <p class="govuk-body">You’ve accepted additional cookies. You can <a class="govuk-link" href="~/Help/cookies">change your cookie settings</a> at any time.</p>
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="govuk-button-group">
-                    <a href="javascript:return(0)" role="button" draggable="false" class="govuk-button cookie-banner-hide-button" data-module="govuk-button">
-                        Hide this message
-                    </a>
-                </div>
-            </div>
-    
-            <div class="govuk-cookie-banner__message govuk-width-container hidden" id="govuk-cookie-reject-confirmation" hidden>
-    
-                <div class="govuk-grid-row">
-                    <div class="govuk-grid-column-two-thirds">
-    
-                        <div class="govuk-cookie-banner__content">
-                            <p class="govuk-body">You&rsquo;ve rejected additional cookies. You can <a class="govuk-link" href="~/Help/cookies">change your cookie settings</a> at any time.</p>
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="govuk-button-group">
-                    <a href="javascript:return(0)" role="button" draggable="false" class="govuk-button cookie-banner-hide-button" data-module="govuk-button">
-                        Hide this message
-                    </a>
-                </div>
-    
-            </div>
-        </div>
-}
-    
+    @if (acceptedAnalytics)
+    {
+        <!-- Google Tag Manager (noscript) -->
+        <noscript>
+            <iframe src="https://www.googletagmanager.com/ns.html?id=@System.Configuration.ConfigurationManager.AppSettings["GoogleTagManagerId"]"
+                    height="0" width="0" style="display:none;visibility:hidden">
+            </iframe>
+        </noscript>
+        <!-- End Google Tag Manager (noscript) -->
+    }
+
+
 
     <a class="govuk-link" name="pagetop"></a>
 
@@ -228,7 +167,7 @@
                         </svg>
                         <!--<![endif]-->
                         <!--[if IE 8]>
-                        <img src="/assets/images/govuk-logotype-crown.png" class="govuk-header__logotype-crown-fallback-image" width="36" height="32">
+                            <img src="/assets/images/govuk-logotype-crown.png" class="govuk-header__logotype-crown-fallback-image" width="36" height="32">
                         <![endif]-->
                         <span class="govuk-header__logotype-text">
                             GOV.UK
@@ -284,12 +223,12 @@
         <div class="govuk-grid-row govuk-!-margin-left-0 govuk-!-margin-right-0">
             <main class="govuk-main-wrapper govuk-!-padding-top-0 @(ViewBag.pageClass)" id="main-content">
                 @RenderBody()
-                <input type="hidden" id="version" value="@version" />
-                <input type="hidden" id="googleAnalyticsId" value="@System.Configuration.ConfigurationManager.AppSettings["GoogleAnalyticsId"]" />
-                <input type="hidden" id="cookieDomain" value="@System.Configuration.ConfigurationManager.AppSettings["cookieDomain"]" />
-                <input type="hidden" id="SfbApiUrl" value="@System.Configuration.ConfigurationManager.AppSettings["SfbApiUrl"]" />
+                <input type="hidden" id="version" value="@version"/>
+                <input type="hidden" id="googleAnalyticsId" value="@System.Configuration.ConfigurationManager.AppSettings["GoogleAnalyticsId"]"/>
+                <input type="hidden" id="cookieDomain" value="@System.Configuration.ConfigurationManager.AppSettings["cookieDomain"]"/>
+                <input type="hidden" id="SfbApiUrl" value="@System.Configuration.ConfigurationManager.AppSettings["SfbApiUrl"]"/>
                 @*Features*@
-                <input type="hidden" id="@Features.RevisedSchoolPage" value="@FeatureManager.IsEnabled(Features.RevisedSchoolPage).ToString()" />
+                <input type="hidden" id="@Features.RevisedSchoolPage" value="@FeatureManager.IsEnabled(Features.RevisedSchoolPage).ToString()"/>
                 @*Features*@
             </main>
             @RenderSection("Aside", required: false)
@@ -327,7 +266,7 @@
                         </li>
                     </ul>
                     <svg aria-hidden="true" focusable="false" class="govuk-footer__licence-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 483.2 195.7" height="17" width="41">
-                        <path fill="currentColor" d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145" />
+                        <path fill="currentColor" d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145"/>
                     </svg>
                     <span class="govuk-footer__licence-description">
                         All content is available under the
@@ -342,18 +281,93 @@
     </footer>
 
     <div id="global-app-error" class="app-error hidden"></div>
-  @if (ViewBag.HasMigratedJs == null)
-  {
+    
+    
+</div>
+@if (hasSetPreferences == null && !suppressCookieModal)
+{
+    <dialog class="modal cookie-prefs-modal">
+    <div class="govuk-cookie-banner" data-nosnippet role="region" aria-label="Cookies on Schools financial benchmarking">
+        <div id="govuk-cookie-banner-message" class="govuk-cookie-banner__message govuk-width-container">
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    <h2 class="govuk-cookie-banner__heading govuk-heading-m">Cookies on Schools financial benchmarking</h2>
+
+                    <div class="govuk-cookie-banner__content">
+                        <p class="govuk-body">We use some essential cookies to make this service work.</p>
+                        <p class="govuk-body">We&rsquo;d like to set additional cookies so we can remember your settings, understand how people use the service and make improvements.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="govuk-button-group">
+                <button value="accept" type="button" name="cookies" class="govuk-button" data-module="govuk-button" id="acceptAllCookies">
+                    Accept additional cookies
+                </button>
+                <button value="reject" type="button" name="cookies" class="govuk-button" data-module="govuk-button" id="rejectAllCookies">
+                    Reject additional cookies
+                </button>
+                <a class="govuk-link" href="~/Help/cookies">View cookies</a>
+            </div>
+        </div>
+
+        <div class="govuk-cookie-banner__message govuk-width-container hidden" hidden id="govuk-cookie-accept-confirmation">
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds">
+
+                    <div class="govuk-cookie-banner__content">
+                        <p class="govuk-body">You’ve accepted additional cookies. You can <a class="govuk-link" href="~/Help/cookies">change your cookie settings</a> at any time.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="govuk-button-group">
+                <a href="javascript:return(0)" role="button" draggable="false" class="govuk-button cookie-banner-hide-button" data-module="govuk-button">
+                    Hide this message
+                </a>
+            </div>
+        </div>
+
+        <div class="govuk-cookie-banner__message govuk-width-container hidden" id="govuk-cookie-reject-confirmation" hidden>
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds">
+
+                    <div class="govuk-cookie-banner__content">
+                        <p class="govuk-body">You&rsquo;ve rejected additional cookies. You can <a class="govuk-link" href="~/Help/cookies">change your cookie settings</a> at any time.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="govuk-button-group">
+                <a href="#" role="button" draggable="false" class="govuk-button cookie-banner-hide-button" data-module="govuk-button">
+                    Hide this message
+                </a>
+            </div>
+
+        </div>
+    </div>
+    </dialog>
+    <span class="modal-overlay"></span>
+}
+@if (hasSetPreferences == null)
+    {
+        <script src="@Html.Raw(Html.GetWebpackScriptUrl("CookieBanner.*.js"))"></script>
+    }
+@if (ViewBag.HasMigratedJs == null)
+    {
       @* <script src="~/public/vendorScripts/jquery.min.js"></script> *@
-      <script src="@Html.Raw(Html.GetWebpackScriptUrl("VendorLibs.*.js"))"></script>
-      <script src="/public/assets/scripts/application.js?v=@version"></script>
-      @(RenderSection("ViewScripts", required: false))
-      <script>$('.sticky-div').Stickyfill();</script>
-  }
-  else
-  {
-      <script src="@Html.Raw(Html.GetWebpackScriptUrl("main.*.js"))"></script>
-      @(RenderSection("ViewScripts", required: false))
-  }
+        <script src="@Html.Raw(Html.GetWebpackScriptUrl("VendorLibs.*.js"))"></script>
+        <script src="/public/assets/scripts/application.js?v=@version"></script>
+        @(RenderSection("ViewScripts", required: false))
+        <script>$('.sticky-div').Stickyfill();</script>
+    }
+    else
+    {
+        <script src="@Html.Raw(Html.GetWebpackScriptUrl("main.*.js"))"></script>
+        @(RenderSection("ViewScripts", required: false))
+    }
 </body>
 </html>

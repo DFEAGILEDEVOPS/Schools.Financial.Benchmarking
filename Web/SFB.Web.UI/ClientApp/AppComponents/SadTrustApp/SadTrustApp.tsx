@@ -24,7 +24,7 @@ declare global {
   }
 }
 let acceptedTrackingCookies = false;
-const policyCookie = CookieManager.getCookie('cookies_policy');
+const policyCookie = CookieManager.getCookie('cookies_policy_');
 if (policyCookie) {
   const cookieSettings = JSON.parse(policyCookie);
   acceptedTrackingCookies = cookieSettings.usage;
