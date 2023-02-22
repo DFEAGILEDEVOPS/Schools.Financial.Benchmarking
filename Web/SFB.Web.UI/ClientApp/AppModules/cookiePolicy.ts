@@ -96,10 +96,9 @@ const bannerActions = function(): void {
   const cookieBannerHideBtns = document.querySelectorAll('.cookie-banner-hide-button');
   
   if (cookieBannerHideBtns instanceof NodeList) {
-    console.log('found hide button');
-    cookieBannerHideBtns.forEach((button)=> {
-      button.addEventListener('click', function(e){
-          console.log('hide button click');
+    cookieBannerHideBtns.forEach((button) => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
           document.querySelectorAll('.cookie-prefs-modal').forEach((banner) => {
             banner.remove();
           });
@@ -107,7 +106,7 @@ const bannerActions = function(): void {
             overlay.remove();
           });
           document.body.classList.remove('no-scroll');
-          return false;
+          document.getElementById('ts-modal-page')?.removeAttribute('aria-hidden');
       });
     });
   }
