@@ -1,4 +1,5 @@
-﻿@{
+﻿@using System.Configuration
+@{
     ViewBag.Title = "Data Sources and Interpretation";
     ViewBag.pageClass = "datasources";
 }
@@ -65,7 +66,8 @@
         <a class="govuk-link" id="question-three"></a>
         <h3 class="govuk-heading-m govuk-!-margin-top-6">Performance tables</h3>
         <p class="govuk-body">
-            This comes from <a target="_blank" rel="external noopener noreferrer" class="govuk-link" href="https://www.gov.uk/school-performance-tables">find and compare schools in England<span class="govuk-visually-hidden"> Opens in a new window</span></a>. The period covered matches the submissions for financial returns.
+            This comes from <a target="_blank" rel="external noopener noreferrer" class="govuk-link"
+                               href="@ConfigurationManager.AppSettings["SptApiUrl"]">Find school and college performance data in England<span class="govuk-visually-hidden"> Opens in a new window</span></a>. The period covered matches the submissions for financial returns.
         </p>
 
         <a class="govuk-link" id="question-four"></a>
