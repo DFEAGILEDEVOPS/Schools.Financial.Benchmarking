@@ -361,6 +361,12 @@ namespace SFB.Web.UI.Controllers
                     return ErrorView(SearchTypes.SEARCH_BY_TRUST_NAME_ID, referrer, SearchErrorMessages.NO_TRUST_NAME_RESULTS);
                 }
 
+                if (searchResults.NumberOfResults == 1)
+                {
+                    var res = (TrustSearchResult)System.Linq.Enumerable.First(searchResults.Results);
+                    return RedirectToAction("Detail", "Trust", new { companyNo = res.CompanyNumber });
+                }
+
                 var trustVm = await GetTrustListViewModelAsync(searchResults, orderby, page, SearchTypes.SEARCH_BY_TRUST_NAME_ID, trustName, null, null);
 
                 return View("SearchResults", trustVm);
