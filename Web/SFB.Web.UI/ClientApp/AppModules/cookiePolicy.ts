@@ -42,7 +42,7 @@ const bannerActions = function(): void {
   if (!policyCookie) {
     const cookieSettings: ICookiePolicy = { "essential": true, "settings": false, "usage": false };
     CookieManager.setCookie(
-      'cookies_policy', 
+      'cookies_policy_', 
       JSON.stringify(cookieSettings), 
       {days: 365}, 
       domain);
@@ -57,13 +57,13 @@ const bannerActions = function(): void {
       const cookieSettings: ICookiePolicy = { "essential": true, "settings": true, "usage": true };
       
       CookieManager.setCookie(
-        'cookies_policy',
+        'cookies_policy_',
         JSON.stringify(cookieSettings), 
         {days: 365},
         domain);
       
       CookieManager.setCookie(
-        'cookies_preferences_set',
+        'cookies_preferences_set_',
         'true', 
         {days: 365},
         domain);
@@ -78,13 +78,13 @@ const bannerActions = function(): void {
       const cookieSettings: ICookiePolicy = { "essential": true, "settings": false, "usage": false };
       
       CookieManager.setCookie(
-        'cookies_policy',
+        'cookies_policy_',
         JSON.stringify(cookieSettings),
         {days: 365},
         domain);
       
       CookieManager.setCookie(
-        'cookies_preferences_set',
+        'cookies_preferences_set_',
         'true',
         {days: 365},
         domain);
@@ -93,22 +93,27 @@ const bannerActions = function(): void {
     });
   }
   
-  const cookieBannerHideBtn = document.querySelector('.cookie-banner-hide-button');
+  const cookieBannerHideBtns = document.querySelectorAll('.cookie-banner-hide-button');
   
-  if (cookieBannerHideBtn instanceof HTMLElement) {
-    cookieBannerHideBtn.addEventListener('click', function(e){
-      e.preventDefault();
-      document.querySelectorAll('.govuk-cookie-banner').forEach((banner) => {
-        banner.classList.add('hidden');
-        banner.setAttribute('aria-hidden', 'true');
-        banner.setAttribute('hidden', 'hidden' );
+  if (cookieBannerHideBtns instanceof NodeList) {
+    cookieBannerHideBtns.forEach((button) => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+          document.querySelectorAll('.cookie-prefs-modal').forEach((banner) => {
+            banner.remove();
+          });
+          document.querySelectorAll('.modal-overlay').forEach((overlay) =>{
+            overlay.remove();
+          });
+          document.body.classList.remove('no-scroll');
+          document.getElementById('ts-modal-page')?.removeAttribute('aria-hidden');
       });
     });
   }
 }
 
 const managePreferencesUi = function(): void {
-  if (CookieManager.getCookie("cookies_preferences_set")) {
+  if (CookieManager.getCookie("cookies_preferences_set_")) {
     return;
   }
   const cookieBanner: HTMLElement | null = document.querySelector('.govuk-cookie-banner');
@@ -140,7 +145,7 @@ const manageRecruitmentNotification = function(): void {
   const location: string = window.location.toString().toLowerCase(); 
   const isOnRecruitmentView = location.indexOf('help/get-involved') > -1 ||
       location.indexOf('/help/getinvolvedsubmission') > -1;
-  const currentPolicyCookie = CookieManager.cookie('cookies_policy');
+  const currentPolicyCookie = CookieManager.cookie('cookies_policy_');
   const recruitmentBanner: HTMLElement | null = document.querySelector('.banner-content__recruitment-banner');
   
   if (currentPolicyCookie) {
@@ -166,7 +171,7 @@ const manageRecruitmentNotification = function(): void {
                 recruitmentBanner.classList.add('hidden');
                 recruitmentBanner.setAttribute('aria-hidden', 'true');
 
-                const cookieValue = CookieManager.getCookie('cookies_policy');
+                const cookieValue = CookieManager.getCookie('cookies_policy_');
                 if (cookieValue) {
                   const policy = JSON.parse(cookieValue);
 

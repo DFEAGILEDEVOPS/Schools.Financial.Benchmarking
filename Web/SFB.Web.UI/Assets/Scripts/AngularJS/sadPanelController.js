@@ -54,9 +54,10 @@ app.controller('SadPanelController',
                             function (band) {
                                 return (band.scoreLow <= value) && (band.scoreHigh >= value);
                             });
-
-                        selection.isMatch = true;
-                        return selection;
+                        if (typeof selection !== 'undefined') {
+                          selection.isMatch = true
+                          return selection;
+                        }
                     }
                 }
 

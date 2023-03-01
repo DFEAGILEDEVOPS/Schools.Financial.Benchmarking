@@ -1,0 +1,27 @@
+﻿dialog.cookie-prefs-modal {
+  width: auto;
+  border-radius: 10px;
+  padding-bottom: 0.5em;
+  
+  &:focus {
+    outline: none;
+  }
+  
+  @include govuk-media-query($from: mobile) {
+    max-width: 320px;
+  }
+  @include govuk-media-query($from: tablet) {
+    max-width: 720px;
+  }
+  @include govuk-media-query($from: desktop) {
+    max-width: 900px;
+  }
+
+  .govuk-cookie-banner {
+    background-color: govuk-colour("white");
+  }
+}
+
+.govuk-notification-banner__content > * {
+  max-width: unset;
+}

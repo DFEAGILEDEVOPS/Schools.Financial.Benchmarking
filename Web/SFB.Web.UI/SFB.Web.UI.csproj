@@ -594,6 +594,7 @@
     <Content Include="ClientApp\AppModules\__DIR.README.md" />
     <Content Include="ClientApp\AppComponents\__DIR.README.md" />
     <Content Include="ClientApp\Entry\main.js" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\CookieBanner\CookieModal.ts" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Global\ModalComponents\SfbContentModal.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Global\SfbBanners\SfbWarning.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\BenchmarkCriteriaTable.tsx" />
@@ -604,6 +605,7 @@
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustSummaryApp\TabPanel.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustSummaryApp\TrustSummaryMobileNav.tsx" />
     <TypeScriptCompile Include="ClientApp\Entry\chooseRegion.ts" />
+    <TypeScriptCompile Include="ClientApp\Entry\CookieBanner.ts" />
     <TypeScriptCompile Include="ClientApp\Entry\TrustDashboard.tsx" />
     <Content Include="ClientApp\Entry\MapChartVendor.js" />
     <Content Include="ClientApp\Entry\VendorLibs.js" />
@@ -615,6 +617,7 @@
     <Content Include="ClientApp\styles\SfbBandings\_variables.scss" />
     <Content Include="ClientApp\styles\SfbGlobal\_all.scss" />
     <Content Include="ClientApp\styles\SfbGlobal\_sfb-banners.scss" />
+    <Content Include="ClientApp\styles\SfbGlobal\_sfb-cookie-prefs-modal.scss" />
     <Content Include="ClientApp\styles\SfbGlobal\_sfb-custom-buttons.scss" />
     <Content Include="ClientApp\styles\SfbGlobal\_sfb-custom-typography.scss" />
     <Content Include="ClientApp\styles\SfbGlobal\_sfb-details-element.scss" />

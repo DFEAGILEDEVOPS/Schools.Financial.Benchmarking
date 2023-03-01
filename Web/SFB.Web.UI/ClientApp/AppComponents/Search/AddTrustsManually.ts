@@ -16,9 +16,10 @@ export default class AddTrustsManually {
     const trustsToAdd = document.getElementById('TrustsToCompare');
     
     suggestionConfig.selectItemCallBack = async (item) => {
-      const res = await agent.ManualComparison.addTrust(item.value, item.text.value.toString());
+      const res = await agent.ManualComparison.addTrust(item.text.value, item.text.label);
       if (trustsToAdd instanceof HTMLDivElement) {
         trustsToAdd.innerHTML = res.toString();
+        this.initSuggestionComponent();
       }
     }
     this.initSuggestionComponent();
@@ -30,15 +31,43 @@ export default class AddTrustsManually {
       if (target.classList.contains('remove-trust')) {
         e.preventDefault();
         const companyNo = target.dataset.companyno!;
-        const result = await agent.ManualComparison.removeTrust(companyNo);
+        if (companyNo) {
+          const result = await agent.ManualComparison.removeTrust(companyNo);
+
+          trustsToAdd!.innerHTML = result.toString();
+          this.initSuggestionComponent();
+        }
+      }
+      
+      if (target.classList.contains('remove-new-trust')) {
+        e.preventDefault();
+        const newTrustPanel = document.getElementById('NewTrust');
+        const addButton = document.getElementById('AddButton');
+        const errorElements = document.querySelectorAll('.error-summary, .govuk-error-message');
         
-        trustsToAdd!.innerHTML = result.toString();
-        this.initSuggestionComponent();
+        if (newTrustPanel instanceof HTMLElement) {
+          newTrustPanel.style.display = 'none';
+        }
+        
+        errorElements.forEach((element) => {
+          if (element instanceof HTMLElement) {
+            element.style.display = 'none';
+          }
+        });
+        
+        if (addButton instanceof HTMLElement) {
+          addButton.style.display = 'block';
+        }
       }
       
       if (target.id === 'displayNew') {
         e.preventDefault();
         document.getElementById('NewTrust')?.removeAttribute('style');
+        const addNew = document.getElementById('AddButton');
+        if (addNew instanceof HTMLElement) {
+          addNew.style.display = 'none';
+        }
+        
         this.initSuggestionComponent();
       }
       

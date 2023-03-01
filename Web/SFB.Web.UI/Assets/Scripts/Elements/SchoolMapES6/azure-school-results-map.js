@@ -106,7 +106,7 @@
                         <p>${info.NFType}</p>
                         <div id="${info.Id}" data-urn="${info.Id}" class="add">`;
 
-                if (info.CompanyNumber !== "0") {
+                if (info.CompanyNumber) {
                     html += `<div class="mt-1" style="font-style: italic">Part of the </div>
                     <div class="mb-1"><a class="govuk-link" href="/trust/detail?companyNo=${info.CompanyNumber}">${info.SponsorName}</a></div>`;
                 }  
