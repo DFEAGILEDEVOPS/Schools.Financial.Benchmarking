@@ -6,6 +6,7 @@
     ViewBag.Title = string.Concat("Self-assessment dashboard for ", @Model.TrustName);
     ViewBag.HasMigratedJs = true;
     ViewBag.bodyClasses = "sfb-sad-trust-page";
+    
 }
 @section BackButtonContent{
  @Html.Partial("Partials/Breadcrumbs")
@@ -27,7 +28,7 @@
                     new { @class="govuk-link govuk-link--inverse"}
                     )
             </strong>
-            using <strong>2020/2021</strong> finance data. This data includes each academy's share of
+            using <strong>@ViewBag.latestYear</strong> finance data. This data includes each academy's share of
             <strong>MAT central finance</strong>
         </p>
     </div>

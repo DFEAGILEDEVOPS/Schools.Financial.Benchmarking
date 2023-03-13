@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using SFB.Web.ApplicationCore.Helpers;
+using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Attributes;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
@@ -17,10 +20,13 @@ namespace SFB.Web.UI.Controllers
     public class TrustSelfAssessmentController : Controller
     {
         private readonly ISelfAssessmentModalContentService _contentService;
+        private readonly IFinancialDataService _financialDataService;
 
-        public TrustSelfAssessmentController(ISelfAssessmentModalContentService contentService)
+        public TrustSelfAssessmentController(ISelfAssessmentModalContentService contentService,
+             IFinancialDataService financialDataService)
         {
             _contentService = contentService;
+            _financialDataService = financialDataService;
         }
 
         [HttpGet, Route("TrustSelfAssessment/{uid}/{category}", Name = "TrustSelfAssessment")]
@@ -35,6 +41,8 @@ namespace SFB.Web.UI.Controllers
 
             vm.CurrentCategory = category;
             vm.ModalMappings =  _contentService.GetAllSadModals();
+            var latestYear = await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.MAT);
+            ViewBag.latestYear = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
             return View(vm);
         }
 
