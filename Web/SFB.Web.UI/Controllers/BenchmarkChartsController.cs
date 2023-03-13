@@ -271,6 +271,15 @@ namespace SFB.Web.UI.Controllers
 
                 var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, estType, basketSize, simpleCriteria, benchmarkFed.LatestYearFinancialData, false);
 
+                if (comparisonResult.BenchmarkSchools.Count < 15)
+                {
+                    var openCriteria = new SimpleCriteria() { IncludeEal = false, IncludeFsm = false, IncludeSen = false };
+                    benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkFed.LatestYearFinancialData, openCriteria);
+                    benchmarkCriteria.MinNoPupil = (benchmarkFed.LatestYearFinancialData.PupilCount / 100 * 50);
+                    benchmarkCriteria.MaxNoPupil = (benchmarkFed.LatestYearFinancialData.PupilCount / 100 * 150);
+                    comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, EstablishmentType.All, ComparisonListLimit.DEFAULT, openCriteria, benchmarkFed.LatestYearFinancialData, false);
+                }
+                
                 _schoolBenchmarkListService.ClearSchoolBenchmarkList();
 
                 _schoolBenchmarkListService.AddSchoolsToBenchmarkList(comparisonResult);
@@ -289,6 +298,15 @@ namespace SFB.Web.UI.Controllers
 
                 var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, estType, basketSize, simpleCriteria, benchmarkSchool.LatestYearFinancialData);
 
+                if (comparisonResult.BenchmarkSchools.Count < 15)
+                {
+                    var openCriteria = new SimpleCriteria() { IncludeEal = false, IncludeFsm = false, IncludeSen = false };
+                    benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkSchool.LatestYearFinancialData, openCriteria);
+                    benchmarkCriteria.MinNoPupil = (benchmarkSchool.LatestYearFinancialData.PupilCount / 100 * 50);
+                    benchmarkCriteria.MaxNoPupil = (benchmarkSchool.LatestYearFinancialData.PupilCount / 100 * 150);
+                    comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, EstablishmentType.All, ComparisonListLimit.DEFAULT, openCriteria, benchmarkSchool.LatestYearFinancialData, false);
+                }
+                
                 _schoolBenchmarkListService.ClearSchoolBenchmarkList();
 
                 _schoolBenchmarkListService.AddSchoolsToBenchmarkList(comparisonResult);
@@ -792,6 +810,15 @@ namespace SFB.Web.UI.Controllers
                 var simpleCriteria = new SimpleCriteria() { IncludeEal = true, IncludeFsm = true, IncludeSen = true };
                 var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkSchool.LatestYearFinancialData, simpleCriteria);
                 comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, benchmarkSchool.EstablishmentType, ComparisonListLimit.DEFAULT, simpleCriteria, benchmarkSchool.LatestYearFinancialData, false);
+
+                if (comparisonResult.BenchmarkSchools.Count < 15)
+                {
+                    var openCriteria = new SimpleCriteria() { IncludeEal = false, IncludeFsm = false, IncludeSen = false };
+                    benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkSchool.LatestYearFinancialData, openCriteria);
+                    benchmarkCriteria.MinNoPupil = (benchmarkSchool.LatestYearFinancialData.PupilCount / 100 * 50);
+                    benchmarkCriteria.MaxNoPupil = (benchmarkSchool.LatestYearFinancialData.PupilCount / 100 * 150);
+                    comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, EstablishmentType.All, ComparisonListLimit.DEFAULT, openCriteria, benchmarkSchool.LatestYearFinancialData, false);
+                }
             }
             //For cases where school names are the same
             foreach (var school in comparisonResult.BenchmarkSchools.Where(s1 => comparisonResult.BenchmarkSchools.Any(s2 => s2.SchoolName == s1.SchoolName && s2.URN != s1.URN)))
