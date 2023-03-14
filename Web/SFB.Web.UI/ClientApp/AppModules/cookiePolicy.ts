@@ -145,14 +145,13 @@ const manageRecruitmentNotification = function(): void {
   const location: string = window.location.toString().toLowerCase(); 
   const isOnRecruitmentView = location.indexOf('help/get-involved') > -1 ||
       location.indexOf('/help/getinvolvedsubmission') > -1;
-  const currentPolicyCookie = CookieManager.cookie('cookies_policy_');
+  const currentPolicyCookie = CookieManager.getCookie('cookies_policy_');
   const recruitmentBanner: HTMLElement | null = document.querySelector('.banner-content__recruitment-banner');
-  
   if (currentPolicyCookie) {
     const currentPolicy: ICookiePolicy = JSON.parse(currentPolicyCookie);
     if (currentPolicy?.settings) {
       const suppressRecruitmentBannerCookie: string | null = CookieManager.getCookie('suppress-recruitment-banner');
-      if (suppressRecruitmentBannerCookie !== null && suppressRecruitmentBannerCookie === 'yes') {
+      if (suppressRecruitmentBannerCookie && suppressRecruitmentBannerCookie === 'yes') {
 
         if (recruitmentBanner instanceof HTMLElement) {
           recruitmentBanner.classList.add('hidden');
@@ -163,6 +162,7 @@ const manageRecruitmentNotification = function(): void {
           if (recruitmentBanner instanceof HTMLElement) {
             recruitmentBanner.classList.remove('hidden');
             recruitmentBanner.removeAttribute('aria-hidden');
+            recruitmentBanner.removeAttribute('style');
 
             const closeButton = recruitmentBanner.querySelector('.js-dismiss-recruitment-banner');
             if (closeButton) {
@@ -188,7 +188,7 @@ const manageRecruitmentNotification = function(): void {
   }
 }
 
-const  manageGACookies = function(policyCookie: ICookiePolicy) {
+const manageGACookies = function(policyCookie: ICookiePolicy) {
   if (!policyCookie.usage)  {
     CookieManager.cookie("_ga", null);
     CookieManager.cookie("_gat", null);

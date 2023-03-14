@@ -1,23 +1,26 @@
 ﻿import {ICookieOptions} from "../Interfaces";
 
-const cookie = function(name: string, 
-                        value: string | null | boolean = '', 
-                        options?: ICookieOptions) : void | null | string {
-  if (typeof value !== 'undefined') {
-    if (value === false || value === null) {
-      value = '';
-      return setCookie(name, '', {days: -1})
+const cookie = function(
+  name: string, 
+  value: string | null | boolean = '', 
+  options?: ICookieOptions) : void | null | string {
+    if (typeof value !== 'undefined') {
+      if (value === false || value === null) {
+        value = '';
+        return setCookie(name, '', {days: -1})
+      }
+    } else  {
+      return getCookie(name);
     }
-  } else  {
-    return getCookie(name);
-  }
 }
 
 
-const setCookie = function(name: string,
-                           value: string | null | boolean = '',
-                           options: ICookieOptions = {},
-                           domain?: string) {
+const setCookie = function(
+   name: string,
+   value: string | null | boolean = '',
+   options: ICookieOptions = {},
+   domain?: string) {
+  
   let cookieString = name + "=" + value + "; path=/";
   if (options.days) {
     const date = new Date();

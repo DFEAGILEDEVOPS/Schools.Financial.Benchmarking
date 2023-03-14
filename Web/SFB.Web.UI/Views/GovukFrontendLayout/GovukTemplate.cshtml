@@ -11,7 +11,8 @@
         string.Format("{0}{1} - Schools Financial Benchmarking - GOV.UK", ViewBag.ErrorPrefix ?? "", ViewBag.Title) :
         string.Format("{0}Schools Financial Benchmarking - GOV.UK", ViewBag.ErrorPrefix ?? "");
     var version = typeof(HomeController).Assembly.GetName().Version.ToString();
-    var userCookiePreferences = Request.Cookies[CookieNames.COOKIE_POLICY];
+    var cookieId = string.Concat(CookieNames.COOKIE_POLICY, "_");
+    var userCookiePreferences = Request.Cookies[cookieId];
     var hasSetPreferences = Request.Cookies["cookies_preferences_set_"];
     var acceptedAnalytics = false;
     if (userCookiePreferences != null)
