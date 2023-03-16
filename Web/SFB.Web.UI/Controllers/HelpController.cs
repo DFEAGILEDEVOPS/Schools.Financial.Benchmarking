@@ -52,7 +52,8 @@ namespace SFB.Web.UI.Controllers
             ViewBag.referrer = Request.UrlReferrer;
 
             var cookiePolicy = new CookiePolicyModel() { Essential = true };
-            var cookie = System.Web.HttpContext.Current.Request.Cookies[CookieNames.COOKIE_POLICY];
+            var cookieId = string.Concat(CookieNames.COOKIE_POLICY, "_");
+            var cookie = System.Web.HttpContext.Current.Request.Cookies[cookieId];
             if (cookie != null)
             {
                 cookiePolicy = JsonConvert.DeserializeObject<CookiePolicyModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
@@ -183,21 +184,11 @@ namespace SFB.Web.UI.Controllers
 
         private void SetRecruitmentBannerCookie()
         {
-            var cookiePolicy = new CookiePolicyModel();
-            var cookiePolicyCookie = Request.Cookies[CookieNames.COOKIE_POLICY];
-            if (cookiePolicyCookie != null)
-            {
-                cookiePolicy = JsonConvert.DeserializeObject<CookiePolicyModel>(cookiePolicyCookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
-            }
-
-            if (cookiePolicy.Settings)
-            {
-                HttpCookie cookie = new HttpCookie(CookieNames.SUPPRES_RECRUITMENT_BANNER, "yes");
-                cookie.Expires = DateTime.Now.AddDays(180);
-                cookie.HttpOnly = false;
-                cookie.Secure = Request.IsSecureConnection;
-                Response.Cookies.Add(cookie);
-            }
+            HttpCookie cookie = new HttpCookie(CookieNames.SUPPRES_RECRUITMENT_BANNER, "yes");
+            cookie.Expires = DateTime.Now.AddDays(180);
+            cookie.HttpOnly = false;
+            cookie.Secure = Request.IsSecureConnection;
+            Response.Cookies.Add(cookie);
         }
     }
 }
