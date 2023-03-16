@@ -142,47 +142,29 @@ const managePreferencesUi = function(): void {
 }
 
 const manageRecruitmentNotification = function(): void {
-  const location: string = window.location.toString().toLowerCase(); 
+  const location: string = window.location.toString().toLowerCase();
   const isOnRecruitmentView = location.indexOf('help/get-involved') > -1 ||
-      location.indexOf('/help/getinvolvedsubmission') > -1;
-  const currentPolicyCookie = CookieManager.getCookie('cookies_policy_');
+    location.indexOf('/help/getinvolvedsubmission') > -1;
   const recruitmentBanner: HTMLElement | null = document.querySelector('.banner-content__recruitment-banner');
-  if (currentPolicyCookie) {
-    const currentPolicy: ICookiePolicy = JSON.parse(currentPolicyCookie);
-    if (currentPolicy?.settings) {
-      const suppressRecruitmentBannerCookie: string | null = CookieManager.getCookie('suppress-recruitment-banner');
-      if (suppressRecruitmentBannerCookie && suppressRecruitmentBannerCookie === 'yes') {
+  const suppressRecruitmentBannerCookie: string | null = CookieManager.getCookie('suppress-recruitment-banner');
+  if (suppressRecruitmentBannerCookie && suppressRecruitmentBannerCookie === 'yes' && recruitmentBanner instanceof HTMLElement) {
+      recruitmentBanner.classList.add('hidden');
+      recruitmentBanner.setAttribute('aria-hidden', 'true');
+  } else {
+    if (!isOnRecruitmentView && recruitmentBanner instanceof HTMLElement) {
+      recruitmentBanner.classList.remove('hidden');
+      recruitmentBanner.removeAttribute('aria-hidden');
+      recruitmentBanner.removeAttribute('style');
 
-        if (recruitmentBanner instanceof HTMLElement) {
+      const closeButton = recruitmentBanner.querySelector('.js-dismiss-recruitment-banner');
+      if (closeButton) {
+        closeButton.addEventListener('click', (e) => {
+          e.preventDefault();
           recruitmentBanner.classList.add('hidden');
           recruitmentBanner.setAttribute('aria-hidden', 'true');
-        }
-      } else {
-        if (!isOnRecruitmentView) {
-          if (recruitmentBanner instanceof HTMLElement) {
-            recruitmentBanner.classList.remove('hidden');
-            recruitmentBanner.removeAttribute('aria-hidden');
-            recruitmentBanner.removeAttribute('style');
 
-            const closeButton = recruitmentBanner.querySelector('.js-dismiss-recruitment-banner');
-            if (closeButton) {
-              closeButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                recruitmentBanner.classList.add('hidden');
-                recruitmentBanner.setAttribute('aria-hidden', 'true');
-
-                const cookieValue = CookieManager.getCookie('cookies_policy_');
-                if (cookieValue) {
-                  const policy = JSON.parse(cookieValue);
-
-                  if (policy.settings) {
-                    CookieManager.setCookie('suppress-recruitment-banner', 'yes', {days: 180})
-                  }
-                }
-              });
-            }
-          }
-        }
+          CookieManager.setCookie('suppress-recruitment-banner', 'yes', {days: 30})
+        });
       }
     }
   }

@@ -674,7 +674,7 @@ function manageCookies() {
     }
 
     manageCookiePreferencesCookies();
-    manageRecruitmentBannerAndCookie(cookiesPolicyCookie);
+    manageRecruitmentBannerAndCookie();
     manageGACookies(cookiesPolicyCookie);
     //manageMSCookies(cookiesPolicyCookie);
 
@@ -714,32 +714,18 @@ function manageCookiePreferencesCookies() {
     }
 }
 
-function manageRecruitmentBannerAndCookie(cookiesPolicyCookie) {
+function manageRecruitmentBannerAndCookie() {
     var isInRecruitmentPage = window.location.href.toLowerCase().includes("help/get-involved") || window.location.href.toLowerCase().includes("/help/getinvolvedsubmission");
-    if (cookiesPolicyCookie.settings) {
-        var suppressRecruitmentBannerCookie = GOVUK.cookie("suppress-recruitment-banner");
-        if (suppressRecruitmentBannerCookie === "yes") {
-            $(".banner-content__recruitment-banner").hide();
-        } else {
-            if (!isInRecruitmentPage) {
-                $(".banner-content__recruitment-banner").show();
-                $(".js-dismiss-recruitment-banner").click(function () {
-                    $(".banner-content__recruitment-banner").hide();
-                    GOVUK.cookie("suppress-recruitment-banner", 'yes', { days: 180 });
-                });
-            }
-        }
-    }
-    else {
-        GOVUK.cookie("suppress-recruitment-banner", null);
+    
+    var suppressRecruitmentBannerCookie = GOVUK.cookie("suppress-recruitment-banner");
+    if (suppressRecruitmentBannerCookie === "yes") {
+        $(".banner-content__recruitment-banner").hide();
+    } else {
         if (!isInRecruitmentPage) {
             $(".banner-content__recruitment-banner").show();
             $(".js-dismiss-recruitment-banner").click(function () {
                 $(".banner-content__recruitment-banner").hide();
-                cookiesPolicyCookie = JSON.parse(GOVUK.cookie("cookies_policy_"));
-                if (cookiesPolicyCookie.settings) {
-                    GOVUK.cookie("suppress-recruitment-banner", 'yes', { days: 180 });
-                }
+                GOVUK.cookie("suppress-recruitment-banner", 'yes', { days: 30 });
             });
         }
     }
