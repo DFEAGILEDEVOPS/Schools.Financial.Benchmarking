@@ -1232,8 +1232,8 @@ div.custom.tabs ul li {
 /*Banner header*/
 #banner-header {
     width: 100%;
-    color: govuk-colour("white");
-    background-color: $govuk-brand-colour;
+    color: $govuk-text-colour;
+    background-color: govuk-colour("yellow");
     padding: 10px 0;
 }
 
@@ -1261,13 +1261,13 @@ div.custom.tabs ul li {
 }
 
 #banner-header button {
-    color: govuk-colour("white");
+    color: $govuk-text-colour;
     font-size: 16px;
 }
 
 #banner-header a {
     display: block;
-    color: govuk-colour("white");
+    color: $govuk-text-colour;
 }
 
 ////// GOVUK-FRONTEND modifications/////

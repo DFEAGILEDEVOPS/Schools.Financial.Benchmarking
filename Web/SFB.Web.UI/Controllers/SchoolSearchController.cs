@@ -364,6 +364,12 @@ namespace SFB.Web.UI.Controllers
                 {
                     return ErrorView(SearchTypes.SEARCH_BY_NAME_ID, referrer, SearchErrorMessages.NO_SCHOOL_NAME_RESULTS, schoolComparisonList);
                 }
+
+                if (searchResp.NumberOfResults == 1)
+                {
+                    var res = (SchoolSearchResult)System.Linq.Enumerable.First(searchResp.Results);
+                    return RedirectToAction("Index", "School", new { urn = res.URN });
+                }
                 return View("SearchResults", GetSearchedSchoolViewModelList(searchResp, schoolComparisonList, orderby, page, SearchTypes.SEARCH_BY_NAME_ID, nameId, null, null));
             }
             else
