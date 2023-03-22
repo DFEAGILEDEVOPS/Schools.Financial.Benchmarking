@@ -109,7 +109,7 @@ export default function SadTrustTable({
         header: 'School data',
         accessorKey: 'schoolData',
         cell: ({row}) => {
-          if (typeof row.original.schoolData !== 'undefined' && row.original.schoolData) {
+          if (typeof row.original.schoolData !== 'undefined' && row.original.schoolData !== null) {
             return `£${numberWithCommas(row.original.schoolData.toFixed(2))}`;
           }
           return "-"
@@ -120,7 +120,7 @@ export default function SadTrustTable({
         header: () => <>% of <abbr title="income">inc</abbr></>,
         accessorKey: 'percentageOfIncome',
         cell: ({row}) => {
-          if (typeof row.original.percentageOfIncome !== 'undefined' && row.original.schoolData) {
+          if (typeof row.original.percentageOfIncome !== 'undefined' && row.original.schoolData !== null) {
             return `${numberWithCommas(row.original.percentageOfIncome.toFixed(2))}%`;
           }
           return "-"
@@ -176,7 +176,7 @@ export default function SadTrustTable({
         header: 'School data',
         accessorKey: 'schoolData',
         cell: ({row}) => {
-          if (typeof row.original.schoolData !== 'undefined' && row.original.schoolData) {
+          if (typeof row.original.schoolData !== 'undefined' && row.original.schoolData !== null) {
             return `£${numberWithCommas(row.original.schoolData.toFixed(2))}`;
           }
           return "-"
@@ -187,7 +187,7 @@ export default function SadTrustTable({
         header: () => <>% of <abbr title="expenditure">exp.</abbr></>,
         accessorKey: 'percentageOfExpenditure',
         cell: ({row}) => {
-          if (typeof row.original.percentageOfExpenditure !== 'undefined' && row.original.schoolData) {
+          if (typeof row.original.percentageOfExpenditure !== 'undefined' && row.original.schoolData !== null) {
             return `${numberWithCommas(row.original.percentageOfExpenditure.toFixed(2))}%`;
           }
           return "-"
