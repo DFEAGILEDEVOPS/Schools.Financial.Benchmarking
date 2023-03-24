@@ -143,6 +143,9 @@ namespace SFB.Web.UI.Controllers
             
             var hasDashboardPhases = trustSchoolsPhases.Count(x => exclusionPhaseList.All(y => y != x)) > 0;
             ViewBag.ShouldShowDashBoard = trustVM.LatestYearFinancialData?.InYearBalance != null && hasDashboardPhases;
+            var latestYear = await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.MAT);
+            ViewBag.latestYear = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
+            
             return View("Detail", trustVM);
         }
 
