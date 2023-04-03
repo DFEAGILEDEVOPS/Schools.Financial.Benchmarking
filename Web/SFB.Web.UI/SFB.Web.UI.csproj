@@ -434,6 +434,7 @@
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\ManualComparisonController.cs" />
     <Compile Include="Controllers\SearchBaseController.cs" />
+    <Compile Include="Controllers\SelfAssessmentDashboardController.cs" />
     <Compile Include="Controllers\TrustComparisonController.cs" />
     <Compile Include="Controllers\TrustSchoolsController.cs" />
     <Compile Include="Attributes\AiHandleErrorAttribute.cs" />
@@ -597,6 +598,7 @@
     <TypeScriptCompile Include="ClientApp\AppComponents\CookieBanner\CookieModal.ts" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Global\ModalComponents\SfbContentModal.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Global\SfbBanners\SfbWarning.tsx" />
+    <TypeScriptCompile Include="ClientApp\AppComponents\SadApp\SadTable.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\BenchmarkCriteriaTable.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\DownloadPdf.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\SfbReportToPdf.tsx" />
@@ -673,6 +675,9 @@
     <Content Include="public\vendorScripts\pptxgen.min.js" />
     <Content Include="robots.txt" />
     <Content Include="tsconfig.json" />
+    <Content Include="Views\SelfAssessmentDashboard\Index.cshtml" />
+    <Content Include="Views\SelfAssessmentDashboard\Partials\Breadcrumbs.cshtml" />
+    <Content Include="Views\SelfAssessmentDashboard\Partials\Characteristics.cshtml" />
     <Content Include="Views\Shared\Partials\RelatedServices.cshtml" />
     <Content Include="Views\TrustComparison\SelectComparisonType.cshtml" />
     <Content Include="Views\TrustSelfAssessment\Index.cshtml" />

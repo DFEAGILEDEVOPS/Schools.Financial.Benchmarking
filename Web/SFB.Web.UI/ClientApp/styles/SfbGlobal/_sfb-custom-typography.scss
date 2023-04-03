@@ -5,8 +5,12 @@
 .sfb-highlight {
   background-color: govuk-colour('pink');
   color: govuk-colour('white');
-  display: inline;
-  padding: govuk-spacing(1);
+  display: inline-block;
+  padding: 2px govuk-spacing(1);
+  
+  .govuk-link {
+    color: govuk-colour('white');
+  }
   
   .govuk-table__cell & {
     line-height: 2.2;
