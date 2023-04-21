@@ -1,0 +1,61 @@
+﻿.inline-help-container {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.govuk-button + .inline-help-container {
+  padding-top: 10px;
+}
+
+.sfb-establishment-sad-table {
+  .govuk-table__cell {
+    //@include govuk-font(16);
+    font-size: 16px;
+  }
+  
+  .govuk-table__header {
+    //@include govuk-font(16, bold);
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  @include govuk-media-query($until: tablet) {
+    .govuk-table__caption {
+      padding-top: govuk-spacing(2);
+    }
+    
+    .govuk-table__head {
+      display: none;
+    }
+    
+    .govuk-table__body {
+      .govuk-table__header {
+        display: block;
+      }
+
+      .govuk-table__row {
+        display: block;
+        margin-bottom: govuk-spacing(4);
+      }
+      
+      .govuk-table__cell {
+        position: relative;
+        padding-left: 50%;
+        display: block;
+        min-height: 2em;
+        
+        &::before {
+          content: attr(data-label);
+          position: absolute;
+          top: govuk-spacing(2);
+          left: 0;
+          width: 48%;
+          padding-right: govuk-spacing(2);
+          font-weight: bold;
+          font-size: 16px;
+          //@include govuk-font(16, bold);
+        }
+      }
+    }
+  }
+}
