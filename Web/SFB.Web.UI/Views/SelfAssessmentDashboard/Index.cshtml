@@ -2,6 +2,11 @@
 @using SFB.Web.ApplicationCore.Helpers.Enums
 @using SFB.Web.UI.Helpers
 @model SFB.Web.UI.Models.SelfAssessmentDashboardViewModel
+@{
+    ViewBag.Title = string.Concat("Self-assessment dashboard for ", @Model.DashboardData.Name);
+    ViewBag.HasMigratedJs = true;
+}
+
 @section BackButtonContent
 {
     @Html.Partial("Partials/Breadcrumbs")
@@ -59,6 +64,7 @@
 @section ViewScripts
 {
     <script>
+        var baseName = '@(string.Concat("SelfAssessmentDashboard/", Model.DashboardData.Urn))';
         var initialData = @Html.Raw(JsonConvert.SerializeObject(Model.DashboardData));
         var modalMap = @Html.Raw(JsonConvert.SerializeObject(Model.ModalMappings));
     </script>
