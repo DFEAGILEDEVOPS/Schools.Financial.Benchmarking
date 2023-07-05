@@ -30,8 +30,6 @@ namespace SFB.Web.UI.Controllers
             return View(vm);
         }
 
-       
-
         private static readonly HttpClient Client = new HttpClient();
 
         private async Task<SelfAssesmentModel> GetSelfAssessmentData(int urn)

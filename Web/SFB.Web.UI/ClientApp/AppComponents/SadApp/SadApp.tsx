@@ -8,11 +8,6 @@ import {
 } from "../Helpers/OutcomesHelpers";
 import {fullMonths} from "../Helpers/DateTimeHelpers";
 import SfbSadHelpModal from "../Global/ModalComponents/SfbSadHelpModal";
-import React, {StrictMode, useState} from "react";
-import {Link, Route, Routes} from "react-router-dom";
-import ViewHeader from "./Elements/ViewHeader";
-import ViewDefaultData from "./Elements/ViewDefaultData";
-import EditForm from "./Elements/EditForm";
 
 declare var initialData: SadDataObject;
 declare var modalMap: any[];
@@ -175,9 +170,7 @@ const prepData = (initialData: SadDataObject): EstablishmentSadTableRow[] => {
   return data;
 }
 export default function SadApp() {
-  //console.log(JSON.stringify(initialData, null, 2));
   const d = prepData(initialData);
-  console.log(JSON.stringify(d, null, 2));
   const rrData: EstablishmentSadTableRow[] = d.filter((area) => {
     return area?.AssessmentAreaType === "Reserve and balance";
   });
@@ -266,25 +259,47 @@ export default function SadApp() {
     outcomesData.push(p8);
   }
   
-  
-  const [estabData, setEstabData]  = useState<SadDataObject>(initialData);
   return (
-      <StrictMode>
-        <Routes>
-          <Route path={"/"} element={
-            <>
-              <ViewHeader/>
-              <ViewDefaultData
-                  LatestTerm={initialData.LatestTerm}
-                  rrData={rrData}
-                  exData={exData}
-                  characteristicsData={characteristicsData}
-                  outcomesData={outcomesData}/>
-            </>
-          }/>
-          <Route path="/edit" element={<EditForm mode="edit" estabData={estabData} />} />
-          <Route path="/customise" element={<EditForm mode="create" estabData={estabData} />} />
-        </Routes>
-      </StrictMode>
+      <>
+        <div className="govuk-grid-row">
+          <div className="govuk-grid-column-one-half">
+            <button className="sfb-button--download">Download page</button>
+            <button className="sfb-button--print">Print page</button>
+          </div>
+          <div className="govuk-grid-column-one-half">
+            <a href="#" className="govuk-button">Add a custom dashboard</a>
+            <span className="inline-help-container">
+              <SfbSadHelpModal
+                modalTitle="Add a custom dashboard"
+                modalContent='<p>The custom dashboard allows schools to plan for hypothetical or projected changes to their financial situation and see a red, amber or green (RAG) rating against it.</p><p>Custom dashboards are for personal use and <span className="govuk-!-font-weight-bold">only visible to you. Any changes you make will be viewable on subsequent visits to this school’s dashboard unless you choose to reset them.</p>' />
+            </span>
+          </div>
+        </div>
+        <div className="govuk-grid-row">
+          <div className="govuk-grid-column-full">
+            <h2 className="govuk-heading-m">
+              {initialData.LatestTerm} submitted data
+            </h2>
+            <div className="govuk-caption-m">
+              Dashboard year {initialData.LatestTerm}
+              <span className="inline-help-container">
+                <SfbSadHelpModal
+                  modalContent="By choosing a different year banding figures are aligned to that year for published finance, Future years use the most recent bands and can have uplifts applied to specific expenditure areas where there is an expectation of significant expenditure changes such pending salary awards."
+                  modalTitle="Dashboard year"
+                />
+              </span>
+            </div>
+          </div>
+          <div className="govuk-grid-column-full">
+            <SadTable data={rrData} mode="income" captionText="Reserve and balance"/>
+          
+            <SadTable data={exData} mode="expenditure" captionText="Spending"/>
+          
+            <SadTable data={characteristicsData} mode="characteristics" captionText="School characteristics"/>
+          
+            <SadTable data={outcomesData} mode="outcomes" captionText="Outcomes"/>
+          </div>
+        </div>
+      </>
   )
 }
