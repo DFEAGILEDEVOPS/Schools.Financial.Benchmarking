@@ -434,7 +434,6 @@
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\ManualComparisonController.cs" />
     <Compile Include="Controllers\SearchBaseController.cs" />
-    <Compile Include="Controllers\SelfAssessmentDashboardController.cs" />
     <Compile Include="Controllers\TrustComparisonController.cs" />
     <Compile Include="Controllers\TrustSchoolsController.cs" />
     <Compile Include="Attributes\AiHandleErrorAttribute.cs" />
@@ -489,7 +488,6 @@
     <Compile Include="Models\LocationListViewModel.cs" />
     <Compile Include="Models\LocationViewModel.cs" />
     <Compile Include="Models\ProgressScoreModel.cs" />
-    <Compile Include="Models\SelfAssessmentDashboardViewModel.cs" />
     <Compile Include="Models\SelfAssessmentModalModel.cs" />
     <Compile Include="Models\SaveOverwriteViewModel.cs" />
     <Compile Include="Models\SchoolComparisonListModel.cs" />
@@ -599,8 +597,6 @@
     <TypeScriptCompile Include="ClientApp\AppComponents\CookieBanner\CookieModal.ts" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Global\ModalComponents\SfbContentModal.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\Global\SfbBanners\SfbWarning.tsx" />
-    <TypeScriptCompile Include="ClientApp\AppComponents\SadApp\SadApp.tsx" />
-    <TypeScriptCompile Include="ClientApp\AppComponents\SadApp\SadTable.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\BenchmarkCriteriaTable.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\DownloadPdf.tsx" />
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustApp\SfbReportToPdf.tsx" />
@@ -610,7 +606,6 @@
     <TypeScriptCompile Include="ClientApp\AppComponents\SadTrustSummaryApp\TrustSummaryMobileNav.tsx" />
     <TypeScriptCompile Include="ClientApp\Entry\chooseRegion.ts" />
     <TypeScriptCompile Include="ClientApp\Entry\CookieBanner.ts" />
-    <TypeScriptCompile Include="ClientApp\Entry\SadEntry.tsx" />
     <TypeScriptCompile Include="ClientApp\Entry\TrustDashboard.tsx" />
     <Content Include="ClientApp\Entry\MapChartVendor.js" />
     <Content Include="ClientApp\Entry\VendorLibs.js" />
@@ -631,7 +626,6 @@
     <Content Include="ClientApp\styles\SfbGovukOverrides\_all.scss" />
     <Content Include="ClientApp\styles\SfbModules\_sfb-banners.scss" />
     <Content Include="ClientApp\styles\SfbModules\_sfb-dashboards.scss" />
-    <Content Include="ClientApp\styles\SfbModules\_sfb-establishment-sad-table.scss" />
     <Content Include="ClientApp\styles\SfbModules\_sfb-loading-message.scss" />
     <Content Include="ClientApp\styles\SfbModules\_all.scss" />
     <Content Include="ClientApp\styles\SfbModules\_autocomplete.scss" />
@@ -679,9 +673,6 @@
     <Content Include="public\vendorScripts\pptxgen.min.js" />
     <Content Include="robots.txt" />
     <Content Include="tsconfig.json" />
-    <Content Include="Views\SelfAssessmentDashboard\Index.cshtml" />
-    <Content Include="Views\SelfAssessmentDashboard\Partials\Breadcrumbs.cshtml" />
-    <Content Include="Views\SelfAssessmentDashboard\Partials\Characteristics.cshtml" />
     <Content Include="Views\Shared\Partials\RelatedServices.cshtml" />
     <Content Include="Views\TrustComparison\SelectComparisonType.cshtml" />
     <Content Include="Views\TrustSelfAssessment\Index.cshtml" />

@@ -2,11 +2,6 @@
   score: number;
   ratingText: string;
   reportDate?: string;
-  urn?: number;
-}
-
-export function isOfstedRating(obj:any): boolean {
-  return typeof parseInt(obj?.score, 10) === 'number' && typeof obj?.ratingText === 'string';
 }
 
 export interface ProgressScore {
@@ -15,11 +10,6 @@ export interface ProgressScore {
   className?: string;
   banding?: number
 }
-
-export function isProgressScore (obj: any): boolean {
-  return (typeof obj.score === 'number' || typeof obj.banding === 'number')
-      && typeof obj.text === 'string';
-} 
 
 export const ofstedLookup: OfstedRating[] = [
   {score: 0, ratingText: 'No data available'},
