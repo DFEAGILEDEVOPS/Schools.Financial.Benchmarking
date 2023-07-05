@@ -1,0 +1,15 @@
+﻿
+
+.sfb-align-right--desktop {
+  text-align: right;
+  
+  @include govuk-media-query($until: desktop) {
+    text-align: left;
+  }
+}
+
+.sfb-sad-add-custom {
+  @include govuk-media-query($until: tablet) {
+    max-width: calc(100% - 40px);
+  }
+}

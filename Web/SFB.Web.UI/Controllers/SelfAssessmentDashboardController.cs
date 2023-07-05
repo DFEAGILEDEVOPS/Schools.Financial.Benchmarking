@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -18,16 +19,22 @@ namespace SFB.Web.UI.Controllers
             _contentService = contentService;
         }
 
-        [HttpGet, Route("SelfAssessmentDashboard/{urn}")]
-        public async Task<ActionResult> Index(int urn)
+        [HttpGet, Route("SelfAssessmentDashboard/{urn}/{routeAction?}")]
+        public async Task<ActionResult> Index(int urn, string routeAction = "")
         {
+            string[] availableActions = { "edit0", "edit1", "compare" };
             var vm = new SelfAssessmentDashboardViewModel
             {
                 DashboardData = await GetSelfAssessmentData(urn),
                 ModalMappings = _contentService.GetAllSadModals()
             };
 
-            return View(vm);
+            if (availableActions.Contains(routeAction))
+            {
+                vm.RouteAction = routeAction;
+            }
+
+            return View("Index", vm);
         }
 
        

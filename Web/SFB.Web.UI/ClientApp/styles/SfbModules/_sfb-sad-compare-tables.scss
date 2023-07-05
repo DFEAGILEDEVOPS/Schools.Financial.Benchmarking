@@ -1,0 +1,77 @@
+﻿.sfb-sad-compare {
+  .govuk-table__cell {
+    background-color: govuk-colour("light-grey");
+  }
+  
+  .sfb-establishment-sad-compare-table {
+    table-layout: fixed;
+    
+    .govuk-table__body .govuk-table__row:last-of-type {
+      .govuk-table__cell,
+      .govuk-table__header {
+        border-bottom: 0;
+      }
+    }
+    
+    .sfb-fill-header {
+      background-color: govuk-colour("light-grey");
+    }
+
+    .govuk-table__header {
+      padding: 10px;
+    }
+    
+    .sfb-sad-compare-row-header {
+      width: 165px;
+      padding-left: 0;
+    }
+    
+    .govuk-table__cell {
+      background-color: govuk-colour("light-grey");
+      vertical-align: middle;
+      padding: 10px;
+    }
+    
+    .govuk-table__head .govuk-table__header {
+      vertical-align: bottom;
+    }
+
+    .govuk-table__body {
+      .govuk-table__header {
+        vertical-align: middle;
+      }
+      
+      .sfb-sad-compare-row-header {
+        font-weight: normal;
+      }
+    }
+
+    .sfb-sad-compare-spacer {
+      background-color: #fff;
+      width: 10px;
+      padding: 0;
+    }
+
+    .sfb-sad-compare-percent-cell {
+      width: 40px;
+    }
+
+    .sfb-sad-compare-rating-cell {
+      width: 180px;
+      padding-right: 5px;
+    }
+
+    .rating-container {
+      min-width: 100%;
+      align-items: center;
+
+      .rating-box {
+        width: 68%;
+      }
+    }
+  }
+  .govuk-table__header,
+  .govuk-table__cell {
+    padding: 10px;
+  }
+}

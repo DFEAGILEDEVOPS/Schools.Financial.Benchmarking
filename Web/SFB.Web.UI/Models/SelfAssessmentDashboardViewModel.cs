@@ -7,7 +7,7 @@ namespace SFB.Web.UI.Models
     {
         public List<SelfAssessmentModalModel> ModalMappings { get; set; }
         public SelfAssesmentModel DashboardData { get; set; }
-
+        public string RouteAction { get; set; }
         public SelfAssessmentDashboardViewModel()
         {
             

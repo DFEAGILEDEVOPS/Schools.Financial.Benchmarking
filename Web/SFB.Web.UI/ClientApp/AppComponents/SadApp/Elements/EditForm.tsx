@@ -191,7 +191,7 @@ export default function EditForm({mode, estabData}: IEditFormProps){
                                 }} />
 
                             <TextInput
-                                label={"Average Class size"}
+                                label={"Average class size"}
                                 register={register}
                                 required={false}
                                 errors={errors}
