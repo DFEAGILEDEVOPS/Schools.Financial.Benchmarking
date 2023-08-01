@@ -40,7 +40,7 @@
     <meta http-equiv="Content-Security-Policy" content="object-src 'none'">
     <meta http-equiv="Content-Security-Policy" content="frame-src 'self'">
     <meta http-equiv="Content-Security-Policy" content="media-src 'none'">
-    <meta http-equiv="Content-Security-Policy" content="connect-src 'self' www.google-analytics.com https://api.postcodes.io atlas.microsoft.com www.compare-school-performance.service.gov.uk @System.Configuration.ConfigurationManager.AppSettings["SfbApiUrl"] https://dc.services.visualstudio.com">
+    <meta http-equiv="Content-Security-Policy" content='connect-src "self" www.google-analytics.com https://*.google-analytics.com https://api.postcodes.io atlas.microsoft.com www.compare-school-performance.service.gov.uk @(System.Configuration.ConfigurationManager.AppSettings["SfbApiUrl"]) https://dc.services.visualstudio.com'>
     <meta http-equiv="Content-Security-Policy" content="font-src 'self' data:">
     <meta http-equiv="Content-Security-Policy" content="manifest-src 'self'">
     <meta http-equiv="Content-Security-Policy" content="style-src 'self' 'unsafe-inline'">
@@ -74,12 +74,17 @@
             }
         })();
     </script>
-    
+
     <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
-    <link rel="stylesheet" type="text/css" href="@Html.Raw(Html.GetWebpackScriptUrl("corestyles.*.css"))"/>
+    <link rel="stylesheet" type="text/css" href="@Html.Raw(Html.GetWebpackScriptUrl("corestyles.*.css"))" />
     <style>
-        .c3 svg { font: 14px sans-serif;}
-        .c3-bar._expanded_ { fill-opacity: 1;}
+        .c3 svg {
+            font: 14px sans-serif;
+        }
+
+        .c3-bar._expanded_ {
+            fill-opacity: 1;
+        }
     </style>
     @if (acceptedAnalytics)
     {
@@ -96,7 +101,7 @@
         </script>
         <!-- End Google Tag Manager -->
     }
-    
+
     @RenderSection("InsideHead", required: false)
 
     <script type="text/javascript">
@@ -117,17 +122,17 @@
         }
 
     </script>
+
     @if (acceptedAnalytics)
     {
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-L5PMKLXC39"></script>
         <script>
-            (function (i, s, o, g, r, a, m) {
-                    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                        (i[r].q = i[r].q || []).push(arguments);
-                    }, i[r].l = 1 * new Date(); a = s.createElement(o),
-                        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
-                })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-                ga('create', '@System.Configuration.ConfigurationManager.AppSettings["GoogleAnalyticsId"]', {'cookieFlags': 'SameSite=Lax; Secure'});
-                ga('send', 'pageview');
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'G-L5PMKLXC39');
         </script>
     }
 </head>
