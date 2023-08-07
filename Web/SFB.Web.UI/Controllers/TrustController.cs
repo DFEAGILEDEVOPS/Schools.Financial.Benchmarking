@@ -221,15 +221,22 @@ namespace SFB.Web.UI.Controllers
 
         private async Task<TrustViewModel> BuildFullTrustVMAsync(int companyNo, TabType tab, ChartGroupType chartGroup, MatFinancingType matFinancing)
         {
+            System.Diagnostics.Trace.TraceError("inside BuildFullTrustVMAsync");
+
             var trustVM = await BuildFinancialTrustVMAsync(companyNo, tab, chartGroup, matFinancing);
-            
+            System.Diagnostics.Trace.TraceError("var trustVM = await BuildFinancialTrustVMAsync(companyNo, tab, chartGroup, matFinancing);\r\n");
+
             trustVM.AcademiesInContextList = (await _contextDataService.GetAcademiesByUidAsync(trustVM.UID.GetValueOrDefault())).OrderBy(a => a.EstablishmentName).ToList();
+
+            System.Diagnostics.Trace.TraceError("trustVM.AcademiesInContextList = (await _contextDataService.GetAcademiesByUidAsync(trustVM.UID.GetValueOrDefault())).OrderBy(a => a.EstablishmentName).ToList();\r\n");
 
             if (trustVM.UID != null)
             {
                 try
                 {
                     trustVM.TrustHistory = await _trustHistoryService.GetTrustHistoryModelAsync(trustVM.UID.GetValueOrDefault());
+                    System.Diagnostics.Trace.TraceError("got trust history");
+
                 }
                 catch (NullReferenceException)
                 { 
