@@ -72,6 +72,8 @@ namespace SFB.Web.UI.Controllers
         {
             if (companyNo == null && uid.HasValue)
             {
+                Console.WriteLine("inside if companyno==null and uid.hasvalue conditional");
+                Console.WriteLine("companyno: {0}, uid: {1}", companyNo, uid.Value);
                 var trustFinance = await _financialDataService.GetTrustFinancialDataObjectByUidAsync(uid.GetValueOrDefault(), await LatestMATTermAsync());
                 companyNo = trustFinance.CompanyNumber;
                 return RedirectToActionPermanent("Detail", "Trust", new RouteValueDictionary {
@@ -82,6 +84,8 @@ namespace SFB.Web.UI.Controllers
                     { "format",  format}
                 });
             }
+
+            Console.WriteLine("outside the if companyno==null and uid.hasvalue conditional");
 
             ChartGroupType chartGroup;
             switch (tab)
