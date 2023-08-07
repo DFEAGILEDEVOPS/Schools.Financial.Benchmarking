@@ -17,6 +17,7 @@ using System.Web.Routing;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Helpers;
 using System;
+using Microsoft.Azure.Cosmos.Serialization.HybridRow.Layouts;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -86,69 +87,81 @@ namespace SFB.Web.UI.Controllers
                 });
             }
 
-            System.Diagnostics.Trace.TraceError("outside the if companyno==null and uid.hasvalue conditional");
 
-            ChartGroupType chartGroup;
-            switch (tab)
+            try
             {
-                case TabType.Expenditure:
-                    chartGroup = ChartGroupType.TotalExpenditure;
-                    break;
-                case TabType.Income:
-                    chartGroup = ChartGroupType.TotalIncome;
-                    break;
-                case TabType.Balance:
-                    chartGroup = ChartGroupType.InYearBalance;
-                    break;
-                default:
-                    chartGroup = ChartGroupType.All;
-                    break;
-            }
 
-            var trustVM = await BuildFullTrustVMAsync(companyNo.GetValueOrDefault(), tab, chartGroup, financing);
-            var hasGiasUrl = await _giasLookupService.GiasHasPage(trustVM.UID.GetValueOrDefault(), true);
-            var hasCscpUrl = await _cscpLookupService.CscpHasPage(trustVM.UID.GetValueOrDefault(), true);
-           
 
-            trustVM.HasCscpUrl = hasCscpUrl;
-            trustVM.HasGiasUrl = hasGiasUrl;
-            if (!trustVM.HasLatestYearFinancialData)
-            {
-                if (trustVM.AcademiesInFinanceList.Count == 1)
+
+                System.Diagnostics.Trace.TraceError("outside the if companyno==null and uid.hasvalue conditional");
+
+                ChartGroupType chartGroup;
+                switch (tab)
                 {
-                    return RedirectToActionPermanent("Detail", "School", new RouteValueDictionary { { "urn", trustVM.AcademiesInFinanceList.First().URN } });
+                    case TabType.Expenditure:
+                        chartGroup = ChartGroupType.TotalExpenditure;
+                        break;
+                    case TabType.Income:
+                        chartGroup = ChartGroupType.TotalIncome;
+                        break;
+                    case TabType.Balance:
+                        chartGroup = ChartGroupType.InYearBalance;
+                        break;
+                    default:
+                        chartGroup = ChartGroupType.All;
+                        break;
                 }
-                return RedirectToActionPermanent("SuggestTrust", "TrustSearch", new RouteValueDictionary { { "trustNameId", companyNo } });
+
+                var trustVM = await BuildFullTrustVMAsync(companyNo.GetValueOrDefault(), tab, chartGroup, financing);
+                var hasGiasUrl = await _giasLookupService.GiasHasPage(trustVM.UID.GetValueOrDefault(), true);
+                var hasCscpUrl = await _cscpLookupService.CscpHasPage(trustVM.UID.GetValueOrDefault(), true);
+
+
+                trustVM.HasCscpUrl = hasCscpUrl;
+                trustVM.HasGiasUrl = hasGiasUrl;
+                if (!trustVM.HasLatestYearFinancialData)
+                {
+                    if (trustVM.AcademiesInFinanceList.Count == 1)
+                    {
+                        return RedirectToActionPermanent("Detail", "School", new RouteValueDictionary { { "urn", trustVM.AcademiesInFinanceList.First().URN } });
+                    }
+                    return RedirectToActionPermanent("SuggestTrust", "TrustSearch", new RouteValueDictionary { { "trustNameId", companyNo } });
+                }
+
+                UnitType unitType;
+                switch (tab)
+                {
+                    case TabType.Workforce:
+                        unitType = UnitType.AbsoluteCount;
+                        break;
+                    case TabType.Balance:
+                        unitType = unit == UnitType.AbsoluteMoney || unit == UnitType.PerPupil || unit == UnitType.PerTeacher ? unit : UnitType.AbsoluteMoney;
+                        break;
+                    default:
+                        unitType = unit;
+                        break;
+                }
+
+                _fcService.PopulateHistoricalChartsWithFinancialData(trustVM.HistoricalCharts, trustVM.HistoricalFinancialDataModels, trustVM.LatestTerm, tab, unitType, EstablishmentType.Academies);
+
+                ViewBag.Tab = tab;
+                ViewBag.ChartGroup = chartGroup;
+                ViewBag.UnitType = unitType;
+                ViewBag.Financing = financing;
+                ViewBag.ChartFormat = format;
+                ViewBag.EstablishmentType = EstablishmentType.MAT;
+
+                var trustSchoolsPhases = trustVM.AcademiesInContextList.Select(x => x.OverallPhase).ToList();
+
+                var hasDashboardPhases = trustSchoolsPhases.Count(x => exclusionPhaseList.All(y => y != x)) > 0;
+                ViewBag.ShouldShowDashBoard = trustVM.LatestYearFinancialData?.InYearBalance != null && hasDashboardPhases;
+                return View("Detail", trustVM);
+            } 
+            catch (Exception exception) {
+                System.Diagnostics.Trace.TraceError(exception.GetType().ToString());
+                System.Diagnostics.Trace.TraceError(exception.Message);
+                System.Diagnostics.Trace.TraceError(exception.StackTrace);
             }
-
-            UnitType unitType;
-            switch (tab)
-            {
-                case TabType.Workforce:
-                    unitType = UnitType.AbsoluteCount;
-                    break;
-                case TabType.Balance:
-                    unitType = unit == UnitType.AbsoluteMoney || unit == UnitType.PerPupil || unit == UnitType.PerTeacher ? unit : UnitType.AbsoluteMoney;
-                    break;
-                default:
-                    unitType = unit;
-                    break;
-            }
-
-            _fcService.PopulateHistoricalChartsWithFinancialData(trustVM.HistoricalCharts, trustVM.HistoricalFinancialDataModels, trustVM.LatestTerm, tab, unitType, EstablishmentType.Academies);
-
-            ViewBag.Tab = tab;
-            ViewBag.ChartGroup = chartGroup;
-            ViewBag.UnitType = unitType;
-            ViewBag.Financing = financing;
-            ViewBag.ChartFormat = format;
-            ViewBag.EstablishmentType = EstablishmentType.MAT;
-            
-            var trustSchoolsPhases = trustVM.AcademiesInContextList.Select(x => x.OverallPhase).ToList();
-            
-            var hasDashboardPhases = trustSchoolsPhases.Count(x => exclusionPhaseList.All(y => y != x)) > 0;
-            ViewBag.ShouldShowDashBoard = trustVM.LatestYearFinancialData?.InYearBalance != null && hasDashboardPhases;
-            return View("Detail", trustVM);
         }
 
         public async Task<PartialViewResult> GetCharts(int companyNo, TabType revGroup, ChartGroupType chartGroup, UnitType unit, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
