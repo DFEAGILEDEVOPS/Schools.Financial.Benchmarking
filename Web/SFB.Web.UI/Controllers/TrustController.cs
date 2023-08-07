@@ -243,6 +243,7 @@ namespace SFB.Web.UI.Controllers
                     //Do not load trust history if missing 
                 }
             }
+
             return trustVM;
         }
 
