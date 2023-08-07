@@ -161,6 +161,7 @@ namespace SFB.Web.UI.Controllers
                 System.Diagnostics.Trace.TraceError(exception.GetType().ToString());
                 System.Diagnostics.Trace.TraceError(exception.Message);
                 System.Diagnostics.Trace.TraceError(exception.StackTrace);
+                return View("InternalServerError");
             }
         }
 
