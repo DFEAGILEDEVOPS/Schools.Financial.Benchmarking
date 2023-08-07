@@ -113,8 +113,13 @@ namespace SFB.Web.UI.Controllers
                 }
 
                 var trustVM = await BuildFullTrustVMAsync(companyNo.GetValueOrDefault(), tab, chartGroup, financing);
+                System.Diagnostics.Trace.TraceError(" var trustVM = await BuildFullTrustVMAsync(companyNo.GetValueOrDefault(), tab, chartGroup, financing);\r\n");
+
                 var hasGiasUrl = await _giasLookupService.GiasHasPage(trustVM.UID.GetValueOrDefault(), true);
+                System.Diagnostics.Trace.TraceError(" var hasGiasUrl = await _giasLookupService.GiasHasPage(trustVM.UID.GetValueOrDefault(), true);\r\n");
+
                 var hasCscpUrl = await _cscpLookupService.CscpHasPage(trustVM.UID.GetValueOrDefault(), true);
+                System.Diagnostics.Trace.TraceError("var hasCscpUrl = await _cscpLookupService.CscpHasPage(trustVM.UID.GetValueOrDefault(), true);\r\n");
 
 
                 trustVM.HasCscpUrl = hasCscpUrl;
@@ -143,6 +148,8 @@ namespace SFB.Web.UI.Controllers
                 }
 
                 _fcService.PopulateHistoricalChartsWithFinancialData(trustVM.HistoricalCharts, trustVM.HistoricalFinancialDataModels, trustVM.LatestTerm, tab, unitType, EstablishmentType.Academies);
+
+                System.Diagnostics.Trace.TraceError("_fcService.PopulateHistoricalChartsWithFinancialData(trustVM.HistoricalCharts, trustVM.HistoricalFinancialDataModels, trustVM.LatestTerm, tab, unitType, EstablishmentType.Academies);\r\n");
 
                 ViewBag.Tab = tab;
                 ViewBag.ChartGroup = chartGroup;
