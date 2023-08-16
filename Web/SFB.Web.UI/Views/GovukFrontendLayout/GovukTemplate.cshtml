@@ -46,6 +46,7 @@
     <meta http-equiv="Content-Security-Policy" content="style-src 'self' 'unsafe-inline'">
     <meta http-equiv="Content-Security-Policy" content="img-src 'self' www.googletagmanager.com www.google-analytics.com atlas.microsoft.com data:">
     <meta http-equiv="Content-Security-Policy" content="form-action 'self'">
+    <meta name="Version" content="@typeof(SFB.Web.UI.Startup).Assembly.GetName().Version">
 
     <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="/assets/images/favicon.ico" type="image/x-icon">
     <link rel="mask-icon" href="/assets/images/govuk-mask-icon.svg" color="#0b0c0c">
@@ -124,13 +125,13 @@
     </script>
     @if (acceptedAnalytics)
     {
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-L5PMK"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-L5PMKLXC39"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag() { dataLayer.push(arguments); }
             gtag('js', new Date());
 
-            gtag('config', 'G-L5PMK');
+            gtag('config', 'G-L5PMKLXC39');
         </script>
     }
 </head>
@@ -265,11 +266,6 @@
                             <a class="govuk-footer__link" href="/help/get-involved">
                                 Help with usability testing
                             </a>
-                        </li>
-                        <li class="govuk-footer__inline-list-item">
-                            <p class="govuk-footer__link" href="/help/get-involved">
-                                1.1
-                            </p>
                         </li>
                     </ul>
                     <svg aria-hidden="true" focusable="false" class="govuk-footer__licence-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 483.2 195.7" height="17" width="41">
