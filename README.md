@@ -9,3 +9,7 @@ This application is build using ASP.NET MVC with .Net Framework v4.7 referencing
 [Data Migration Docs](data-migration.md)
 
 [Disaster Recovery Docs](disaster-recovery.md)
+
+## Latest data update
+
+Maintained - 03/10/2023
