@@ -12,4 +12,4 @@ This application is build using ASP.NET MVC with .Net Framework v4.7 referencing
 
 ## Latest data update
 
-Maintained - 03/10/2023
+Maintained - 11/10/2023
