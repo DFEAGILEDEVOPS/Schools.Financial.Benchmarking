@@ -6,6 +6,11 @@
 This application is build using ASP.NET MVC with .Net Framework v4.7 referencing a CosmosDB database NoSQL management system hosted on Microsoft Azure.
 
 ## Database Dependencies
+
 [Data Migration Docs](data-migration.md)
 
 [Disaster Recovery Docs](disaster-recovery.md)
+
+## Latest data update
+
+Maintained - 15/11/2023 19:30
