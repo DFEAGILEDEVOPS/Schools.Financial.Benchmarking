@@ -25,5 +25,10 @@ namespace SFB.Web.UI.Controllers
             vm.Authorities = _laService.GetLocalAuthorities();
             return View(vm);
         }
+
+        public ActionResult News()
+        {
+            return View();
+        }
     }
 }
