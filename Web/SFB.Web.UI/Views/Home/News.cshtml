@@ -1,0 +1,58 @@
+@{
+    ViewBag.PageDescription = "News";
+}
+
+@section BackButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
+
+<div class="govuk-grid-row mt-2">
+    <div class="govuk-grid-column-one-third contents">
+        <aside class="app-related-items" role="complementary">
+            <h2 class="govuk-heading-m govuk-!-margin-top-6" id="subsection-title">
+                Contents
+            </h2>
+            <nav role="navigation" aria-labelledby="subsection-title">
+                <ul class="govuk-list govuk-!-font-size-16">
+                    <li><a class="govuk-link" href="#news">News</a></li>
+                    <li><a class="govuk-link" href="#future-direction">Future Direction</a></li>
+                </ul>
+            </nav>
+        </aside>
+    </div>
+
+    <div class="govuk-grid-column-two-thirds">
+
+        <a class="govuk-link" id="news"></a>
+        <section>
+            <p class="govuk-body-l">
+                Visualise the financial data for all of your schools: The Schools financial benchmarking website has been updated with the latest financial data.
+            </p>
+            <p class="govuk-body">
+                One of the Department for Education’s key benchmarking tools – the <a href="~/Home" class="govuk-link">Schools financial benchmarking</a> (SFB) website – has been updated with the latest data from the 2022/23 Consistent Financial Reporting (CFR) return. This update provides the latest financial data for maintained schools and local authorities. SFB is a free package offered by the Department for Education that provides important insights on schools’ financial data.
+            </p>
+            <p class="govuk-body">
+                The <a href="~/Home" class="govuk-link">Schools financial benchmarking</a> is a public-facing tool that everyone can access to support school resource management and has been designed to be as open and accessible as possible for users. We are aiming to have the View my financial insights (VMFI) tool updated within the next few weeks.
+            </p>
+        </section>
+
+        <a class="govuk-link" id="future-direction"></a>
+        <section>
+            <h2 class="govuk-heading-m govuk-!-margin-top-6">Future Direction</h2>
+            <p class="govuk-body">
+                We are currently undertaking a period of research aimed at consolidating the SFB with the DfE’s View my financial insights (VMFI) service. We would be extremely grateful for any volunteers to participate in and guide this research. We are particularly interested in users who have:
+            </p>
+            <ul>
+                <li>
+                    specific access requirements
+                </li>
+                <li>
+                    ideas on new ways to improve the service we offer, particularly from a local authority perspective.
+                </li>
+            </ul>
+            <p class="govuk-body">
+                To contact us please email<a href="mailto:BetterFinancialReporting.COMMS@education.gov.uk" class="govuk-link">BetterFinancialReporting.COMMS@education.gov.uk</a>
+            </p>
+        </section>
+    </div>
+</div>
