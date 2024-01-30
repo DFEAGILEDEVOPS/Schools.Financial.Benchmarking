@@ -52,12 +52,17 @@ namespace SFB.Web.UI.Services
                     ? $"{baseUrl}Groups/Group/Details/{urn}"
                     : $"{baseUrl}Establishments/Establishment/Details/{urn}";
 
+                System.Diagnostics.Trace.TraceError(baseUrl);
+
                 var requestMethod = isMat ? HttpMethod.Get : HttpMethod.Head;
                 
                 var request = new HttpRequestMessage(requestMethod, $"{baseUrl}");
-                
+
+                System.Diagnostics.Trace.TraceError("before executeasync");
                 var result = await RetryPolicy.ExecuteAsync(async () => await _client.SendAsync(request));
-                
+                System.Diagnostics.Trace.TraceError("after executeasync");
+
+
                 var isOk = result?.StatusCode == HttpStatusCode.OK;
 
                 MemoryCache.Default.Set(
