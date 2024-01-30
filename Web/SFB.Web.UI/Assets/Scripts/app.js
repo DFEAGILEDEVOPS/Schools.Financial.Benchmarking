@@ -230,8 +230,7 @@
                 "<div class='modal__score'><div class='score below'>Below average</div><div>About <span class='bold'>19%</span> of</br> schools in England</div></div>" +
                 "<div class='modal__score'><div class='score average'>Average</div><div>About <span class='bold'>37%</span> of</br> schools in England</div></div>" +
                 "<div class='modal__score'><div class='score above'>Above average</div><div>About <span class='bold'>17%</span> of</br> schools in England</div></div>" +
-                "<div class='modal__score'><div class='score well-above'>Well above average</div><div>About <span class='bold'>14%</span> of</br> schools in England</div></div>" +
-                "<div class='govuk-warning-text mt-2'><span class='govuk-warning-text__icon' aria-hidden='true'>!</span><div class='govuk-body-s govuk-warning-text__text'><span class='govuk-warning-text__assistive'>Warning</span>Due to Covid-19 the Government is not publishing the school educational performance data for 2020, the latest progress data is from 2019.</div></div>" +
+                "<div class='modal__score'><div class='score well-above'>Well above average</div><div>About <span class='bold'>14%</span> of</br> schools in England</div></div>"+
                 "</div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='renderP8Info' title='Close'>Close</a></dialog>";
 
             $($modal_code).insertAfter($page);
@@ -264,7 +263,6 @@
                 "<div class='modal__score'><div class='govuk-body-s score average'>Average</div><div>About <span class='bold'>60%</span> of</br> schools in England</div></div>" +
                 "<div class='modal__score'><div class='govuk-body-s score above'>Above average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
                 "<div class='modal__score'><div class='govuk-body-s score well-above'>Well above average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
-                "<div class='govuk-warning-text mt-2'><span class='govuk-warning-text__icon' aria-hidden='true'>!</span><div class='govuk-body-s govuk-warning-text__text'><span class='govuk-warning-text__assistive'>Warning</span>Due to Covid-19 the Government is not publishing the school educational performance data for 2020, the latest progress data is from 2019.</div></div>" +
                 "</div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='renderKs2Info' title='Close'>Close</a></dialog>";
 
             $($modal_code).insertAfter($page);
