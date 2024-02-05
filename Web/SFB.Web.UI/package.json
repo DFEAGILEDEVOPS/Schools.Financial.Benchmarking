@@ -61,7 +61,7 @@
     "@welldone-software/why-did-you-render": "^7.0.1",
     "angular": "^1.6.10",
     "awesomplete": "^1.1.5",
-    "axios": "^0.27.2",
+    "axios": "^1.6.0",
     "azure-maps-rest": "^2.0.8",
     "c3": "^0.4.24",
     "clean-webpack-plugin": "^4.0.0",
