@@ -42,7 +42,23 @@ The following tools may be installed directly on Windows, or via Chocolatey. [Ch
 
 ## Dev setup (.NET)
 
-When restoring packages in the .NET Framework solution, the private package feed in DevOps will need to be authenticated with. If the built-in credential manager does not work (with `401 Unauthoized` errors from NuGet), then [try a PAT](https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate) instead and use [Rider](https://www.jetbrains.com/rider/) to add to the private [package feed configuration](https://www.jetbrains.com/help/rider/Using_NuGet.html#credential-providers-for-private-nuget-feeds).
+When restoring packages in the .NET Framework solution, the private package feed in DevOps will need to be authenticated with. If the built-in credential manager does not work (with `401 Unauthoized` errors from NuGet), then [try a PAT](https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate) instead and use [Rider](https://www.jetbrains.com/rider/) to add to the private [package feed configuration](https://www.jetbrains.com/help/rider/Using_NuGet.html#credential-providers-for-private-nuget-feeds). Alternatively, register the PAT in the roaming config file at `%AppData%\NuGet\NuGet.config`:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
+    <add key="SFB.Artifacts" value="https://agilefactory.pkgs.visualstudio.com/fc33e3f0-e73b-466d-837a-10cad68c664e/_packaging/SFB.Artifacts/nuget/v3/index.json" />
+  </packageSources>
+  <packageSourceCredentials>
+    <SFB.Artifacts>
+      <add key="Username" value="<USERNAME>" />
+      <add key="ClearTextPassword" value="<PAT>" />
+    </SFB.Artifacts>
+  </packageSourceCredentials>
+</configuration>
+```
 
 The following `appSettings.config` file is needed in the root of `.\Web\SFB.Web.UI` before the application will be able to run locally:
 
