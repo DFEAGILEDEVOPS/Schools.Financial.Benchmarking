@@ -62,7 +62,13 @@ namespace SFB.Web.UI.Controllers
             await _schoolVMBuilder.BuildCoreAsync(urn);
             _schoolVMBuilder.SetTab(tab);
             await _schoolVMBuilder.AddHistoricalChartsAsync(tab, DetectDefaultChartGroupFromTabType(tab), financing, unit);
-            await _schoolVMBuilder.AddHistoricalChartsAsync(TabType.Workforce, DetectDefaultChartGroupFromTabType(TabType.Workforce), CentralFinancingType.Include, UnitType.AbsoluteCount);
+
+            // prevent duplicate chart population from Workforce tab
+            if (tab != TabType.Workforce) 
+            {
+                await _schoolVMBuilder.AddHistoricalChartsAsync(TabType.Workforce, DetectDefaultChartGroupFromTabType(TabType.Workforce), CentralFinancingType.Include, UnitType.AbsoluteCount);
+            }
+
             _schoolVMBuilder.SetChartGroups(tab);
             _schoolVMBuilder.AssignLaName();
             var schoolVM = _schoolVMBuilder.GetResult();
