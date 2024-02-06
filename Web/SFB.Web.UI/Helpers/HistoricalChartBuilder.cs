@@ -2051,6 +2051,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 55,
                     Name = "Non-classroom support staff - excluding auxiliary staff (Full Time Equivalent)",
                     FieldName =SchoolTrustFinanceDataFieldNames.FULL_TIME_OTHER,
                     TabType = TabType.Workforce,
