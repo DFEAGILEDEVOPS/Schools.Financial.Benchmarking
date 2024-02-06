@@ -336,6 +336,7 @@
     <Compile Include="BenchmarkListControllerUnitTests.cs" />
     <Compile Include="ComparisonServiceUnitTests.cs" />
     <Compile Include="FinancialCalculationsServiceUnitTests.cs" />
+    <Compile Include="Helpers\SchoolVMWithHistoricalChartsBuilderTests.cs" />
     <Compile Include="HistoricalChartBuilderUnitTests.cs" />
     <Compile Include="ManualComparisonControllerUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -8,6 +8,7 @@ using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Services;
 using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Helpers.Enums;
+using Enums = SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -21,15 +22,15 @@ namespace SFB.Web.UI.UnitTests
                 {
                     Name = "Special Facilities",
                     FieldName =  "Special facilities" ,
-                    TabType = Helpers.Enums.TabType.Expenditure,
-                    ChartGroup = Helpers.Enums.ChartGroupType.SpecialFacilities,
+                    TabType = Enums.TabType.Expenditure,
+                    ChartGroup = Enums.ChartGroupType.SpecialFacilities,
                 },
                 new ChartViewModel()
                 {
                     Name = "Education Support Staff",
                     FieldName =   "Education support staff" ,
-                    TabType = Helpers.Enums.TabType.Expenditure,
-                    ChartGroup = Helpers.Enums.ChartGroupType.Staff,
+                    TabType = Enums.TabType.Expenditure,
+                    ChartGroup = Enums.ChartGroupType.Staff,
                 } };
 
             var financialObj = new SchoolTrustFinancialDataObject();
@@ -47,7 +48,7 @@ namespace SFB.Web.UI.UnitTests
 
             var service = new FinancialCalculationsService(mockLaService.Object);
 
-            service.PopulateHistoricalChartsWithFinancialData(historicalCharts, dataModels, "2014 / 2015", Helpers.Enums.TabType.Expenditure, Helpers.Enums.UnitType.AbsoluteMoney, EstablishmentType.Academies);
+            service.PopulateHistoricalChartsWithFinancialData(historicalCharts, dataModels, "2014 / 2015", Enums.TabType.Expenditure, Enums.UnitType.AbsoluteMoney, EstablishmentType.Academies);
 
             Assert.AreEqual(1000, historicalCharts[0].LastYearBalance);
             Assert.AreEqual(2000, historicalCharts[1].LastYearBalance);
@@ -61,15 +62,15 @@ namespace SFB.Web.UI.UnitTests
                 {
                     Name = "Special Facilities",
                     FieldName =  "Special facilities" ,
-                    TabType = Helpers.Enums.TabType.Expenditure,
-                    ChartGroup = Helpers.Enums.ChartGroupType.SpecialFacilities,
+                    TabType = Enums.TabType.Expenditure,
+                    ChartGroup = Enums.ChartGroupType.SpecialFacilities,
                 },
                 new ChartViewModel()
                 {
                     Name = "Education Support Staff",
                     FieldName =   "Education support staff" ,
-                    TabType = Helpers.Enums.TabType.Expenditure,
-                    ChartGroup = Helpers.Enums.ChartGroupType.Staff,
+                    TabType = Enums.TabType.Expenditure,
+                    ChartGroup = Enums.ChartGroupType.Staff,
                 } };
 
             var financialObj = new SchoolTrustFinancialDataObject();
@@ -88,7 +89,7 @@ namespace SFB.Web.UI.UnitTests
             
             var service = new FinancialCalculationsService(mockLaService.Object);
 
-            service.PopulateHistoricalChartsWithFinancialData(historicalCharts, dataModels, "2014 / 2015", Helpers.Enums.TabType.Expenditure, Helpers.Enums.UnitType.PerPupil, EstablishmentType.Academies);
+            service.PopulateHistoricalChartsWithFinancialData(historicalCharts, dataModels, "2014 / 2015", Enums.TabType.Expenditure, Enums.UnitType.PerPupil, EstablishmentType.Academies);
 
             Assert.AreEqual(10, historicalCharts[0].LastYearBalance);
             Assert.AreEqual(20, historicalCharts[1].LastYearBalance);
@@ -102,15 +103,15 @@ namespace SFB.Web.UI.UnitTests
                 {
                     Name = "Special Facilities",
                     FieldName =  "Special facilities" ,
-                    TabType = Helpers.Enums.TabType.Expenditure,
-                    ChartGroup = Helpers.Enums.ChartGroupType.SpecialFacilities,
+                    TabType = Enums.TabType.Expenditure,
+                    ChartGroup = Enums.ChartGroupType.SpecialFacilities,
                 },
                 new ChartViewModel()
                 {
                     Name = "Education Support Staff",
                     FieldName =   "Education support staff" ,
-                    TabType = Helpers.Enums.TabType.Expenditure,
-                    ChartGroup = Helpers.Enums.ChartGroupType.Staff,
+                    TabType = Enums.TabType.Expenditure,
+                    ChartGroup = Enums.ChartGroupType.Staff,
                 } };
 
             var financialObj = new SchoolTrustFinancialDataObject();
@@ -129,7 +130,7 @@ namespace SFB.Web.UI.UnitTests
 
             var service = new FinancialCalculationsService(mockLaService.Object);
 
-            service.PopulateHistoricalChartsWithFinancialData(historicalCharts, dataModels, "2014 / 2015", Helpers.Enums.TabType.Expenditure, Helpers.Enums.UnitType.PerTeacher, EstablishmentType.Academies);
+            service.PopulateHistoricalChartsWithFinancialData(historicalCharts, dataModels, "2014 / 2015", Enums.TabType.Expenditure, Enums.UnitType.PerTeacher, EstablishmentType.Academies);
 
             Assert.AreEqual(100, historicalCharts[0].LastYearBalance);
             Assert.AreEqual(200, historicalCharts[1].LastYearBalance);
@@ -144,15 +145,15 @@ namespace SFB.Web.UI.UnitTests
                 {
                     Name = "Special Facilities",
                     FieldName =  "Special facilities" ,
-                    TabType = Helpers.Enums.TabType.Expenditure,
-                    ChartGroup = Helpers.Enums.ChartGroupType.SpecialFacilities,
+                    TabType = Enums.TabType.Expenditure,
+                    ChartGroup = Enums.ChartGroupType.SpecialFacilities,
                 },
                 new ChartViewModel()
                 {
                     Name = "Education Support Staff",
                     FieldName =   "Education support staff" ,
-                    TabType = Helpers.Enums.TabType.Expenditure,
-                    ChartGroup = Helpers.Enums.ChartGroupType.Staff,
+                    TabType = Enums.TabType.Expenditure,
+                    ChartGroup = Enums.ChartGroupType.Staff,
                 } };
 
             var financialObj = new SchoolTrustFinancialDataObject();
@@ -172,7 +173,7 @@ namespace SFB.Web.UI.UnitTests
 
             var service = new FinancialCalculationsService(mockLaService.Object);
 
-            service.PopulateHistoricalChartsWithFinancialData(historicalCharts, dataModels, "2014 / 2015", Helpers.Enums.TabType.Expenditure, Helpers.Enums.UnitType.PercentageOfTotalExpenditure, EstablishmentType.Academies);
+            service.PopulateHistoricalChartsWithFinancialData(historicalCharts, dataModels, "2014 / 2015", Enums.TabType.Expenditure, Enums.UnitType.PercentageOfTotalExpenditure, EstablishmentType.Academies);
 
             Assert.AreEqual(20, historicalCharts[0].LastYearBalance);
             Assert.AreEqual(40, historicalCharts[1].LastYearBalance);
@@ -186,15 +187,15 @@ namespace SFB.Web.UI.UnitTests
                 {
                     Name = "Special Facilities",
                     FieldName =  "Special facilities" ,
-                    TabType = Helpers.Enums.TabType.Expenditure,
-                    ChartGroup = Helpers.Enums.ChartGroupType.SpecialFacilities,
+                    TabType = Enums.TabType.Expenditure,
+                    ChartGroup = Enums.ChartGroupType.SpecialFacilities,
                 },
                 new ChartViewModel()
                 {
                     Name = "Education Support Staff",
                     FieldName =   "Education support staff" ,
-                    TabType = Helpers.Enums.TabType.Expenditure,
-                    ChartGroup = Helpers.Enums.ChartGroupType.Staff,
+                    TabType = Enums.TabType.Expenditure,
+                    ChartGroup = Enums.ChartGroupType.Staff,
                 } };
 
             var financialObj = new SchoolTrustFinancialDataObject();
@@ -213,7 +214,7 @@ namespace SFB.Web.UI.UnitTests
 
             var service = new FinancialCalculationsService(mockLaService.Object);
 
-            service.PopulateHistoricalChartsWithFinancialData(historicalCharts, dataModels, "2014 / 2015", Helpers.Enums.TabType.Expenditure, Helpers.Enums.UnitType.AbsoluteMoney, EstablishmentType.Maintained);
+            service.PopulateHistoricalChartsWithFinancialData(historicalCharts, dataModels, "2014 / 2015", Enums.TabType.Expenditure, Enums.UnitType.AbsoluteMoney, EstablishmentType.Maintained);
             
             var historicalChartData = JsonConvert.DeserializeObject<List<HistoricalChartData>>(historicalCharts[0].DataJson);
             Assert.AreEqual("2014-15", historicalChartData[0].Year);
