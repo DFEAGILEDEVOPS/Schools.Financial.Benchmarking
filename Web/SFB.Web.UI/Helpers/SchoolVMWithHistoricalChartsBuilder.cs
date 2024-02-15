@@ -44,11 +44,21 @@ namespace SFB.Web.UI.Helpers
             SchoolVM.LatestTerm = await LatestTermAsync(SchoolVM.EstablishmentType);
         }
 
-        public async Task AddHistoricalChartsAsync(TabType tabType, ChartGroupType chartGroup, CentralFinancingType cFinance, UnitType unitType)
+        public async Task AddHistoricalChartsAsync(TabType tabType, ChartGroupType chartGroup,
+            CentralFinancingType cFinance, UnitType unitType)
         {
-            SchoolVM.HistoricalCharts.AddRange(_historicalChartBuilder.Build(tabType, chartGroup, SchoolVM.EstablishmentType, unitType));          
-            SchoolVM.HistoricalFinancialDataModels.AddRange(await this.GetFinancialDataHistoricallyAsync(SchoolVM.Id, SchoolVM.EstablishmentType, SchoolVM.Tab == TabType.Workforce ? CentralFinancingType.Exclude : cFinance));
-            _fcService.PopulateHistoricalChartsWithFinancialData(SchoolVM.HistoricalCharts, SchoolVM.HistoricalFinancialDataModels, SchoolVM.LatestTerm, tabType, unitType, SchoolVM.EstablishmentType);         
+            SchoolVM.HistoricalCharts.AddRange(_historicalChartBuilder.Build(tabType, chartGroup,
+                SchoolVM.EstablishmentType, unitType));
+
+            // AB#63488: prevent historical data being duplicated for Workforce tab type
+            var financialDataModels = await GetFinancialDataHistoricallyAsync(SchoolVM.Id, SchoolVM.EstablishmentType,
+                SchoolVM.Tab == TabType.Workforce ? CentralFinancingType.Exclude : cFinance);
+            SchoolVM.HistoricalFinancialDataModels.AddRange(financialDataModels.Except(
+                SchoolVM.HistoricalFinancialDataModels, new HistoricalFinancialDataModelComparer(tabType)));
+
+            _fcService.PopulateHistoricalChartsWithFinancialData(SchoolVM.HistoricalCharts,
+                SchoolVM.HistoricalFinancialDataModels, SchoolVM.LatestTerm, tabType, unitType,
+                SchoolVM.EstablishmentType);
         }
 
         public void SetTab(TabType tabType)
@@ -144,6 +154,39 @@ namespace SFB.Web.UI.Helpers
         {
             var latestYear = await _financialDataService.GetLatestDataYearPerEstabTypeAsync(type);
             return SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
+        }
+        
+        /// <summary>
+        /// For 'Workforce' TabType only, compare model based on Term rather than Id
+        /// </summary>
+        private class HistoricalFinancialDataModelComparer : IEqualityComparer<FinancialDataModel>
+        {
+            private readonly TabType _tabType;
+
+            public HistoricalFinancialDataModelComparer(TabType tabType)
+            {
+                _tabType = tabType;
+            }
+
+            public bool Equals(FinancialDataModel x, FinancialDataModel y)
+            {
+                if (ReferenceEquals(x, y)) return true;
+                if (ReferenceEquals(x, null)) return false;
+                if (ReferenceEquals(y, null)) return false;
+                if (x.GetType() != y.GetType()) return false;
+                if (_tabType == TabType.Workforce) return x.Term == y.Term;
+                return x.Equals(y);
+            }
+
+            public int GetHashCode(FinancialDataModel obj)
+            {
+                if (_tabType == TabType.Workforce)
+                {
+                    return obj.Term != null ? obj.Term.GetHashCode() : 0;
+                }
+
+                return obj.GetHashCode();
+            }
         }
     }
 }
