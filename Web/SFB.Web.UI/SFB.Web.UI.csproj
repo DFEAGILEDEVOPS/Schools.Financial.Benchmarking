@@ -558,7 +558,7 @@
     <Content Include="Assets\images\govuk-apple-touch-icon.png" />
     <Content Include="Assets\images\govuk-crest-2x.png" />
     <Content Include="Assets\images\govuk-crest.png" />
-    <Content Include="Assets\images\govuk-logotype-crown.png" />
+    <Content Include="Assets\images\govuk-logotype-tudor-crown.png" />
     <Content Include="Assets\images\govuk-mask-icon.svg" />
     <Content Include="Assets\images\govuk-opengraph-image.png" />
     <Content Include="App_Data\la.json" />
@@ -659,7 +659,17 @@
     <Content Include="public\assets\images\progress.svg" />
     <Content Include="public\build\*" />
     <Content Include="public\govuk-frontend\fonts\*" />
-    <Content Include="public\govuk-frontend\images\*" />
+    <Content Include="public\govuk-frontend\images\favicon.ico" />
+    <Content Include="public\govuk-frontend\images\govuk-apple-touch-icon-152x152.png" />
+    <Content Include="public\govuk-frontend\images\govuk-apple-touch-icon-167x167.png" />
+    <Content Include="public\govuk-frontend\images\govuk-apple-touch-icon-180x180.png" />
+    <Content Include="public\govuk-frontend\images\govuk-apple-touch-icon.png" />
+    <Content Include="public\govuk-frontend\images\govuk-crest-2x.png" />
+    <Content Include="public\govuk-frontend\images\govuk-crest.png" />
+    <Content Include="public\govuk-frontend\images\govuk-logotype-tudor-crown.png" />
+    <Content Include="public\govuk-frontend\images\govuk-mask-icon.svg" />
+    <Content Include="public\govuk-frontend\images\govuk-opengraph-image.png" />
+    <Content Include="public\govuk-frontend\images\govuk-logotype-tudor-crown.png" />
     <Content Include="public\vendorScripts\angular.min.js" />
     <Content Include="public\vendorScripts\clipboard.min.js" />
     <Content Include="public\vendorScripts\html2canvas.min.js" />
