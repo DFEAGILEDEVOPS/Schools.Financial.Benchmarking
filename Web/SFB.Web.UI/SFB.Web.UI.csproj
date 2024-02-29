@@ -1005,7 +1005,6 @@
     <Content Include="Views\BenchmarkCriteria\OverwriteReplace.cshtml" />
     <Content Include="Views\Help\GetInvolved.cshtml" />
     <Content Include="Views\Help\GetInvolvedConfirmation.cshtml" />
-    <Content Include="Views\Shared\Partials\Breadcrumbs\BackToEfficiencyMetricLink.cshtml" />
     <Content Include="public\assets\scripts\application.js.map" />
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\LICENSE" />
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\package.json" />
