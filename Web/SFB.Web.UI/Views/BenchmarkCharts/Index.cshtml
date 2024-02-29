@@ -31,14 +31,7 @@
 }
 
 @section BackButtonContent{
-    @if (Model.ComparisonType == ComparisonType.EfficiencyTop || Model.ComparisonType == ComparisonType.EfficiencyManual)
-    {
-        ViewBag.HomeSchoolId = Model.SchoolComparisonList.HomeSchoolUrn;
-        ViewBag.HomeSchoolName = Model.SchoolComparisonList.HomeSchoolName;
-
-        @Html.Partial("Partials/Breadcrumbs/BackToEfficiencyMetricLink")
-    }
-    else if (Model.ComparisonType == ComparisonType.FederationBasic)
+    @if (Model.ComparisonType == ComparisonType.FederationBasic)
     {
         ViewBag.Fuid = Model.SchoolComparisonList.HomeSchoolUrn;
         ViewBag.Name = Model.SchoolComparisonList.HomeSchoolName;
@@ -201,10 +194,6 @@ else
                             </div>
                             <span>&nbsp;using</span>
                             <span class="govuk-!-font-size-16 govuk-!-font-weight-bold"> efficiency metric characteristics. </span>
-                            @if (Model.ComparisonType == ComparisonType.EfficiencyManual)
-                            {
-                                <a href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/manual-comparison/@Model.SchoolComparisonList.HomeSchoolUrn/@Model.SchoolComparisonList.HomeSchoolName" class="govuk-link hide-in-print">Back to school selection</a>
-                            }
                         </div>
                     }
                     else if (Model.ComparisonType == ComparisonType.BestInClass && Model.AdvancedCriteria != null)

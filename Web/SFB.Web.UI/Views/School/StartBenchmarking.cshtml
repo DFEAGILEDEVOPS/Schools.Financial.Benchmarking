@@ -45,9 +45,6 @@
                         <a class="govuk-link govuk-!-font-size-16" href="/BenchmarkCriteria/StepOne?comparisonType=BestInClass&Urn=@Model.Id">Highest progress schools comparison</a>
                     </li>
                 }
-                <li id="efficiencyMetricLink" style="display: none">
-                    <a class="govuk-link govuk-!-font-size-16" href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/how-it-works/@Model.Id/@Model.Name.Replace("(", "%28").Replace(")", "%29").Replace("&", "%26")">Efficiency metric</a>
-                </li>
             </ul>
         </div>
     }
