@@ -74,17 +74,17 @@
     <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.WebUtilities.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Azure.Cosmos.Client, Version=3.17.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.Cosmos.3.17.1\lib\netstandard2.0\Microsoft.Azure.Cosmos.Client.dll</HintPath>
+    <Reference Include="Microsoft.Azure.Cosmos.Client, Version=3.38.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Cosmos.3.38.1\lib\netstandard2.0\Microsoft.Azure.Cosmos.Client.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.Cosmos.Core, Version=2.11.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.Cosmos.3.17.1\lib\netstandard2.0\Microsoft.Azure.Cosmos.Core.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Azure.Cosmos.3.38.1\lib\netstandard2.0\Microsoft.Azure.Cosmos.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Azure.Cosmos.Direct, Version=3.17.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.Cosmos.3.17.1\lib\netstandard2.0\Microsoft.Azure.Cosmos.Direct.dll</HintPath>
+    <Reference Include="Microsoft.Azure.Cosmos.Direct, Version=3.32.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Cosmos.3.38.1\lib\netstandard2.0\Microsoft.Azure.Cosmos.Direct.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.Cosmos.Serialization.HybridRow, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.Cosmos.3.17.1\lib\netstandard2.0\Microsoft.Azure.Cosmos.Serialization.HybridRow.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Azure.Cosmos.3.38.1\lib\netstandard2.0\Microsoft.Azure.Cosmos.Serialization.HybridRow.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.Search.Common, Version=10.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.Search.Common.10.1.0\lib\net461\Microsoft.Azure.Search.Common.dll</HintPath>
@@ -173,7 +173,7 @@
       <HintPath>..\packages\RestSharp.108.0.3\lib\netstandard2.0\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="SFB.Artifacts.ApplicationCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFB.Artifacts.ApplicationCore.1.2024.67.80267\lib\net48\SFB.Artifacts.ApplicationCore.dll</HintPath>
+      <HintPath>..\packages\SFB.Artifacts.ApplicationCore.1.2024.68.80279\lib\net48\SFB.Artifacts.ApplicationCore.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.2.2.88\lib\net472\StackExchange.Redis.dll</HintPath>
@@ -385,10 +385,10 @@
     <Error Condition="!Exists('..\packages\NUnit.3.12.0\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.12.0\build\NUnit.props'))" />
     <Error Condition="!Exists('..\packages\NUnit3TestAdapter.3.16.1\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit3TestAdapter.3.16.1\build\net35\NUnit3TestAdapter.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Azure.Cosmos.3.17.1\build\netstandard2.0\Microsoft.Azure.Cosmos.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Azure.Cosmos.3.17.1\build\netstandard2.0\Microsoft.Azure.Cosmos.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Azure.Cosmos.3.38.1\build\netstandard2.0\Microsoft.Azure.Cosmos.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Azure.Cosmos.3.38.1\build\netstandard2.0\Microsoft.Azure.Cosmos.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets" Condition="Exists('..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets')" />
-  <Import Project="..\packages\Microsoft.Azure.Cosmos.3.17.1\build\netstandard2.0\Microsoft.Azure.Cosmos.targets" Condition="Exists('..\packages\Microsoft.Azure.Cosmos.3.17.1\build\netstandard2.0\Microsoft.Azure.Cosmos.targets')" />
+  <Import Project="..\packages\Microsoft.Azure.Cosmos.3.38.1\build\netstandard2.0\Microsoft.Azure.Cosmos.targets" Condition="Exists('..\packages\Microsoft.Azure.Cosmos.3.38.1\build\netstandard2.0\Microsoft.Azure.Cosmos.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

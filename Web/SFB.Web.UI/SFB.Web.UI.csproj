@@ -122,17 +122,17 @@
     <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.WebUtilities.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Azure.Cosmos.Client, Version=3.17.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.Cosmos.3.17.1\lib\netstandard2.0\Microsoft.Azure.Cosmos.Client.dll</HintPath>
+    <Reference Include="Microsoft.Azure.Cosmos.Client, Version=3.38.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Cosmos.3.38.1\lib\netstandard2.0\Microsoft.Azure.Cosmos.Client.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.Cosmos.Core, Version=2.11.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.Cosmos.3.17.1\lib\netstandard2.0\Microsoft.Azure.Cosmos.Core.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Azure.Cosmos.3.38.1\lib\netstandard2.0\Microsoft.Azure.Cosmos.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Azure.Cosmos.Direct, Version=3.17.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.Cosmos.3.17.1\lib\netstandard2.0\Microsoft.Azure.Cosmos.Direct.dll</HintPath>
+    <Reference Include="Microsoft.Azure.Cosmos.Direct, Version=3.32.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Cosmos.3.38.1\lib\netstandard2.0\Microsoft.Azure.Cosmos.Direct.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.Cosmos.Serialization.HybridRow, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.Cosmos.3.17.1\lib\netstandard2.0\Microsoft.Azure.Cosmos.Serialization.HybridRow.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Azure.Cosmos.3.38.1\lib\netstandard2.0\Microsoft.Azure.Cosmos.Serialization.HybridRow.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=3.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.3.0.5\lib\net461\Microsoft.Azure.KeyVault.Core.dll</HintPath>
@@ -236,10 +236,10 @@
       <HintPath>..\packages\RestSharp.108.0.3\lib\netstandard2.0\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="SFB.Artifacts.ApplicationCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFB.Artifacts.ApplicationCore.1.2024.67.80267\lib\net48\SFB.Artifacts.ApplicationCore.dll</HintPath>
+      <HintPath>..\packages\SFB.Artifacts.ApplicationCore.1.2024.68.80279\lib\net48\SFB.Artifacts.ApplicationCore.dll</HintPath>
     </Reference>
     <Reference Include="SFB.Artifacts.Infrastructure, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFB.Artifacts.Infrastructure.1.2024.67.80269\lib\net48\SFB.Artifacts.Infrastructure.dll</HintPath>
+      <HintPath>..\packages\SFB.Artifacts.Infrastructure.1.2024.68.80281\lib\net48\SFB.Artifacts.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.2.2.88\lib\net472\StackExchange.Redis.dll</HintPath>
@@ -1206,7 +1206,7 @@
     <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.22.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.22.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.2.22.0\build\Microsoft.ApplicationInsights.WindowsServer.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.WindowsServer.2.22.0\build\Microsoft.ApplicationInsights.WindowsServer.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.Web.2.22.0\build\Microsoft.ApplicationInsights.Web.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.Web.2.22.0\build\Microsoft.ApplicationInsights.Web.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Azure.Cosmos.3.17.1\build\netstandard2.0\Microsoft.Azure.Cosmos.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Azure.Cosmos.3.17.1\build\netstandard2.0\Microsoft.Azure.Cosmos.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Azure.Cosmos.3.38.1\build\netstandard2.0\Microsoft.Azure.Cosmos.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Azure.Cosmos.3.38.1\build\netstandard2.0\Microsoft.Azure.Cosmos.targets'))" />
   </Target>
   <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
   <Import Project="..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.22.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.22.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets')" />
@@ -1214,7 +1214,7 @@
   <Import Project="..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.22.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.22.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
   <Import Project="..\packages\Microsoft.ApplicationInsights.WindowsServer.2.22.0\build\Microsoft.ApplicationInsights.WindowsServer.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.2.22.0\build\Microsoft.ApplicationInsights.WindowsServer.targets')" />
   <Import Project="..\packages\Microsoft.ApplicationInsights.Web.2.22.0\build\Microsoft.ApplicationInsights.Web.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.Web.2.22.0\build\Microsoft.ApplicationInsights.Web.targets')" />
-  <Import Project="..\packages\Microsoft.Azure.Cosmos.3.17.1\build\netstandard2.0\Microsoft.Azure.Cosmos.targets" Condition="Exists('..\packages\Microsoft.Azure.Cosmos.3.17.1\build\netstandard2.0\Microsoft.Azure.Cosmos.targets')" />
+  <Import Project="..\packages\Microsoft.Azure.Cosmos.3.38.1\build\netstandard2.0\Microsoft.Azure.Cosmos.targets" Condition="Exists('..\packages\Microsoft.Azure.Cosmos.3.38.1\build\netstandard2.0\Microsoft.Azure.Cosmos.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
