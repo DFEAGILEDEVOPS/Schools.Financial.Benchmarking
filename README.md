@@ -30,11 +30,11 @@ The following tools may be installed directly on Windows, or via Chocolatey. [Ch
 ### Steps
 
 1. Open web folder: `cd .\Web\SFB.Web.UI\`
-1. Install correct `node` version: `nvm install 16.20.2`
-1. Set `node` version: `nvm use 16.20.2`
+1. Install correct `node` version: `nvm install 18.12.0`
+1. Set `node` version: `nvm use 18.12.0`
 1. Install `grunt` globally: `npm i grunt -g`
 1. Install `node-gyp` globally: `npm i node-gyp -g`
-1. Install `node-sass` globally: `npm i node-sass -g`
+1. Install `sass` globally: `npm i sass -g`
 1. Install deps: `npm i`
 1. Build assets: `npm run build:newAndLegacyDev`
 
