@@ -84,8 +84,14 @@
     "REGIONNAME": "North West A"
   },
   {
-    "id": "909",
-    "LANAME": "Cumbria",
+    "id": "942",
+    "LANAME": "Cumberland",
+    "REGION": "6",
+    "REGIONNAME": "North West A"
+  },
+  {
+    "id": "943",
+    "LANAME": "Westmorland and Furness",
     "REGION": "6",
     "REGIONNAME": "North West A"
   },
