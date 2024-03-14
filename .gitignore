@@ -162,6 +162,7 @@ ClientBin/
 *.publishsettings
 node_modules/
 .vs/
+ThirdPartyNotice.txt
 
 # RIA/Silverlight projects
 Generated_Code/
