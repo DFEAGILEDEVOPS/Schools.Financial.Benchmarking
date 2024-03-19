@@ -98,6 +98,12 @@ namespace SFB.Web.UI.Controllers
             ViewBag.ChartFormat = format;
             ViewBag.ShouldShowDashBoard = schoolVM.LatestYearFinancialData?.TotalExpenditure != null;
 
+            // AB#63763: use CFR instead of GIAS pupil count
+            if (schoolVM.LatestYearFinancialData?.PupilCount.GetValueOrDefault() > 0)
+            {
+                schoolVM.ContextData.NumberOfPupils = Convert.ToSingle(schoolVM.LatestYearFinancialData.PupilCount);
+            }
+
             return View("Index", schoolVM);
         }
 
