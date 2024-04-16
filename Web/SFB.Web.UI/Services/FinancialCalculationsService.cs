@@ -276,7 +276,7 @@ namespace SFB.Web.UI.Services
                     TeacherCount = dataModel.TeacherCount,
                     PupilCount = dataModel.PupilCount,
                     Term = dataModel.Term,
-                    Type = school.Type,
+                    Type = !string.IsNullOrWhiteSpace(dataModel.FederationName) ? "Federation" : school.Type,
                     La = _localAuthoritiesService.GetLaName(dataModel.LaNumber.ToString()),
                     IsCompleteYear = dataModel.IsReturnsComplete,
                     IsWFDataPresent = dataModel.WorkforceDataPresent,
