@@ -675,6 +675,15 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
             ViewBag.UnitType = defaultUnitType;
+            if (string.IsNullOrWhiteSpace(vm.SchoolComparisonList.HomeSchoolUrn) &&
+                comparisonType == ComparisonType.Specials && urn.HasValue)
+            {
+                vm.SchoolComparisonList.HomeSchoolUrn = urn.Value.ToString();
+                vm.SchoolComparisonList.HomeSchoolName = vm.SchoolComparisonList.BenchmarkSchools
+                    .Where(b => b.Urn.Equals(vm.SchoolComparisonList.HomeSchoolUrn)).Select(b => b.Name)
+                    .FirstOrDefault();
+            }
+
             ViewBag.HomeSchoolId = vm.SchoolComparisonList.HomeSchoolUrn;
             ViewBag.EstablishmentType = vm.EstablishmentType;
             ViewBag.Financing = financing;
