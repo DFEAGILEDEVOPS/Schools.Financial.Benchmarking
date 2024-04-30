@@ -179,8 +179,14 @@ namespace SFB.Web.UI.Controllers
             _fcService.PopulateHistoricalChartsWithFinancialData(vm.HistoricalCharts, vm.HistoricalFinancialDataModels, vm.LatestTerm, vm.Tab, unitType, vm.EstablishmentType);
             _fcService.PopulateHistoricalChartsWithFinancialData(vm.HistoricalCharts, vm.HistoricalFinancialDataModels, vm.LatestTerm, TabType.Workforce, UnitType.AbsoluteCount, vm.EstablishmentType);
 
-            vm.SchoolsInFederation = await _contextDataService.GetMultipleSchoolDataObjectsByUrnsAsync(vm.FederationMembersURNs.ToList());
-            
+            vm.SchoolsInFederation = new List<EdubaseDataObject>();
+            if (vm.FederationMembersURNs != null)
+            {
+                vm.SchoolsInFederation =
+                    await _contextDataService.GetMultipleSchoolDataObjectsByUrnsAsync(vm.FederationMembersURNs
+                        .ToList());
+            }
+
             vm.LaName = _laService.GetLaName(vm.La.ToString());
 
             return vm;
