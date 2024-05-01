@@ -58,8 +58,7 @@ namespace SFB.Web.UI.Models
 
         public decimal? InYearBalance => this.HistoricalFinancialDataModels.Last().InYearBalance;
 
-        public decimal? RevenueReserve => HistoricalFinancialDataModels.Last().ShareOfRevenueReserve ??
-                                          HistoricalFinancialDataModels.Last().RevenueReserve;
+        public decimal? RevenueReserve => this.HistoricalFinancialDataModels.Last().RevenueReserve;
 
         public List<FinancialDataModel> HistoricalFinancialDataModels { get; set; }
 
