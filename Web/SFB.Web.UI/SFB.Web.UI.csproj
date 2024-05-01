@@ -236,10 +236,10 @@
       <HintPath>..\packages\RestSharp.108.0.3\lib\netstandard2.0\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="SFB.Artifacts.ApplicationCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFB.Artifacts.ApplicationCore.1.2024.121.81231\lib\net48\SFB.Artifacts.ApplicationCore.dll</HintPath>
+      <HintPath>..\packages\SFB.Artifacts.ApplicationCore.1.2024.72.80345\lib\net48\SFB.Artifacts.ApplicationCore.dll</HintPath>
     </Reference>
     <Reference Include="SFB.Artifacts.Infrastructure, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFB.Artifacts.Infrastructure.1.2024.121.81255\lib\net48\SFB.Artifacts.Infrastructure.dll</HintPath>
+      <HintPath>..\packages\SFB.Artifacts.Infrastructure.1.2024.72.80346\lib\net48\SFB.Artifacts.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.2.2.88\lib\net472\StackExchange.Redis.dll</HintPath>
