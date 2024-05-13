@@ -1,6 +1,7 @@
 # Schools Financial Benchmarking
 
-[![Build Status](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_apis/build/status/SFB.Web.Application?branchName=master)](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_build/latest?definitionId=471&branchName=master) ![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/DFEAGILEDEVOPS/schools-financial-benchmarking?include_prereleases) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/DFEAGILEDEVOPS/schools-financial-benchmarking)
+[![Build Status](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_apis/build/status/Web%20App/Schools.Financial.Benchmarking)](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_build?definitionId=471) 
+[![GitHub release (latest by date)](https://agilefactory.vsrm.visualstudio.com/_apis/public/Release/badge/fc33e3f0-e73b-466d-837a-10cad68c664e/4/14)](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_release?definitionId=4)
 
 ## Introduction
 This application is build using ASP.NET MVC with .Net Framework v4.7 referencing a CosmosDB database NoSQL management system hosted on Microsoft Azure.
@@ -10,10 +11,6 @@ This application is build using ASP.NET MVC with .Net Framework v4.7 referencing
 [Data Migration Docs](data-migration.md)
 
 [Disaster Recovery Docs](disaster-recovery.md)
-
-## Latest data update
-
-Maintained - 15/11/2023 19:30
 
 ## Dev setup (Front end assets)
 
