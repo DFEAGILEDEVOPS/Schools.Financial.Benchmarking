@@ -98,6 +98,23 @@ namespace SFB.Web.UI.Helpers
 
         private List<ChartViewModel> BuildChartList()
         {
+            const string pre16Post16FundingInfo = @"<p>For pre-16 this is the major share of funding provided by the Education Funding Agency to the school.</p>
+                                <p>For post-16 funding it includes</p>
+                                <ul>
+                                <li>funding from public sources for sixth-form students</li>
+                                <li>Education Funding Agency (EFA) funding</li>
+                                <li>additional learning support funding for sixth forms from the EFA within their main EFA budget allocations</li>
+                                <li>16-19 bursary fund </li>
+                                <li>post-16 high needs place funding (elements 1 & 2) </li>
+                                </ul>
+
+                                <p>For post-16 funding it excludes:</p>
+                                <ul>
+                                <li>voluntary sources of funding for sixth-form students</li>
+                                <li>any balances carried forward from previous years</li>
+                                <li>high needs top-up funding (element 3) given by the local authority to the school</li>
+                                </ul>";
+
             return new List<ChartViewModel>()
             {
                 //Total Expenditure
@@ -1447,25 +1464,16 @@ namespace SFB.Web.UI.Helpers
                         new DataTableColumnViewModel
                         {
                             Name = "Pre-16 and post-16 funding",
+                            FieldName = SchoolTrustFinanceDataFieldNames.PRE_16_FUNDING,
+                            ChartSchoolType = ChartSchoolType.Academy,
+                            MoreInfo = pre16Post16FundingInfo
+                        },
+                        new DataTableColumnViewModel
+                        {
+                            Name = "Pre-16 and post-16 funding",
                             FieldName = SchoolTrustFinanceDataFieldNames.PRE_POST_16_FUNDING,
-                            ChartSchoolType = ChartSchoolType.Both,
-                            MoreInfo =
-                                @"<p>For pre-16 this is the major share of funding provided by the Education Funding Agency to the school.</p>
-                                <p>For post-16 funding it includes</p>
-                                <ul>
-                                <li>funding from public sources for sixth-form students</li>
-                                <li>Education Funding Agency (EFA) funding</li>
-                                <li>additional learning support funding for sixth forms from the EFA within their main EFA budget allocations</li>
-                                <li>16-19 bursary fund </li>
-                                <li>post-16 high needs place funding (elements 1 & 2) </li>
-                                </ul>
-
-                                <p>For post-16 funding it excludes:</p>
-                                <ul>
-                                <li>voluntary sources of funding for sixth-form students</li>
-                                <li>any balances carried forward from previous years</li>
-                                <li>high needs top-up funding (element 3) given by the local authority to the school</li>
-                                </ul>"
+                            ChartSchoolType = ChartSchoolType.Maintained,
+                            MoreInfo = pre16Post16FundingInfo
                         },
                         new DataTableColumnViewModel
                         {
