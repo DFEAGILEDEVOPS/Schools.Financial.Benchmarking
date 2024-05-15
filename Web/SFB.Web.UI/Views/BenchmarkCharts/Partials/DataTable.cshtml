@@ -1,5 +1,11 @@
 ﻿@using SFB.Web.UI.Helpers.Enums
 @model SFB.Web.UI.Models.ChartViewModel
+@{
+    var uniqueColumns = Model.TableColumns
+        .GroupBy(g => g.Name)
+        .Select(s => s.First())
+        .ToList();
+}
 
 <div class="govuk-inset-text app-govuk-inset-text--narrow data-table-panel">
     <h4 class="govuk-heading-s table-header">This includes</h4>
@@ -8,7 +14,7 @@
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
                 <th scope="col" class="govuk-table__header school-column">School</th>
-                @foreach (var column in Model.TableColumns)
+                @foreach (var column in uniqueColumns)
                 {
                     <th scope="col" class="govuk-table__header">
                         <span>@column.Name</span>
@@ -48,9 +54,26 @@
                         }
 
                     </td>
-                    @foreach (var column in Model.TableColumns)
+                    @{
+                        var chartSchoolType = school.Type.Contains("Academy") ? ChartSchoolType.Academy : ChartSchoolType.Maintained;
+                    }
+                    @foreach (var column in uniqueColumns)
                     {
-                        var amount = column.BenchmarkData.FirstOrDefault(b => b.School == school.School).Amount;
+                        // #64500: It may be the case that charts use different source fields based on the school type,
+                        // so this change ensures that if a duplicate chart is found based on its name that the
+                        // correctly matched value is rendered. Associated duplicate header column is filtered out above.
+                        var hasOtherColumn = Model.TableColumns
+                            .Where(c => c.ChartSchoolType != chartSchoolType)
+                            .Any(c => c.Name == column.Name);
+                        var amount = hasOtherColumn
+                            ? Model.TableColumns
+                                .Where(c => c.ChartSchoolType == chartSchoolType)
+                                .Where(c => c.Name == column.Name)
+                                .SelectMany(c => c.BenchmarkData)
+                                .FirstOrDefault(b => b.School == school.School)
+                                ?.Amount
+                            : column.BenchmarkData.FirstOrDefault(b => b.School == school.School)?.Amount;
+
                         if (Model.ShowValue == UnitType.PercentageOfTotalExpenditure || Model.ShowValue == UnitType.PercentageOfTotalIncome)
                         {
                             if (amount.HasValue)
