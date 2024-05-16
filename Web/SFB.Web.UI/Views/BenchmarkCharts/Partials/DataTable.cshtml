@@ -5,6 +5,13 @@
         .GroupBy(g => g.Name)
         .Select(s => s.First())
         .ToList();
+
+    var schools =  Model.TableColumns.First().BenchmarkData.Select(b => new
+    {
+        Name = b.School,
+        b.Type,
+        b.Urn
+    });
 }
 
 <div class="govuk-inset-text app-govuk-inset-text--narrow data-table-panel">
@@ -35,7 +42,7 @@
             </tr>
         </thead>
         <tbody class="govuk-table__body">
-            @foreach (var school in Model.TableColumns[0].BenchmarkData)
+            @foreach (var school in schools)
             {
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell school-column">
@@ -44,12 +51,12 @@
 
                             if (school.Urn.StartsWith("MAT"))
                             {
-                                var name = school.School.Substring(0, school.School.LastIndexOf("#"));
+                                var name = school.Name.Substring(0, school.Name.LastIndexOf("#"));
                                 <a target="_self" href="/trust/detail?companyNo=@school.Urn&name=@name" class="govuk-link @style">@name</a>
                             }
                             else
                             {
-                                <a target="_self" href="/school?urn=@school.Urn" class="govuk-link @style">@school.School</a>
+                                <a target="_self" href="/school?urn=@school.Urn" class="govuk-link @style">@school.Name</a>
                             }
                         }
 
@@ -62,18 +69,15 @@
                         // #64500: It may be the case that charts use different source fields based on the school type,
                         // so this change ensures that if a duplicate chart is found based on its name that the
                         // correctly matched value is rendered. Associated duplicate header column is filtered out above.
-                        var hasOtherColumn = Model.TableColumns
-                            .Where(c => c.ChartSchoolType != chartSchoolType)
-                            .Any(c => c.Name == column.Name);
+                        var hasOtherColumn = Model.TableColumns.Count(c => c.Name == column.Name) > 1;
                         var amount = hasOtherColumn
                             ? Model.TableColumns
                                 .Where(c => c.ChartSchoolType == chartSchoolType)
                                 .Where(c => c.Name == column.Name)
                                 .SelectMany(c => c.BenchmarkData)
-                                .FirstOrDefault(b => b.School == school.School)
+                                .FirstOrDefault(b => b.School == school.Name)
                                 ?.Amount
-                            : column.BenchmarkData.FirstOrDefault(b => b.School == school.School)?.Amount;
-
+                            : column.BenchmarkData.FirstOrDefault(b => b.School == school.Name)?.Amount;
                         if (Model.ShowValue == UnitType.PercentageOfTotalExpenditure || Model.ShowValue == UnitType.PercentageOfTotalIncome)
                         {
                             if (amount.HasValue)
