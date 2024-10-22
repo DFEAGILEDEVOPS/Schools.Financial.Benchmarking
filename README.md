@@ -1,9 +1,10 @@
 # Schools Financial Benchmarking
 
-[![Build Status](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_apis/build/status/Web%20App/Schools.Financial.Benchmarking)](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_build?definitionId=471) 
+[![Build Status](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_apis/build/status/Web%20App/Schools.Financial.Benchmarking)](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_build?definitionId=471)
 [![GitHub release (latest by date)](https://agilefactory.vsrm.visualstudio.com/_apis/public/Release/badge/fc33e3f0-e73b-466d-837a-10cad68c664e/4/14)](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_release?definitionId=4)
 
 ## Introduction
+
 This application is build using ASP.NET MVC with .Net Framework v4.7 referencing a CosmosDB database NoSQL management system hosted on Microsoft Azure.
 
 ## Database Dependencies
@@ -23,6 +24,8 @@ The following tools may be installed directly on Windows, or via Chocolatey. [Ch
 1. [`nvm` for Windows](https://github.com/coreybutler/nvm-windows)
 1. [Visual Studio 2019 Build Tools](https://my.visualstudio.com/Downloads?q=visual%20studio%202019&wt.mc_id=o~msft~vscom~older-downloads)
 1. [Python 3.7](https://www.python.org/downloads/release/python-379/)
+
+Developers may also find it useful to [exclude certain paths from Windows Defender](https://gist.github.com/Braytiner/be2497d1a06f5a9d943dc7760693d460) in the case of local performance issues.
 
 ### Steps
 
