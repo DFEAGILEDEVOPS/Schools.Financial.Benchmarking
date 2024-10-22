@@ -1,6 +1,7 @@
-﻿using SFB.Web.UI.Models;
+﻿using System;
+using System.Configuration;
+using SFB.Web.UI.Models;
 using System.Web.Mvc;
-using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Attributes;
 using SFB.Web.ApplicationCore.Services;
 using SFB.Web.UI.Services;
@@ -12,23 +13,42 @@ namespace SFB.Web.UI.Controllers
     {
         private readonly ILocalAuthoritiesService _laService;
         private readonly ISchoolBenchmarkListService _benchmarkBasketService;
+        private readonly bool _showDeprecationInformation;
 
         public HomeController(ILocalAuthoritiesService laService, ISchoolBenchmarkListService benchmarkBasketService)
         {
             _laService = laService;
             _benchmarkBasketService = benchmarkBasketService;
+            _showDeprecationInformation = bool.TryParse(ConfigurationManager.AppSettings["ShowDeprecationInformation"], out var showWarning) && showWarning;
         }
 
         public ActionResult Index()
         {
-            var vm = new SearchViewModel(_benchmarkBasketService.GetSchoolBenchmarkList(), null);
-            vm.Authorities = _laService.GetLocalAuthorities();
+            var vm = new SearchViewModel(_benchmarkBasketService.GetSchoolBenchmarkList(), null)
+            {
+                Authorities = _laService.GetLocalAuthorities()
+            };
             return View(vm);
         }
 
         public ActionResult News()
         {
             return View();
+        }
+
+        public ActionResult Header()
+        {
+            if (!_showDeprecationInformation)
+            {
+                return PartialView("Partials/Headers/Help");
+            }
+            
+            if (Request.Url?.PathAndQuery != "/")
+            {
+                return PartialView("Partials/Headers/Deprecation");
+            }
+                
+            return new EmptyResult();
         }
     }
 }

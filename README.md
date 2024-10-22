@@ -115,5 +115,6 @@ The following `appSettings.config` file is needed in the root of `.\Web\SFB.Web.
   <add key="UnderReviewMessageForSchools" value="This school's finances are currently under review and may be amended."/>
   <add key="UnderReviewMessageForTrusts" value="This trust's finances are currently under review and may be amended."/>
   <add key="CosmosConnectionMode" value="Gateway" />
+  <add key="ShowDeprecationInformation" value="true" />
 </appSettings>
 ```
