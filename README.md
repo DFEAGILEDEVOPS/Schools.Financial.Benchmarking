@@ -104,7 +104,7 @@ The following `appSettings.config` file is needed in the root of `.\Web\SFB.Web.
   <add key="SelfAssessmentUrl" value="http://localhost:4200/self-assessment"/>
   <add key="cookieDomain" value="localhost"/>
   <add key="emCollection" value="20210318000000-EM-2021-2022"/>
-  <add key="trustHistoryCollection" value="20210713-TrustHistory-2021-2022"/>
+  <add key="trustHistoryCollection" value="TrustHistory-20230831"/>
   <add key="SfbApiUrl" value="localhost:44383"/>
   <add key="Feature-RevisedSchoolPage-enabled" value="True"/>
   <add key="UnderReviewSchools" value="138492"/>
