@@ -1,9 +1,10 @@
 # Schools Financial Benchmarking
 
-[![Build Status](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_apis/build/status/Web%20App/Schools.Financial.Benchmarking)](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_build?definitionId=471) 
+[![Build Status](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_apis/build/status/Web%20App/Schools.Financial.Benchmarking)](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_build?definitionId=471)
 [![GitHub release (latest by date)](https://agilefactory.vsrm.visualstudio.com/_apis/public/Release/badge/fc33e3f0-e73b-466d-837a-10cad68c664e/4/14)](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_release?definitionId=4)
 
 ## Introduction
+
 This application is build using ASP.NET MVC with .Net Framework v4.7 referencing a CosmosDB database NoSQL management system hosted on Microsoft Azure.
 
 ## Database Dependencies
@@ -24,14 +25,16 @@ The following tools may be installed directly on Windows, or via Chocolatey. [Ch
 1. [Visual Studio 2019 Build Tools](https://my.visualstudio.com/Downloads?q=visual%20studio%202019&wt.mc_id=o~msft~vscom~older-downloads)
 1. [Python 3.7](https://www.python.org/downloads/release/python-379/)
 
+Developers may also find it useful to [exclude certain paths from Windows Defender](https://gist.github.com/Braytiner/be2497d1a06f5a9d943dc7760693d460) in the case of local performance issues.
+
 ### Steps
 
 1. Open web folder: `cd .\Web\SFB.Web.UI\`
-1. Install correct `node` version: `nvm install 16.20.2`
-1. Set `node` version: `nvm use 16.20.2`
+1. Install correct `node` version: `nvm install 18.12.0`
+1. Set `node` version: `nvm use 18.12.0`
 1. Install `grunt` globally: `npm i grunt -g`
 1. Install `node-gyp` globally: `npm i node-gyp -g`
-1. Install `node-sass` globally: `npm i node-sass -g`
+1. Install `sass` globally: `npm i sass -g`
 1. Install deps: `npm i`
 1. Build assets: `npm run build:newAndLegacyDev`
 
@@ -104,7 +107,7 @@ The following `appSettings.config` file is needed in the root of `.\Web\SFB.Web.
   <add key="SelfAssessmentUrl" value="http://localhost:4200/self-assessment"/>
   <add key="cookieDomain" value="localhost"/>
   <add key="emCollection" value="20210318000000-EM-2021-2022"/>
-  <add key="trustHistoryCollection" value="20210713-TrustHistory-2021-2022"/>
+  <add key="trustHistoryCollection" value="TrustHistory-20230831"/>
   <add key="SfbApiUrl" value="localhost:44383"/>
   <add key="Feature-RevisedSchoolPage-enabled" value="True"/>
   <add key="UnderReviewSchools" value="138492"/>
