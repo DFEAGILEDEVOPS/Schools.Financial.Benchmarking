@@ -3,7 +3,7 @@ module.exports = {
     "compile-dev-js"
   ],
   "compile-dev-js": [    
-    "uglify:bundle-elements-dev"
+    "terser:bundle-elements-dev"
   ],
   "compile-dev-css": [
     "clean:elements-css",
