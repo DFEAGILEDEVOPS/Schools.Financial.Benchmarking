@@ -24,11 +24,20 @@ namespace SFB.Web.UI.Controllers
 
         public ActionResult Index()
         {
-            var vm = new SearchViewModel(_benchmarkBasketService.GetSchoolBenchmarkList(), null)
+            return _showDeprecationInformation
+                ? View(nameof(Index), GetDeprecationViewModel())
+                : View(nameof(Search), GetSearchViewModel());
+        }
+
+        [Route("Search")]
+        public ActionResult Search()
+        {
+            if (_showDeprecationInformation)
             {
-                Authorities = _laService.GetLocalAuthorities()
-            };
-            return View(vm);
+                return View(GetSearchViewModel());
+            }
+            
+            return RedirectToAction("Index");
         }
 
         public ActionResult News()
@@ -45,14 +54,29 @@ namespace SFB.Web.UI.Controllers
 
             if (Request.Url?.PathAndQuery != "/")
             {
-                return PartialView("Partials/Headers/Deprecation", new DeprecationViewModel
-                {
-                    Title = ConfigurationManager.AppSettings["DeprecationInformation:Title"] ?? string.Empty,
-                    Body = (ConfigurationManager.AppSettings["DeprecationInformation:Body"] ?? string.Empty).Replace(@"\n", Environment.NewLine)
-                });
+                return PartialView("Partials/Headers/Deprecation", GetDeprecationViewModel());
             }
 
             return new EmptyResult();
+        }
+
+        private SearchViewModel GetSearchViewModel()
+        {
+            return new SearchViewModel(_benchmarkBasketService.GetSchoolBenchmarkList(), null)
+            {
+                Authorities = _laService.GetLocalAuthorities()
+            };
+        }
+        
+        private DeprecationViewModel GetDeprecationViewModel()
+        {
+            return new DeprecationViewModel
+            {
+                Title = ConfigurationManager.AppSettings["DeprecationInformation:Title"] ?? string.Empty,
+                Body = (ConfigurationManager.AppSettings["DeprecationInformation:Body"] ?? string.Empty).Replace(@"\n", Environment.NewLine),
+                NewServiceUrl = ConfigurationManager.AppSettings["DeprecationInformation:NewServiceUrl"] ?? string.Empty,
+                OldServiceLinkText = ConfigurationManager.AppSettings["DeprecationInformation:OldServiceLinkText"] ?? string.Empty
+            };
         }
     }
 }
