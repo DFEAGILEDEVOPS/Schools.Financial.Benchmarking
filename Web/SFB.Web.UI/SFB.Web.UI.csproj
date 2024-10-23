@@ -723,6 +723,7 @@
     <Content Include="public\vendorScripts\pptxgen.min.js" />
     <Content Include="robots.txt" />
     <Content Include="tsconfig.json" />
+    <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Shared\Partials\Headers\Deprecation.cshtml" />
     <Content Include="Views\Shared\Partials\Headers\Help.cshtml" />
     <Content Include="Views\Shared\Partials\RelatedServices.cshtml" />
