@@ -19,7 +19,7 @@ namespace SFB.Web.UI.Controllers
         {
             _laService = laService;
             _benchmarkBasketService = benchmarkBasketService;
-            _showDeprecationInformation = bool.TryParse(ConfigurationManager.AppSettings["ShowDeprecationInformation"], out var showWarning) && showWarning;
+            _showDeprecationInformation = bool.TryParse(ConfigurationManager.AppSettings["DeprecationInformation:Enabled"], out var show) && show;
         }
 
         public ActionResult Index()
@@ -42,12 +42,16 @@ namespace SFB.Web.UI.Controllers
             {
                 return PartialView("Partials/Headers/Help");
             }
-            
+
             if (Request.Url?.PathAndQuery != "/")
             {
-                return PartialView("Partials/Headers/Deprecation");
+                return PartialView("Partials/Headers/Deprecation", new DeprecationViewModel
+                {
+                    Title = ConfigurationManager.AppSettings["DeprecationInformation:Title"] ?? string.Empty,
+                    Body = (ConfigurationManager.AppSettings["DeprecationInformation:Body"] ?? string.Empty).Replace(@"\n", Environment.NewLine)
+                });
             }
-                
+
             return new EmptyResult();
         }
     }
