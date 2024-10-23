@@ -10,10 +10,10 @@ using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.Routing;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Services.LocalAuthorities;
@@ -28,6 +28,7 @@ namespace SFB.Web.UI.Controllers
         private readonly ILocationSearchService _locationSearchService;
         private readonly IValidationService _valService;
         private readonly IContextDataService _contextDataService;
+        private readonly bool _showDeprecationInformation;
 
         public TrustSearchController(ILocalAuthoritiesService laService,
             ILaSearchService laSearchService, ILocationSearchService locationSearchService, IFilterBuilder filterBuilder,
@@ -42,6 +43,7 @@ namespace SFB.Web.UI.Controllers
             _locationSearchService = locationSearchService;
             _valService = valService;
             _contextDataService = contextDataService;
+            _showDeprecationInformation = bool.TryParse(ConfigurationManager.AppSettings["DeprecationInformation:Enabled"], out var show) && show;
         }
 
         public async Task<ActionResult> Search(
@@ -58,6 +60,11 @@ namespace SFB.Web.UI.Controllers
         string tab = "list",
         string referrer = "home/index")
         {
+            if (_showDeprecationInformation)
+            {
+                referrer = "home/search";
+            }
+            
             string errorMessage = string.Empty;
             ViewBag.tab = tab;
             ViewBag.SearchMethod = "MAT";
@@ -322,6 +329,11 @@ namespace SFB.Web.UI.Controllers
                 Authorities = _laService.GetLocalAuthorities()
             };
 
+            if (referrer == "home/index")
+            {
+                referrer = "home/search";
+            }
+            
             return View("../" + referrer, searchVM);
         }
 
