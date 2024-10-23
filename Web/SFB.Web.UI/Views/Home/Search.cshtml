@@ -1,0 +1,120 @@
+﻿@using SFB.Web.UI.Helpers
+@model SFB.Web.UI.Models.SearchViewModel
+
+@{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
+    ViewBag.pageClass = "schools-search-page";
+    ViewBag.pageDescription =
+    "Compare your school's income and expenditure with other schools in England. View your school's financial data, see how similar schools manage their finances, and use the information to establish relationships with other schools.";
+
+    ViewBag.HasMigratedJs = true;
+}
+
+@section BMListBannerContent
+{
+    @Html.Partial("Partials/BenchmarkListBanner")
+}
+
+
+<div class="govuk-grid-column-three-quarters govuk-!-padding-bottom-7">
+    <div id="govuk-error-summary-placeholder">
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="govuk-error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+                <h2 id="ErrorSummaryHeading" class="govuk-error-summary__title">
+                    There is a problem
+                </h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list">
+                        <li>
+                            <a class="govuk-link" href="#finderSection">@Model.ErrorMessage</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+
+    <h1 class="govuk-heading-xl page-heading">
+        Schools financial benchmarking
+    </h1>
+
+    <p class="govuk-body-l">Compare a school or trust&apos;s income and expenditure with similar establishments in England.</p>
+    <p class="govuk-body-m">You can view your school or academy trust's financial data, see how it compares with others and use the information to establish relationships with other schools or multi-academy trusts.</p>
+
+    @if (Model.ComparisonList.HomeSchoolUrn != null)
+    {
+        <div class="home-school-section">
+            <p class="govuk-body govuk-!-font-size-19">
+                @if (Model.ComparisonList.HomeSchoolType == "Federation")
+                {
+                    <span class="govuk-heading-s govuk-!-font-weight-bold govuk-!-display-inline">
+                        Your federation:
+                    </span>
+                }
+                else
+                {
+                    <span class="govuk-!-font-weight-bold">
+                        Your school:
+                    </span>
+                }
+                <a class="govuk-link govuk-!-font-weight-bold" href="/school?urn=@Model.ComparisonList.HomeSchoolUrn">@Model.ComparisonList.HomeSchoolName</a>
+            </p>
+        </div>
+    }
+
+    <div class="finder-section mt-1" id="finderSection">
+        <div id="SearchTypesAccordion" class="govuk-tabs" data-module="govuk-tabs">
+            <ul class="govuk-tabs__list">
+                <li class="govuk-tabs__list-item app-govuk-tabs__list-item--s hide-in-print" id="SchoolTab">
+                    <a href="#school-tab-panel"
+                       class="govuk-tabs__tab">Find a school</a>
+                </li>
+                <li class="govuk-tabs__list-item app-govuk-tabs__list-item--s hide-in-print" id="TrustTab">
+                    <a href="#trust-tab-panel"
+                       class="govuk-tabs__tab">Find an academy trust</a>
+                </li>
+                <li class="govuk-tabs__list-item app-govuk-tabs__list-item--s hide-in-print" id="NoDefaultTab">
+                    <a href="#no-default-tab-panel"
+                       class="govuk-tabs__tab">Compare with no default school</a>
+                </li>
+            </ul>
+            @Html.Partial("Partials/Search/SchoolTab")
+            @Html.Partial("Partials/Search/TrustTab")
+            @Html.Partial("Partials/Search/NoDefaultTab")
+        </div>
+    </div>
+</div>
+
+
+@section Aside {
+    <div class="govuk-grid-column-one-quarter aside">
+        <div class="app-related-items">
+            <h2 class="govuk-heading-m" id="subsection-title">Guidance</h2>
+            <nav role="navigation" aria-labelledby="subsection-title">
+                <ul class="govuk-list govuk-!-font-size-16">
+                    <li>
+                        <a class="govuk-link" href="Help/SadGuidance">Self-assessment dashboard guidance</a>
+                    </li>
+                    <li>
+                        <a class="govuk-link" href="Help/DataSources">Data Sources and Interpretation</a>
+                    </li>
+                    <li>
+                        <a class="govuk-link" href="~/Help/DataQueries">Do you have a school or trust data query?</a>
+                    </li>
+                    <li>
+                        <a class="govuk-link" href="~/Home/News">News</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+}
+
+@section ViewScripts {
+    <script>
+        var localAuthorities = @Html.Raw(Model.Authorities);
+    </script>
+    <script src="@Html.Raw(Html.GetWebpackScriptUrl("SearchForm.*.js"))"></script>
+}

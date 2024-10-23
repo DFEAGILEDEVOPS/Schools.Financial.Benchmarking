@@ -131,6 +131,8 @@ Additional configuration may also be included in `appSettings.config` to manage 
   <add key="DeprecationInformation:Enabled" value="true" />
   <add key="DeprecationInformation:Title" value="Schools financial benchmarking will no longer be updated with new data" />
   <add key="DeprecationInformation:Body" value="Find the latest data on the new [Financial Benchmarking and Insights Tool](https://financial-benchmarking-and-insights-tool.education.gov.uk/){.govuk-notification-banner__link}.\nThis will include 2023-24 data for maintained schools.\n\nThis service will include all previous financial data available too." />
+  <add key="DeprecationInformation:NewServiceUrl" value="https://financial-benchmarking-and-insights-tool.education.gov.uk/" />
+  <add key="DeprecationInformation:OldServiceLinkText" value="Continue to schools financial benchmarking (legacy service)" />
 </appSettings>
 ```
 
