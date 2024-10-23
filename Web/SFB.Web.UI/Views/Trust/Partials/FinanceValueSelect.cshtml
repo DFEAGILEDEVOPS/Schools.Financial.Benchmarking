@@ -15,7 +15,7 @@
             </span>
         }
         <select name="ShowValue" id="FShowValue" class="govuk-select" onchange="DfE.Views.TrustDetailsViewModel.rebuildCharts()">
-            <option value="@UnitType.AbsoluteMoney" @IsSelected(UnitType.AbsoluteMoney)="selected">@ChartShowValues.ABSOLUTE</option>
+            <option value="@UnitType.AbsoluteMoney" @IsSelected(UnitType.AbsoluteMoney)>@ChartShowValues.ABSOLUTE</option>
             <option value="@UnitType.PerPupil" @IsSelected(UnitType.PerPupil)>@ChartShowValues.PER_PUPIL</option>
             <option value="@UnitType.PerTeacher" @IsSelected(UnitType.PerTeacher)>@ChartShowValues.PER_TEACHER</option>
             <option value="@UnitType.PercentageOfTotalExpenditure" @IsSelected(UnitType.PercentageOfTotalExpenditure)>@ChartShowValues.PERCENTAGE_TOTAL_EXPENDITURE</option>

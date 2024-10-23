@@ -67,21 +67,15 @@
 
 <section class="section">
     <div id="SchoolTypesAccordion" class="search-types" aria-live="polite">
-        @if (ViewBag.ComparisonType == ComparisonType.Advanced)
-        {
-            Html.BeginForm("ChooseRegion", "BenchmarkCriteria", FormMethod.Get);
-        }
-        else
-        {
-            Html.BeginForm("SimpleCharacteristics", "BenchmarkCriteria", FormMethod.Get);
-        }
+    @using (Html.BeginForm(ViewBag.ComparisonType == ComparisonType.Advanced ? "ChooseRegion" : "SimpleCharacteristics", "BenchmarkCriteria", FormMethod.Get))
+    {
         <div class="govuk-form-group @Html.Raw(Model.HasError() ? "govuk-form-group--error" : "")">
             <fieldset class="govuk-fieldset">
                 <legend id="sstLegend" class="govuk-visually-hidden">
                     <span>Which schools would you like to include?</span>
                 </legend>
                 <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
-                
+
                 <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
                     @if (ViewBag.ComparisonType == ComparisonType.Advanced)
                     {
@@ -94,7 +88,7 @@
                             <div class="govuk-form-group">
                                 <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                                     <div class="govuk-checkboxes__item">
-                                        <input class="govuk-checkboxes__input" id="excludePartialMaintained" name="excludePartial" type="checkbox" value="true" checked disabled />
+                                        <input class="govuk-checkboxes__input" id="excludePartialMaintained" name="excludePartial" type="checkbox" value="true" checked disabled/>
                                         <label class="govuk-label govuk-checkboxes__label" for="excludePartialMaintained">
                                             Exclude maintained schools that don't have a complete set of financial data
                                         </label>
@@ -112,7 +106,7 @@
                             <div class="govuk-form-group">
                                 <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                                     <div class="govuk-checkboxes__item">
-                                        <input class="govuk-checkboxes__input" id="excludePartialAcademies" name="excludePartial" type="checkbox" value="true" checked disabled />
+                                        <input class="govuk-checkboxes__input" id="excludePartialAcademies" name="excludePartial" type="checkbox" value="true" checked disabled/>
                                         <label class="govuk-label govuk-checkboxes__label" for="excludePartialAcademies">
                                             Exclude academies that don't have a complete set of financial data
                                         </label>
@@ -122,7 +116,7 @@
                         </div>
 
                         <div id="AllContainer" class="govuk-radios__item js-accordion">
-                            <input class="govuk-radios__input"  id="All" type="radio" name="EstType" value="All" data-aria-controls="AllFieldset">
+                            <input class="govuk-radios__input" id="All" type="radio" name="EstType" value="All" data-aria-controls="AllFieldset">
                             <label class="govuk-label govuk-radios__label" for="All">All schools</label>
                         </div>
 
@@ -130,7 +124,7 @@
                             <div class="govuk-form-group">
                                 <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                                     <div class="govuk-checkboxes__item">
-                                        <input class="govuk-checkboxes__input" id="excludePartialAll" name="excludePartial" type="checkbox" value="true" checked disabled />
+                                        <input class="govuk-checkboxes__input" id="excludePartialAll" name="excludePartial" type="checkbox" value="true" checked disabled/>
                                         <label class="govuk-label govuk-checkboxes__label" for="excludePartialAll">
                                             Exclude schools that don't have a complete set of financial data
                                         </label>
@@ -181,7 +175,7 @@
         <input type="hidden" name="Urn" value="@ViewBag.URN">
         <input type="hidden" name="Fuid" value="@ViewBag.fuid">
         <input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
-        </form>
+    }
     </div>
 </section>
 
