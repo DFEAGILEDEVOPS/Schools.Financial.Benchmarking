@@ -1,0 +1,26 @@
+﻿@using Markdig
+@model SFB.Web.UI.Models.DeprecationViewModel
+@{
+    var title = string.IsNullOrWhiteSpace(Model.Title) ? "Schools financial benchmarking will no longer be updated with new data" : Model.Title;
+    var body = string.IsNullOrWhiteSpace(Model.Body) ? string.Empty : Model.Body;
+    var pipeline = new MarkdownPipelineBuilder()
+        .UseGenericAttributes()
+        .Build();
+}
+<div class="govuk-width-container govuk-!-margin-top-3" id="deprecation-notification">
+    <div class="govuk-notification-banner govuk-!-margin-bottom-3" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+            <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                Important  
+            </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+            <h3 class="govuk-notification-banner__heading">
+                @title
+            </h3>
+            <div class="govuk-body">
+                @Html.Raw(Markdown.ToHtml(body, pipeline))
+            </div>
+        </div>
+    </div>
+</div>

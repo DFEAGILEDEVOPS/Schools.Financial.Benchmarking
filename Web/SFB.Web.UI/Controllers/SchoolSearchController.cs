@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.Routing;
 using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.ApplicationCore.Services.Search;
 using SFB.Web.UI.Helpers.Constants;
 using System;
+using System.Configuration;
 using System.Net;
 using System.Text;
 using Newtonsoft.Json.Serialization;
@@ -33,6 +33,7 @@ namespace SFB.Web.UI.Controllers
         private readonly ILocationSearchService _locationSearchService;
         private readonly IValidationService _valService;
         private readonly IContextDataService _contextDataService;
+        private readonly bool _showDeprecationInformation;
 
         public SchoolSearchController(ILocalAuthoritiesService laService,
             ILaSearchService laSearchService, 
@@ -50,6 +51,7 @@ namespace SFB.Web.UI.Controllers
             _locationSearchService = locationSearchService;
             _valService = valService;
             _contextDataService = contextDataService;
+            _showDeprecationInformation = bool.TryParse(ConfigurationManager.AppSettings["DeprecationInformation:Enabled"], out var show) && show;
         }
 
         public async Task<ActionResult> Search(
@@ -66,6 +68,11 @@ namespace SFB.Web.UI.Controllers
             string tab = "list",
             string referrer = "home/index")
         {
+            if (_showDeprecationInformation)
+            {
+                referrer = "home/search";
+            }
+            
             string errorMessage = string.Empty;
             ViewBag.tab = tab;
             ViewBag.SearchMethod = "School";
@@ -298,6 +305,11 @@ namespace SFB.Web.UI.Controllers
                 Authorities = _laService.GetLocalAuthorities()
             };
 
+            if (referrer == "home/index")
+            {
+                referrer = "home/search";
+            }
+            
             return View("../" + referrer, searchVM);
         }
 
@@ -347,7 +359,7 @@ namespace SFB.Web.UI.Controllers
         private async Task<ActionResult> SearchSchoolByName(string nameId, string suggestionUrn, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
         {
             var schoolComparisonList = _schoolBenchmarkListService.GetSchoolBenchmarkList();
-            if ((referrer == "home/index") && string.IsNullOrEmpty(_valService.ValidateSchoolIdParameter(suggestionUrn)))
+            if ((referrer == "home/index" || referrer == "home/search") && string.IsNullOrEmpty(_valService.ValidateSchoolIdParameter(suggestionUrn)))
             {
                 return RedirectToAction("Index", "School", new { urn = suggestionUrn });
             }
