@@ -71,6 +71,9 @@
     <Reference Include="JWT, Version=7.0.0.0, Culture=neutral, PublicKeyToken=6f98bca0f40f2ecf, processorArchitecture=MSIL">
       <HintPath>..\packages\JWT.7.3.1\lib\net46\JWT.dll</HintPath>
     </Reference>
+    <Reference Include="Markdig, Version=0.37.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Markdig.0.37.0\lib\net462\Markdig.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
     </Reference>
@@ -489,6 +492,7 @@
     <Compile Include="Models\CustomChartSelectionViewModel.cs" />
     <Compile Include="Models\CustomSelectionListViewModel.cs" />
     <Compile Include="Models\DataQueryViewModel.cs" />
+    <Compile Include="Models\DeprecationViewModel.cs" />
     <Compile Include="Models\FederationViewModel.cs" />
     <Compile Include="Models\GetInvolvedViewModel.cs" />
     <Compile Include="Models\HierarchicalChartViewModel.cs" />
@@ -662,6 +666,7 @@
     <Content Include="ClientApp\styles\SfbUtils\_all.scss" />
     <Content Include="ClientApp\styles\SfbUtils\_sfb-conditional-display.scss" />
     <Content Include="ClientApp\styles\vendorStyles.scss" />
+    <Content Include="Gruntfile.js" />
     <Content Include="public\assets\images\asc-g.gif" />
     <Content Include="public\assets\images\chart.svg" />
     <Content Include="public\assets\images\checklist.svg" />
@@ -718,6 +723,7 @@
     <Content Include="public\vendorScripts\pptxgen.min.js" />
     <Content Include="robots.txt" />
     <Content Include="tsconfig.json" />
+    <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Shared\Partials\Headers\Deprecation.cshtml" />
     <Content Include="Views\Shared\Partials\Headers\Help.cshtml" />
     <Content Include="Views\Shared\Partials\RelatedServices.cshtml" />

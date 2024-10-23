@@ -1,5 +1,7 @@
 # Schools Financial Benchmarking
 
+> ⚠️ This service is no longer being actively maintained and will be superseded by [DFE-Digital/education-benchmarking-and-insights](https://github.com/DFE-Digital/education-benchmarking-and-insights) in due course.
+
 [![Build Status](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_apis/build/status/Web%20App/Schools.Financial.Benchmarking)](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_build?definitionId=471)
 [![GitHub release (latest by date)](https://agilefactory.vsrm.visualstudio.com/_apis/public/Release/badge/fc33e3f0-e73b-466d-837a-10cad68c664e/4/14)](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_release?definitionId=4)
 
@@ -115,6 +117,23 @@ The following `appSettings.config` file is needed in the root of `.\Web\SFB.Web.
   <add key="UnderReviewMessageForSchools" value="This school's finances are currently under review and may be amended."/>
   <add key="UnderReviewMessageForTrusts" value="This trust's finances are currently under review and may be amended."/>
   <add key="CosmosConnectionMode" value="Gateway" />
-  <add key="ShowDeprecationInformation" value="true" />
 </appSettings>
 ```
+
+### `DeprecationInformation` feature
+
+Additional configuration may also be included in `appSettings.config` to manage the service deprecation content. These should also be set as required on deployed app services.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<appSettings>
+  <!-- ... -->
+  <add key="DeprecationInformation:Enabled" value="true" />
+  <add key="DeprecationInformation:Title" value="Schools financial benchmarking will no longer be updated with new data" />
+  <add key="DeprecationInformation:Body" value="Find the latest data on the new [Financial Benchmarking and Insights Tool](https://financial-benchmarking-and-insights-tool.education.gov.uk/){.govuk-notification-banner__link}.\nThis will include 2023-24 data for maintained schools.\n\nThis service will include all previous financial data available too." />
+  <add key="DeprecationInformation:NewServiceUrl" value="https://financial-benchmarking-and-insights-tool.education.gov.uk/" />
+  <add key="DeprecationInformation:OldServiceLinkText" value="Continue to schools financial benchmarking (legacy service)" />
+</appSettings>
+```
+
+> 💡 The `DeprecationInformation:Body` value is [CommonMark](https://spec.commonmark.org/) markdown with the addition of [GenericAttributes](https://github.com/xoofx/markdig/blob/master/src/Markdig.Tests/Specs/GenericAttributesSpecs.md) to help manage GDS styles.
