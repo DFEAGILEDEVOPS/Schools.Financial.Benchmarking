@@ -570,3 +570,15 @@ ul.list {
 * {
   font-family: "GDS Transport",arial,sans-serif;
 }
+
+#deprecation-notification {
+  .govuk-notification-banner__content {
+    .govuk-body {
+      p {
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
