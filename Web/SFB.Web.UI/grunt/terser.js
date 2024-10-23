@@ -4,7 +4,6 @@
         "bundle-elements-dev": {
             options: {
                 sourceMap: true,
-                beautify: false,
                 compress: false,
                 mangle: true
             },
